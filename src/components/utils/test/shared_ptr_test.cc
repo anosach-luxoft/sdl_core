@@ -88,7 +88,7 @@ TEST(SharedPtrTest, DefaultConstructorTest) {
   ASSERT_FALSE(p0.valid());
 }
 
-TEST(SharedPtrTest, ConstructorWithOneParameterTest) {
+ TEST(SharedPtrTest, ConstructorWithOneParameterTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   EXPECT_CALL(*object1, destructor()).Times(1);
@@ -99,7 +99,7 @@ TEST(SharedPtrTest, ConstructorWithOneParameterTest) {
   ASSERT_EQ(1u, *(p1.get_ReferenceCounter()));
 }
 
-TEST(SharedPtrTest, CopyConstructorTest) {
+ TEST(SharedPtrTest, CopyConstructorTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   EXPECT_CALL(*object1, destructor()).Times(1);
@@ -116,15 +116,15 @@ TEST(SharedPtrTest, CopyConstructorTest) {
   ASSERT_EQ(1, p3->getId());
   ASSERT_EQ(3u, *(p3.get_ReferenceCounter()));
   {
-    tMockObjectPtr p4 = p3;
-    ASSERT_EQ(1, p4->getId());
-    ASSERT_EQ(4u, *(p3.get_ReferenceCounter()));
+  tMockObjectPtr p4 = p3;
+  ASSERT_EQ(1, p4->getId());
+  ASSERT_EQ(4u, *(p3.get_ReferenceCounter()));
   }
   // Check reference counter decreased
   ASSERT_EQ(3u, *(p3.get_ReferenceCounter()));
 }
 
-TEST(SharedPtrTest, SecondConstructorWithOneParameterTest) {
+ TEST(SharedPtrTest, SecondConstructorWithOneParameterTest) {
   // Arrange
   CExtendedMockObject* object1 = new CExtendedMockObject(2);
   EXPECT_CALL(*object1, destructor()).Times(0);
@@ -140,7 +140,7 @@ TEST(SharedPtrTest, SecondConstructorWithOneParameterTest) {
   EXPECT_CALL(*object1, destructor());
 }
 
-TEST(SharedPtrTest, AssignmentOperatorTest) {
+ TEST(SharedPtrTest, AssignmentOperatorTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CMockObject* object2 = new CMockObject(2);
@@ -182,7 +182,7 @@ TEST(SharedPtrTest, AssignmentOperatorTest) {
   EXPECT_CALL(*object2, destructor());
 }
 
-TEST(SharedPtrTest, SecondAssignmentOperatorTest) {
+ TEST(SharedPtrTest, SecondAssignmentOperatorTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CExtendedMockObject* object2 = new CExtendedMockObject(2);
@@ -224,7 +224,7 @@ TEST(SharedPtrTest, SecondAssignmentOperatorTest) {
   EXPECT_CALL(*object2, destructor());
 }
 
-TEST(SharedPtrTest, EqualOperatorTest) {
+ TEST(SharedPtrTest, EqualOperatorTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CMockObject* object2 = new CMockObject(2);
@@ -261,7 +261,7 @@ TEST(SharedPtrTest, EqualOperatorTest) {
   EXPECT_CALL(*object2, destructor());
 }
 
-TEST(SharedPtrTest, LessThanOperatorTest) {
+ TEST(SharedPtrTest, LessThanOperatorTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CMockObject* object2 = new CMockObject(2);
@@ -279,16 +279,17 @@ TEST(SharedPtrTest, LessThanOperatorTest) {
 
   // Checks
   if (object1 < object2) {
-    ASSERT_TRUE(p1 < p2);
-  } else {
-    ASSERT_FALSE(p1 < p2);
+      ASSERT_TRUE(p1 < p2);
+  }
+  else {
+  ASSERT_FALSE(p1 < p2);
   }
 
   EXPECT_CALL(*object1, destructor());
   EXPECT_CALL(*object2, destructor());
 }
 
-TEST(SharedPtrTest, StaticPointerCastTest_DerivedToBase_ExpectCastOk) {
+ TEST(SharedPtrTest, StaticPointerCastTest_DerivedToBase_ExpectCastOk) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CExtendedMockObject* object2 = new CExtendedMockObject(2);
@@ -304,8 +305,8 @@ TEST(SharedPtrTest, StaticPointerCastTest_DerivedToBase_ExpectCastOk) {
   ASSERT_EQ(2, ep1->getId());
   ASSERT_EQ(1u, *(ep1.get_ReferenceCounter()));
   // Cast from SharedPtr to Derived class to SharedPtr to Base class
-  p1 = utils::SharedPtr<CExtendedMockObject>::static_pointer_cast<CMockObject>(
-      ep1);
+  p1 = utils::SharedPtr<CExtendedMockObject>::static_pointer_cast< CMockObject
+  >(ep1);
   // Checks
   ASSERT_EQ(2, p1->getId());
   ASSERT_EQ(2u, *(p1.get_ReferenceCounter()));
@@ -314,59 +315,7 @@ TEST(SharedPtrTest, StaticPointerCastTest_DerivedToBase_ExpectCastOk) {
   EXPECT_CALL(*object2, destructor());
 }
 
-TEST(SharedPtrTest, StaticPointerCastTest_BaseToDerived_ExpectCastOk) {
-  // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
-
-  EXPECT_CALL(*object1, destructor()).Times(0);
-  EXPECT_CALL(*object2, destructor()).Times(1);
-
-  tMockObjectPtr p1(object1);
-  ASSERT_EQ(1, p1->getId());
-  ASSERT_EQ(1u, *(p1.get_ReferenceCounter()));
-
-  tExtendedMockObjectPtr ep1(object2);
-  ASSERT_EQ(2, ep1->getId());
-  ASSERT_EQ(1u, *(ep1.get_ReferenceCounter()));
-  // Cast from SharedPtr to Base class to SharedPtr to Derived class
-  ep1 = utils::SharedPtr<CMockObject>::static_pointer_cast<CExtendedMockObject>(
-      p1);
-  // Checks
-  ASSERT_EQ(1, ep1->getId());
-  ASSERT_EQ(2u, *(ep1.get_ReferenceCounter()));
-  ASSERT_TRUE(p1 == ep1);
-
-  EXPECT_CALL(*object1, destructor());
-}
-
-TEST(SharedPtrTest, DynamicPointerCastTest_DerivedToBase_ExpectCastOk) {
-  // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
-
-  EXPECT_CALL(*object1, destructor()).Times(1);
-  EXPECT_CALL(*object2, destructor()).Times(0);
-
-  tMockObjectPtr p1(object1);
-  ASSERT_EQ(1, p1->getId());
-  ASSERT_EQ(1u, *(p1.get_ReferenceCounter()));
-
-  tExtendedMockObjectPtr ep1(object2);
-  ASSERT_EQ(2, ep1->getId());
-  ASSERT_EQ(1u, *(ep1.get_ReferenceCounter()));
-  // Cast from SharedPtr to Derived class to SharedPtr to Base class
-  p1 = utils::SharedPtr<CExtendedMockObject>::dynamic_pointer_cast<CMockObject>(
-      ep1);
-  // Checks
-  ASSERT_EQ(2, p1->getId());
-  ASSERT_EQ(2u, *(p1.get_ReferenceCounter()));
-  ASSERT_TRUE(p1 == ep1);
-
-  EXPECT_CALL(*object2, destructor());
-}
-
-TEST(SharedPtrTest, DynamicPointerCastTest_BaseToDerived_ExpectNullPtr) {
+ TEST(SharedPtrTest, StaticPointerCastTest_BaseToDerived_ExpectCastOk) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CExtendedMockObject* object2 = new CExtendedMockObject(2);
@@ -383,8 +332,59 @@ TEST(SharedPtrTest, DynamicPointerCastTest_BaseToDerived_ExpectNullPtr) {
   ASSERT_EQ(1u, *(ep1.get_ReferenceCounter()));
   // Cast from SharedPtr to Base class to SharedPtr to Derived class
   ep1 =
-      utils::SharedPtr<CMockObject>::dynamic_pointer_cast<CExtendedMockObject>(
-          p1);
+  utils::SharedPtr<CMockObject>::static_pointer_cast<CExtendedMockObject>(p1);
+  // Checks
+  ASSERT_EQ(1, ep1->getId());
+  ASSERT_EQ(2u, *(ep1.get_ReferenceCounter()));
+  ASSERT_TRUE(p1 == ep1);
+
+  EXPECT_CALL(*object1, destructor());
+}
+
+ TEST(SharedPtrTest, DynamicPointerCastTest_DerivedToBase_ExpectCastOk) {
+  // Arrange
+  CMockObject* object1 = new CMockObject(1);
+  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+
+  EXPECT_CALL(*object1, destructor()).Times(1);
+  EXPECT_CALL(*object2, destructor()).Times(0);
+
+  tMockObjectPtr p1(object1);
+  ASSERT_EQ(1, p1->getId());
+  ASSERT_EQ(1u, *(p1.get_ReferenceCounter()));
+
+  tExtendedMockObjectPtr ep1(object2);
+  ASSERT_EQ(2, ep1->getId());
+  ASSERT_EQ(1u, *(ep1.get_ReferenceCounter()));
+  // Cast from SharedPtr to Derived class to SharedPtr to Base class
+  p1 = utils::SharedPtr<CExtendedMockObject>::dynamic_pointer_cast<
+  CMockObject >(ep1);
+  // Checks
+  ASSERT_EQ(2, p1->getId());
+  ASSERT_EQ(2u, *(p1.get_ReferenceCounter()));
+  ASSERT_TRUE(p1 == ep1);
+
+  EXPECT_CALL(*object2, destructor());
+}
+
+ TEST(SharedPtrTest, DynamicPointerCastTest_BaseToDerived_ExpectNullPtr) {
+  // Arrange
+  CMockObject* object1 = new CMockObject(1);
+  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+
+  EXPECT_CALL(*object1, destructor()).Times(0);
+  EXPECT_CALL(*object2, destructor()).Times(1);
+
+  tMockObjectPtr p1(object1);
+  ASSERT_EQ(1, p1->getId());
+  ASSERT_EQ(1u, *(p1.get_ReferenceCounter()));
+
+  tExtendedMockObjectPtr ep1(object2);
+  ASSERT_EQ(2, ep1->getId());
+  ASSERT_EQ(1u, *(ep1.get_ReferenceCounter()));
+  // Cast from SharedPtr to Base class to SharedPtr to Derived class
+  ep1 =
+  utils::SharedPtr<CMockObject>::dynamic_pointer_cast<CExtendedMockObject>(p1);
   // Checks
   ASSERT_EQ(NULL, ep1);
 
@@ -445,7 +445,7 @@ TEST(SharedPtrTest, BoolOperatorTest) {
   EXPECT_CALL(*object1, destructor());
 }
 
-TEST(SharedPtrTest, ResetWithoutArgsTest) {
+ TEST(SharedPtrTest, ResetWithoutArgsTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CMockObject* object2 = new CMockObject(2);
@@ -473,7 +473,7 @@ TEST(SharedPtrTest, ResetWithoutArgsTest) {
   EXPECT_EQ(1u, *(p4.get_ReferenceCounter()));
 }
 
-TEST(SharedPtrTest, ResetWithArgumentTest) {
+ TEST(SharedPtrTest, ResetWithArgumentTest) {
   // Arrange
   CMockObject* object1 = new CMockObject(1);
   CMockObject* object2 = new CMockObject(27);
