@@ -29,7 +29,7 @@
 /* #undef HAVE_LINUX_FILTER_H */
 
 /* Define to 1 if you have the <linux/netlink.h> header file. */
-/* #undef HAVE_LINUX_NETLINK_H */
+#define HAVE_LINUX_NETLINK_H 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
