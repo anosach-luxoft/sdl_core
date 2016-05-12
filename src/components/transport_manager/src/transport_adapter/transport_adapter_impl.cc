@@ -771,7 +771,7 @@ void TransportAdapterImpl::RemoveFinalizedConnection(
     const DeviceUID& device_handle, const ApplicationHandle& app_handle) {
   const DeviceUID device_uid = device_handle;
   const ApplicationHandle app_uid = app_handle;
-  LOG4CXX_AUTO_TRACE(logger_);
+  LOGGER_AUTO_TRACE(logger_);
   sync_primitives::AutoWriteLock lock(connections_lock_);
   ConnectionMap::iterator it_conn =
       connections_.find(std::make_pair(device_uid, app_handle));
