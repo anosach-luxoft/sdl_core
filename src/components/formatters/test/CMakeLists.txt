@@ -55,13 +55,22 @@ set(SOURCES
   ${COMPONENTS_DIR}/formatters/test/CFormatterJsonBase_test.cc
   ${COMPONENTS_DIR}/formatters/test/generic_json_formatter_test.cc
   ${COMPONENTS_DIR}/formatters/test/formatter_json_rpc_test.cc
-  ${COMPONENTS_DIR}/formatters/test/src/create_smartSchema.cc 
+  ${COMPONENTS_DIR}/formatters/test/src/create_smartSchema.cc
   ${COMPONENTS_DIR}/formatters/test/cFormatterJsonSDLRPCv1_test.cc
   ${COMPONENTS_DIR}/formatters/test/cFormatterJsonSDLRPCv2_test.cc
   ${COMPONENTS_DIR}/formatters/test/src/meta_formatter_test_helper.cc
   ${COMPONENTS_DIR}/formatters/test/meta_formatter_test.cc
 )
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /FORCE" )
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /IGNORE:4099" )
+endif()  
+
 create_test("formatters_test" "${SOURCES}" "${LIBRARIES}")
+
+if(NOT QT_PORT AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set_target_properties(formatters_test PROPERTIES LINK_FLAGS "/machine:X64")
+endif()
 
 endif()
