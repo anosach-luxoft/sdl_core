@@ -42,18 +42,17 @@
 
 namespace policy {
 class PolicyManager : public usage_statistics::StatisticsManager {
-
-public:
+ public:
   virtual ~PolicyManager() {}
 
-  virtual void set_listener(PolicyListener *listener) = 0;
+  virtual void set_listener(PolicyListener* listener) = 0;
 
   /**
    * Inits Policy Table
    * @param file_name Path to preloaded PT file
    * @return true if successfully
    */
-  virtual bool InitPT(const std::string &file_name) = 0;
+  virtual bool InitPT(const std::string& file_name) = 0;
 
   /**
    * @brief Updates Policy Table from binary message received from
@@ -63,15 +62,15 @@ public:
    * @param pt_content PTU as binary string
    * @return bool Success of operation
    */
-  virtual bool LoadPT(const std::string &file,
-                      const BinaryMessage &pt_content) = 0;
+  virtual bool LoadPT(const std::string& file,
+                      const BinaryMessage& pt_content) = 0;
 
   /**
    * Resets Policy Table
    * @param file_name Path to preloaded PT file
    * @return true if successfully
    */
-  virtual bool ResetPT(const std::string &file_name) = 0;
+  virtual bool ResetPT(const std::string& file_name) = 0;
 
   /**
    * @brief GetLockScreenIcon allows to obtain lock screen icon url;
@@ -86,8 +85,8 @@ public:
    * @param service_type Service specifies user of URL
    * @return vector of urls
    */
-  virtual void GetServiceUrls(const std::string &service_type,
-                              EndpointUrls &end_points) = 0;
+  virtual void GetServiceUrls(const std::string& service_type,
+                              EndpointUrls& end_points) = 0;
 
   /**
    * @brief PTU is needed, for this PTS has to be formed and sent.
@@ -104,10 +103,11 @@ public:
    * @param CheckPermissionResult containing flag if HMI Level is allowed
    * and list of allowed params.
    */
-  virtual void CheckPermissions(const PTString &app_id,
-                                const PTString &hmi_level, const PTString &rpc,
-                                const RPCParams &rpc_params,
-                                CheckPermissionResult &result) = 0;
+  virtual void CheckPermissions(const PTString& app_id,
+                                const PTString& hmi_level,
+                                const PTString& rpc,
+                                const RPCParams& rpc_params,
+                                CheckPermissionResult& result) = 0;
 
   /**
    * @brief Clear all record of user consents. Used during Factory Reset.
@@ -178,8 +178,8 @@ public:
    * @param device_id Unique device identifier
    * @return status of device consent
    */
-  virtual DeviceConsent
-  GetUserConsentForDevice(const std::string &device_id) = 0;
+  virtual DeviceConsent GetUserConsentForDevice(
+      const std::string& device_id) = 0;
 
   /**
    * @brief Get user consent for application
@@ -187,17 +187,17 @@ public:
    * @param policy_app_id Unique application id
    * @param permissions Array of functional groups permissions
    */
-  virtual void
-  GetUserConsentForApp(const std::string &device_id,
-                       const std::string &policy_app_id,
-                       std::vector<FunctionalGroupPermission> &permissions) = 0;
+  virtual void GetUserConsentForApp(
+      const std::string& device_id,
+      const std::string& policy_app_id,
+      std::vector<FunctionalGroupPermission>& permissions) = 0;
 
   /**
    * @brief Set user consent for mobile device data connection
    * @param device_id Unique device identifier
    * @param is_allowed User consent for usage device data connection
    */
-  virtual void SetUserConsentForDevice(const std::string &device_id,
+  virtual void SetUserConsentForDevice(const std::string& device_id,
                                        bool is_allowed) = 0;
 
   /**
@@ -219,17 +219,17 @@ public:
    * etc)
    * @param nicknames Synonyms for application
    */
-  virtual bool GetInitialAppData(const std::string &application_id,
-                                 StringArray *nicknames = NULL,
-                                 StringArray *app_hmi_types = NULL) = 0;
+  virtual bool GetInitialAppData(const std::string& application_id,
+                                 StringArray* nicknames = NULL,
+                                 StringArray* app_hmi_types = NULL) = 0;
   /**
    * @brief Stores device parameters received during application registration
    * to policy table
    * @param device_id Device mac address
    * @param device_info Received device parameters
    */
-  virtual void SetDeviceInfo(const std::string &device_id,
-                             const DeviceInfo &device_info) = 0;
+  virtual void SetDeviceInfo(const std::string& device_id,
+                             const DeviceInfo& device_info) = 0;
 
   /**
    * @brief Set user consent for application functional groups
@@ -238,7 +238,7 @@ public:
    * valid data as well as invalid. So we will remove all invalid data
    * from this structure.
    */
-  virtual void SetUserConsentForApp(const PermissionConsent &permissions) = 0;
+  virtual void SetUserConsentForApp(const PermissionConsent& permissions) = 0;
 
   /**
    * @brief Get default HMI level for application
@@ -247,8 +247,8 @@ public:
    * was not set
    * @return true, if succedeed, otherwise - false
    */
-  virtual bool GetDefaultHmi(const std::string &policy_app_id,
-                             std::string *default_hmi) = 0;
+  virtual bool GetDefaultHmi(const std::string& policy_app_id,
+                             std::string* default_hmi) = 0;
 
   /**
    * @brief Get priority for application
@@ -256,8 +256,8 @@ public:
    * @param priority Priority for application or empty, if value was not set
    * @return true, if succedeed, otherwise - false
    */
-  virtual bool GetPriority(const std::string &policy_app_id,
-                           std::string *priority) = 0;
+  virtual bool GetPriority(const std::string& policy_app_id,
+                           std::string* priority) = 0;
 
   /**
    * @brief Get user friendly messages for given RPC messages and language
@@ -265,16 +265,16 @@ public:
    * @param language Language
    * @return Array of structs with appropriate message parameters
    */
-  virtual std::vector<UserFriendlyMessage>
-  GetUserFriendlyMessages(const std::vector<std::string> &message_code,
-                          const std::string &language) = 0;
+  virtual std::vector<UserFriendlyMessage> GetUserFriendlyMessages(
+      const std::vector<std::string>& message_code,
+      const std::string& language) = 0;
 
   /**
    * Checks if the application is revoked
    * @param app_id application id
    * @return true if application is revoked
    */
-  virtual bool IsApplicationRevoked(const std::string &app_id) const = 0;
+  virtual bool IsApplicationRevoked(const std::string& app_id) const = 0;
 
   /**
    * @brief Get resulting RPCs permissions for application which started on
@@ -283,10 +283,10 @@ public:
    * @param policy_app_id Unique application id
    * @param permissions Array of functional groups permissions
    */
-  virtual void
-  GetPermissionsForApp(const std::string &device_id,
-                       const std::string &policy_app_id,
-                       std::vector<FunctionalGroupPermission> &permissions) = 0;
+  virtual void GetPermissionsForApp(
+      const std::string& device_id,
+      const std::string& policy_app_id,
+      std::vector<FunctionalGroupPermission>& permissions) = 0;
 
   /**
    * @brief Gets specific application permissions changes since last policy
@@ -294,22 +294,22 @@ public:
    * @param policy_app_id Unique application id
    * @return Permissions changes
    */
-  virtual AppPermissions
-  GetAppPermissionsChanges(const std::string &policy_app_id) = 0;
+  virtual AppPermissions GetAppPermissionsChanges(
+      const std::string& policy_app_id) = 0;
 
-  virtual void RemovePendingPermissionChanges(const std::string &app_id) = 0;
+  virtual void RemovePendingPermissionChanges(const std::string& app_id) = 0;
 
   /**
    * @brief Return device id, which hosts specific application
    * @param Application id, which is required to update device id
    */
-  virtual std::string &GetCurrentDeviceId(const std::string &policy_app_id) = 0;
+  virtual std::string& GetCurrentDeviceId(const std::string& policy_app_id) = 0;
 
   /**
    * @brief Set current system language
    * @param language Language
    */
-  virtual void SetSystemLanguage(const std::string &language) = 0;
+  virtual void SetSystemLanguage(const std::string& language) = 0;
 
   /**
    * @brief Set data from GetSystemInfo response to policy table
@@ -317,29 +317,29 @@ public:
    * @param wers_country_code WERS country code
    * @param language System language
    */
-  virtual void SetSystemInfo(const std::string &ccpu_version,
-                             const std::string &wers_country_code,
-                             const std::string &language) = 0;
+  virtual void SetSystemInfo(const std::string& ccpu_version,
+                             const std::string& wers_country_code,
+                             const std::string& language) = 0;
 
   /**
    * @brief Send OnPermissionsUpdated for choosen application
    * @param application_id
    */
-  virtual void
-  SendNotificationOnPermissionsUpdated(const std::string &application_id) = 0;
+  virtual void SendNotificationOnPermissionsUpdated(
+      const std::string& application_id) = 0;
 
   /**
    * Marks device as upaired
    * @param device_id id device
    */
-  virtual void MarkUnpairedDevice(const std::string &device_id) = 0;
+  virtual void MarkUnpairedDevice(const std::string& device_id) = 0;
 
   /**
    * @brief Adds, application to the db or update existed one
    * run PTU if policy update is necessary for application.
    * @param Application id assigned by Ford to the application
    */
-  virtual void AddApplication(const std::string &application_id) = 0;
+  virtual void AddApplication(const std::string& application_id) = 0;
 
   /**
    * @brief Removes unpaired device records and related records from DB
@@ -351,12 +351,12 @@ public:
   /**
    * @brief Check if app can keep context.
    */
-  virtual bool CanAppKeepContext(const std::string &app_id) = 0;
+  virtual bool CanAppKeepContext(const std::string& app_id) = 0;
 
   /**
    * @brief Check if app can steal focus.
    */
-  virtual bool CanAppStealFocus(const std::string &app_id) = 0;
+  virtual bool CanAppStealFocus(const std::string& app_id) = 0;
 
   /**
    * @brief Runs necessary operations, which is depends on external system
@@ -370,20 +370,20 @@ public:
    * @param priority
    * @return
    */
-  virtual uint32_t GetNotificationsNumber(const std::string &priority) = 0;
+  virtual uint32_t GetNotificationsNumber(const std::string& priority) = 0;
 
   /**
    * @brief Allows to update Vehicle Identification Number in policy table.
    * @param new value for the parameter.
    */
-  virtual void SetVINValue(const std::string &value) = 0;
+  virtual void SetVINValue(const std::string& value) = 0;
 
   /**
    * @brief Checks, if application has policy assigned w/o data consent
    * @param policy_app_id Unique application id
    * @return true, if policy assigned w/o data consent, otherwise -false
    */
-  virtual bool IsPredataPolicy(const std::string &policy_app_id) = 0;
+  virtual bool IsPredataPolicy(const std::string& policy_app_id) = 0;
 
   /**
    * Returns heart beat timeout
@@ -391,7 +391,7 @@ public:
    * @return if timeout was set then value in seconds greater zero
    * otherwise heart beat for specific application isn't set
    */
-  virtual uint16_t HeartBeatTimeout(const std::string &app_id) const = 0;
+  virtual uint16_t HeartBeatTimeout(const std::string& app_id) const = 0;
 
   /**
    * @brief SaveUpdateStatusRequired alows to save update status.
@@ -415,17 +415,17 @@ public:
    *
    * @param application_id registered application.
    */
-  virtual void OnAppRegisteredOnMobile(const std::string &application_id) = 0;
+  virtual void OnAppRegisteredOnMobile(const std::string& application_id) = 0;
 
   /**
    * @brief Gets request types for application
    * @param policy_app_id Unique application id
    * @return request_types Request types of application
    */
-  virtual const std::vector<std::string>
-  GetAppRequestTypes(const std::string policy_app_id) const = 0;
+  virtual const std::vector<std::string> GetAppRequestTypes(
+      const std::string policy_app_id) const = 0;
 
-protected:
+ protected:
   /**
    * Checks is PT exceeded IgnitionCycles
    * @return true if exceeded
@@ -446,8 +446,8 @@ protected:
   virtual void StartPTExchange() = 0;
 };
 
-} // namespace policy
+}  // namespace policy
 
-extern "C" policy::PolicyManager *CreateManager();
+extern "C" policy::PolicyManager* CreateManager();
 
-#endif // SRC_COMPONENTS_POLICY_INCLUDE_POLICY_POLICY_MANAGER_H_
+#endif  // SRC_COMPONENTS_POLICY_INCLUDE_POLICY_POLICY_MANAGER_H_

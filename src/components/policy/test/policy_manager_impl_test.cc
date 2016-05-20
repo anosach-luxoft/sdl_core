@@ -65,11 +65,11 @@ namespace components {
 namespace policy {
 
 class PolicyManagerImplTest : public ::testing::Test {
-protected:
-  PolicyManagerImpl *manager;
-  MockCacheManagerInterface *cache_manager;
+ protected:
+  PolicyManagerImpl* manager;
+  MockCacheManagerInterface* cache_manager;
   MockUpdateStatusManager update_manager;
-  MockPolicyListener *listener;
+  MockPolicyListener* listener;
 
   void SetUp() {
     manager = new PolicyManagerImpl();
@@ -86,7 +86,7 @@ protected:
     delete listener;
   }
 
-  ::testing::AssertionResult IsValid(const policy_table::Table &table) {
+  ::testing::AssertionResult IsValid(const policy_table::Table& table) {
     if (table.is_valid()) {
       return ::testing::AssertionSuccess();
     } else {
@@ -100,7 +100,6 @@ protected:
 TEST_F(
     PolicyManagerImplTest,
     RefreshRetrySequence_SetSecondsBetweenRetries_ExpectRetryTimeoutSequenceWithSameSeconds) {
-
   // arrange
   std::vector<int> seconds;
   seconds.push_back(50);
@@ -123,7 +122,6 @@ TEST_F(
 }
 
 TEST_F(PolicyManagerImplTest, DISABLED_GetUpdateUrl) {
-
   EXPECT_CALL(*cache_manager, GetServiceUrls("7", _));
   EXPECT_CALL(*cache_manager, GetServiceUrls("4", _));
 
@@ -150,7 +148,6 @@ TEST_F(PolicyManagerImplTest, ResetPT) {
 
 TEST_F(PolicyManagerImplTest,
        CheckPermissions_SetHmiLevelFullForAlert_ExpectAllowedPermissions) {
-
   // arrange
   ::policy::CheckPermissionResult expected;
   expected.hmi_level_permitted = ::policy::kRpcAllowed;
@@ -176,18 +173,17 @@ TEST_F(PolicyManagerImplTest,
 }
 
 TEST_F(PolicyManagerImplTest, LoadPT_SetPT_PTIsLoaded) {
-
   // arrange
   Json::Value table(Json::objectValue);
   table["policy_table"] = Json::Value(Json::objectValue);
 
-  Json::Value &policy_table = table["policy_table"];
+  Json::Value& policy_table = table["policy_table"];
   policy_table["module_config"] = Json::Value(Json::objectValue);
   policy_table["functional_groupings"] = Json::Value(Json::objectValue);
   policy_table["consumer_friendly_messages"] = Json::Value(Json::objectValue);
   policy_table["app_policies"] = Json::Value(Json::objectValue);
 
-  Json::Value &module_config = policy_table["module_config"];
+  Json::Value& module_config = policy_table["module_config"];
   module_config["preloaded_pt"] = Json::Value(true);
   module_config["exchange_after_x_ignition_cycles"] = Json::Value(10);
   module_config["exchange_after_x_kilometers"] = Json::Value(100);
@@ -220,9 +216,9 @@ TEST_F(PolicyManagerImplTest, LoadPT_SetPT_PTIsLoaded) {
   module_config["vehicle_model"] = Json::Value("ModelT");
   module_config["vehicle_year"] = Json::Value("2014");
 
-  Json::Value &functional_groupings = policy_table["functional_groupings"];
+  Json::Value& functional_groupings = policy_table["functional_groupings"];
   functional_groupings["default"] = Json::Value(Json::objectValue);
-  Json::Value &default_group = functional_groupings["default"];
+  Json::Value& default_group = functional_groupings["default"];
   default_group["rpcs"] = Json::Value(Json::objectValue);
   default_group["rpcs"]["Update"] = Json::Value(Json::objectValue);
   default_group["rpcs"]["Update"]["hmi_levels"] = Json::Value(Json::arrayValue);
@@ -230,11 +226,11 @@ TEST_F(PolicyManagerImplTest, LoadPT_SetPT_PTIsLoaded) {
   default_group["rpcs"]["Update"]["parameters"] = Json::Value(Json::arrayValue);
   default_group["rpcs"]["Update"]["parameters"][0] = Json::Value("speed");
 
-  Json::Value &consumer_friendly_messages =
+  Json::Value& consumer_friendly_messages =
       policy_table["consumer_friendly_messages"];
   consumer_friendly_messages["version"] = Json::Value("1.2");
 
-  Json::Value &app_policies = policy_table["app_policies"];
+  Json::Value& app_policies = policy_table["app_policies"];
   app_policies["default"] = Json::Value(Json::objectValue);
   app_policies["default"]["memory_kb"] = Json::Value(50);
   app_policies["default"]["heart_beat_timeout_ms"] = Json::Value(100);
@@ -305,7 +301,6 @@ TEST_F(PolicyManagerImplTest, LoadPT_SetPT_PTIsLoaded) {
 
   TEST_F(PolicyManagerImplTest,
          RequestPTUpdate_SetPT_GeneratedSnapshotAndPTUpdate) {
-
     // arrange
     ::utils::SharedPtr<::policy_table::Table> p_table =
         new ::policy_table::Table();
@@ -329,5 +324,5 @@ TEST_F(PolicyManagerImplTest, LoadPT_SetPT_PTIsLoaded) {
   }
 }
 // namespace policy
-} // namespace components
-} // namespace test
+}  // namespace components
+}  // namespace test

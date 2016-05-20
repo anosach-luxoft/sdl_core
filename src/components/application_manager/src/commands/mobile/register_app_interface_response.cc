@@ -67,8 +67,9 @@ void RegisterAppInterfaceResponse::Run() {
           connection_key());
 
   if (!application) {
-    LOG4CXX_ERROR(logger_, "Application with connection key "
-                               << connection_key() << " is not registered.");
+    LOG4CXX_ERROR(logger_,
+                  "Application with connection key " << connection_key()
+                                                     << " is not registered.");
     return;
   }
 
@@ -85,9 +86,9 @@ void RegisterAppInterfaceResponse::Run() {
 }
 
 void RegisterAppInterfaceResponse::SetHeartBeatTimeout(
-    uint32_t connection_key, const std::string &mobile_app_id) {
+    uint32_t connection_key, const std::string& mobile_app_id) {
   LOG4CXX_AUTO_TRACE(logger_);
-  policy::PolicyHandler *policy_handler = policy::PolicyHandler::instance();
+  policy::PolicyHandler* policy_handler = policy::PolicyHandler::instance();
   if (policy_handler->PolicyEnabled()) {
     const int32_t timeout = policy_handler->HeartBeatTimeout(mobile_app_id) /
                             date_time::DateTime::MILLISECONDS_IN_SECOND;
@@ -101,5 +102,5 @@ void RegisterAppInterfaceResponse::SetHeartBeatTimeout(
   }
 }
 
-} // namespace commands
-} // namespace application_manager
+}  // namespace commands
+}  // namespace application_manager

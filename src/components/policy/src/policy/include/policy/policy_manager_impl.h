@@ -53,23 +53,26 @@ namespace policy {
 struct CheckAppPolicy;
 
 class PolicyManagerImpl : public PolicyManager {
-public:
+ public:
   PolicyManagerImpl();
-  virtual void set_listener(PolicyListener *listener);
-  PolicyListener *listener() const { return listener_; }
-  virtual bool InitPT(const std::string &file_name);
-  virtual bool LoadPT(const std::string &file, const BinaryMessage &pt_content);
-  virtual bool ResetPT(const std::string &file_name);
+  virtual void set_listener(PolicyListener* listener);
+  PolicyListener* listener() const {
+    return listener_;
+  }
+  virtual bool InitPT(const std::string& file_name);
+  virtual bool LoadPT(const std::string& file, const BinaryMessage& pt_content);
+  virtual bool ResetPT(const std::string& file_name);
 
-  virtual void GetServiceUrls(const std::string &service_type,
-                              EndpointUrls &end_points);
+  virtual void GetServiceUrls(const std::string& service_type,
+                              EndpointUrls& end_points);
 
   virtual std::string GetLockScreenIconUrl() const;
   virtual bool RequestPTUpdate();
-  virtual void CheckPermissions(const PTString &app_id,
-                                const PTString &hmi_level, const PTString &rpc,
-                                const RPCParams &rpc_params,
-                                CheckPermissionResult &result);
+  virtual void CheckPermissions(const PTString& app_id,
+                                const PTString& hmi_level,
+                                const PTString& rpc,
+                                const RPCParams& rpc_params,
+                                CheckPermissionResult& result);
   virtual bool ResetUserConsent();
   virtual void KmsChanged(int kilometers);
   virtual void IncrementIgnitionCycles();
@@ -87,107 +90,108 @@ public:
    * Refresh data about retry sequence from policy table
    */
   virtual void RefreshRetrySequence();
-  virtual DeviceConsent GetUserConsentForDevice(const std::string &device_id);
-  virtual void
-  GetUserConsentForApp(const std::string &device_id,
-                       const std::string &policy_app_id,
-                       std::vector<FunctionalGroupPermission> &permissions);
-  virtual void SetUserConsentForDevice(const std::string &device_id,
+  virtual DeviceConsent GetUserConsentForDevice(const std::string& device_id);
+  virtual void GetUserConsentForApp(
+      const std::string& device_id,
+      const std::string& policy_app_id,
+      std::vector<FunctionalGroupPermission>& permissions);
+  virtual void SetUserConsentForDevice(const std::string& device_id,
                                        bool is_allowed);
   virtual bool ReactOnUserDevConsentForApp(const std::string app_id,
                                            bool is_device_allowed);
-  virtual bool GetInitialAppData(const std::string &application_id,
-                                 StringArray *nicknames = NULL,
-                                 StringArray *app_hmi_types = NULL);
+  virtual bool GetInitialAppData(const std::string& application_id,
+                                 StringArray* nicknames = NULL,
+                                 StringArray* app_hmi_types = NULL);
 
-  virtual void SetDeviceInfo(const std::string &device_id,
-                             const DeviceInfo &device_info);
+  virtual void SetDeviceInfo(const std::string& device_id,
+                             const DeviceInfo& device_info);
 
-  virtual void SetUserConsentForApp(const PermissionConsent &permissions);
+  virtual void SetUserConsentForApp(const PermissionConsent& permissions);
 
-  virtual bool GetDefaultHmi(const std::string &policy_app_id,
-                             std::string *default_hmi);
+  virtual bool GetDefaultHmi(const std::string& policy_app_id,
+                             std::string* default_hmi);
 
-  virtual bool GetPriority(const std::string &policy_app_id,
-                           std::string *priority);
+  virtual bool GetPriority(const std::string& policy_app_id,
+                           std::string* priority);
 
-  virtual std::vector<UserFriendlyMessage>
-  GetUserFriendlyMessages(const std::vector<std::string> &message_code,
-                          const std::string &language);
+  virtual std::vector<UserFriendlyMessage> GetUserFriendlyMessages(
+      const std::vector<std::string>& message_code,
+      const std::string& language);
 
-  virtual bool IsApplicationRevoked(const std::string &app_id) const;
+  virtual bool IsApplicationRevoked(const std::string& app_id) const;
 
-  virtual void
-  GetPermissionsForApp(const std::string &device_id,
-                       const std::string &policy_app_id,
-                       std::vector<FunctionalGroupPermission> &permissions);
+  virtual void GetPermissionsForApp(
+      const std::string& device_id,
+      const std::string& policy_app_id,
+      std::vector<FunctionalGroupPermission>& permissions);
 
-  virtual std::string &GetCurrentDeviceId(const std::string &policy_app_id);
+  virtual std::string& GetCurrentDeviceId(const std::string& policy_app_id);
 
-  virtual void SetSystemLanguage(const std::string &language);
+  virtual void SetSystemLanguage(const std::string& language);
 
-  virtual void SetSystemInfo(const std::string &ccpu_version,
-                             const std::string &wers_country_code,
-                             const std::string &language);
+  virtual void SetSystemInfo(const std::string& ccpu_version,
+                             const std::string& wers_country_code,
+                             const std::string& language);
   virtual void OnSystemReady();
 
-  virtual uint32_t GetNotificationsNumber(const std::string &priority);
+  virtual uint32_t GetNotificationsNumber(const std::string& priority);
 
-  virtual void SetVINValue(const std::string &value);
+  virtual void SetVINValue(const std::string& value);
 
   // Interface StatisticsManager (begin)
   virtual void Increment(usage_statistics::GlobalCounterId type);
-  virtual void Increment(const std::string &app_id,
+  virtual void Increment(const std::string& app_id,
                          usage_statistics::AppCounterId type);
-  virtual void Set(const std::string &app_id, usage_statistics::AppInfoId type,
-                   const std::string &value);
-  virtual void Add(const std::string &app_id,
+  virtual void Set(const std::string& app_id,
+                   usage_statistics::AppInfoId type,
+                   const std::string& value);
+  virtual void Add(const std::string& app_id,
                    usage_statistics::AppStopwatchId type,
                    int32_t timespan_seconds);
   // Interface StatisticsManager (end)
 
-  AppPermissions GetAppPermissionsChanges(const std::string &policy_app_id);
-  void RemovePendingPermissionChanges(const std::string &app_id);
+  AppPermissions GetAppPermissionsChanges(const std::string& policy_app_id);
+  void RemovePendingPermissionChanges(const std::string& app_id);
 
-  void SendNotificationOnPermissionsUpdated(const std::string &application_id);
+  void SendNotificationOnPermissionsUpdated(const std::string& application_id);
 
   bool CleanupUnpairedDevices();
 
-  bool CanAppKeepContext(const std::string &app_id);
-  bool CanAppStealFocus(const std::string &app_id);
-  void MarkUnpairedDevice(const std::string &device_id);
+  bool CanAppKeepContext(const std::string& app_id);
+  bool CanAppStealFocus(const std::string& app_id);
+  void MarkUnpairedDevice(const std::string& device_id);
 
-  void AddApplication(const std::string &application_id);
+  void AddApplication(const std::string& application_id);
 
-  virtual void RemoveAppConsentForGroup(const std::string &app_id,
-                                        const std::string &group_name);
+  virtual void RemoveAppConsentForGroup(const std::string& app_id,
+                                        const std::string& group_name);
 
-  virtual uint16_t HeartBeatTimeout(const std::string &app_id) const;
+  virtual uint16_t HeartBeatTimeout(const std::string& app_id) const;
 
   virtual void SaveUpdateStatusRequired(bool is_update_needed);
 
-  virtual bool IsPredataPolicy(const std::string &policy_app_id);
-  void set_cache_manager(CacheManagerInterface *cache_manager);
+  virtual bool IsPredataPolicy(const std::string& policy_app_id);
+  void set_cache_manager(CacheManagerInterface* cache_manager);
 
   virtual void OnAppsSearchStarted();
 
   virtual void OnAppsSearchCompleted();
 
-  virtual void OnAppRegisteredOnMobile(const std::string &application_id);
+  virtual void OnAppRegisteredOnMobile(const std::string& application_id);
 
-  virtual const std::vector<std::string>
-  GetAppRequestTypes(const std::string policy_app_id) const;
+  virtual const std::vector<std::string> GetAppRequestTypes(
+      const std::string policy_app_id) const;
 
-protected:
+ protected:
 #ifdef USE_HMI_PTU_DECRYPTION
-  virtual utils::SharedPtr<policy_table::Table>
-  Parse(const BinaryMessage &pt_content);
+  virtual utils::SharedPtr<policy_table::Table> Parse(
+      const BinaryMessage& pt_content);
 #else
-  virtual utils::SharedPtr<policy_table::Table>
-  ParseArray(const BinaryMessage &pt_content);
+  virtual utils::SharedPtr<policy_table::Table> ParseArray(
+      const BinaryMessage& pt_content);
 #endif
 
-private:
+ private:
   void CheckTriggers();
   /*
    * @brief Checks policy table update along with current data for any changes
@@ -195,9 +199,9 @@ private:
    *
    * @param Policy table update struct
    */
-  void
-  CheckPermissionsChanges(const utils::SharedPtr<policy_table::Table> update,
-                          const utils::SharedPtr<policy_table::Table> snapshot);
+  void CheckPermissionsChanges(
+      const utils::SharedPtr<policy_table::Table> update,
+      const utils::SharedPtr<policy_table::Table> snapshot);
 
   /**
    * @brief Fill structure to be sent with OnPermissionsChanged notification
@@ -208,10 +212,10 @@ private:
    * @param Notification struct to be filled and sent
    */
   void PrepareNotificationData(
-      const policy_table::FunctionalGroupings &groups,
-      const policy_table::Strings &group_names,
-      const std::vector<FunctionalGroupPermission> &group_permission,
-      Permissions &notification_data);
+      const policy_table::FunctionalGroupings& groups,
+      const policy_table::Strings& group_names,
+      const std::vector<FunctionalGroupPermission>& group_permission,
+      Permissions& notification_data);
 
   /**
    * @brief Validate PermissionConsent structure according to currently
@@ -219,8 +223,8 @@ private:
    * @param permissions PermissionConsent structure that should be validated.
    * @return PermissonConsent struct, which contains no foreign groups
    */
-  PermissionConsent
-  EnsureCorrectPermissionConsent(const PermissionConsent &permissions_to_check);
+  PermissionConsent EnsureCorrectPermissionConsent(
+      const PermissionConsent& permissions_to_check);
 
   /**
    * @brief Allows to process case when added application is not present in
@@ -228,7 +232,7 @@ private:
    * @param policy application id.
    * @param cuuren consent for application's device.
    */
-  void AddNewApplication(const std::string &application_id,
+  void AddNewApplication(const std::string& application_id,
                          DeviceConsent device_consent);
 
   /**
@@ -237,7 +241,7 @@ private:
    * @param policy application id.
    * @param cuuren consent for application's device.
    */
-  void PromoteExistedApplication(const std::string &application_id,
+  void PromoteExistedApplication(const std::string& application_id,
                                  DeviceConsent device_consent);
 
   /**
@@ -245,7 +249,7 @@ private:
    * @param policy application id.
    * @return true if application presents false otherwise.
    */
-  bool IsNewApplication(const std::string &application_id) const;
+  bool IsNewApplication(const std::string& application_id) const;
 
   /**
    * Checks existing and permissions of AppStorageFolder
@@ -257,7 +261,7 @@ private:
    * @brief Checks whether need ask the permission of users
    * @return true if user consent is needed
    */
-  virtual bool IsConsentNeeded(const std::string &app_id);
+  virtual bool IsConsentNeeded(const std::string& app_id);
 
   /**
    * @brief Changes isConsentNeeded for app pending permissions, in case
@@ -266,8 +270,8 @@ private:
    * @param Current permissions for app
    */
   void CheckPendingPermissionsChanges(
-      const std::string &policy_app_id,
-      const std::vector<FunctionalGroupPermission> &current_permissions);
+      const std::string& policy_app_id,
+      const std::vector<FunctionalGroupPermission>& current_permissions);
 
   virtual void StartPTExchange();
   virtual bool ExceededDays();
@@ -277,8 +281,8 @@ private:
 
   void RetrySequence();
 
-private:
-  PolicyListener *listener_;
+ private:
+  PolicyListener* listener_;
 
   UpdateStatusManager update_status_manager_;
   CacheManagerInterfaceSPtr cache_;
@@ -327,6 +331,6 @@ private:
   friend struct CheckAppPolicy;
 };
 
-} // namespace policy
+}  // namespace policy
 
-#endif // SRC_COMPONENTS_POLICY_INCLUDE_POLICY_POLICY_MANAGER_IMPL_H_
+#endif  // SRC_COMPONENTS_POLICY_INCLUDE_POLICY_POLICY_MANAGER_IMPL_H_

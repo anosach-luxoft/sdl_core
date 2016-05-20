@@ -51,7 +51,7 @@ namespace application_manager {
 class Application;
 
 class ApplicationManager {
-public:
+ public:
   virtual ~ApplicationManager() {}
 
   /**
@@ -66,12 +66,12 @@ public:
    **/
   virtual bool Stop() = 0;
 
-  virtual void
-  set_hmi_message_handler(hmi_message_handler::HMIMessageHandler *handler) = 0;
-  virtual void
-  set_protocol_handler(protocol_handler::ProtocolHandler *handler) = 0;
-  virtual void
-  set_connection_handler(connection_handler::ConnectionHandler *handler) = 0;
+  virtual void set_hmi_message_handler(
+      hmi_message_handler::HMIMessageHandler* handler) = 0;
+  virtual void set_protocol_handler(
+      protocol_handler::ProtocolHandler* handler) = 0;
+  virtual void set_connection_handler(
+      connection_handler::ConnectionHandler* handler) = 0;
 
   /**
    * @brief Sets default HMI level and configure application after its
@@ -81,6 +81,6 @@ public:
   virtual void OnApplicationRegistered(ApplicationSharedPtr app) = 0;
 };
 
-} // namespace application_manager
+}  // namespace application_manager
 
-#endif // SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_APPLICATION_MANAGER_H_
+#endif  // SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_APPLICATION_MANAGER_H_

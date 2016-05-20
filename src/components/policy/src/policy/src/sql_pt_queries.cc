@@ -413,32 +413,33 @@ const std::string kDropSchema =
     "COMMIT; "
     "VACUUM;";
 
-const std::string kDeleteData = "BEGIN; "
-                                "DELETE FROM `message`; "
-                                "DELETE FROM `endpoint`; "
-                                "DELETE FROM `consent_group`; "
-                                "DELETE FROM `app_type`; "
-                                "DELETE FROM `nickname`; "
-                                "DELETE FROM `app_level`; "
-                                "DELETE FROM `device_consent_group`; "
-                                "DELETE FROM `seconds_between_retry`; "
-                                "DELETE FROM `preconsented_group`; "
-                                "DELETE FROM `app_group`; "
-                                "DELETE FROM `application`; "
-                                "DELETE FROM `rpc`; "
-                                "DELETE FROM `version`; "
-                                "DELETE FROM `message_type`; "
-                                "DELETE FROM `language`; "
-                                "DELETE FROM `notifications_by_priority`; "
-                                "DELETE FROM `hmi_level`; "
-                                "DELETE FROM `priority`; "
-                                "DELETE FROM `functional_group`; "
-                                "DELETE FROM `module_config`; "
-                                "DELETE FROM `module_meta`; "
-                                "DELETE FROM `usage_and_error_count`; "
-                                "DELETE FROM `device`; "
-                                "COMMIT; "
-                                "VACUUM;";
+const std::string kDeleteData =
+    "BEGIN; "
+    "DELETE FROM `message`; "
+    "DELETE FROM `endpoint`; "
+    "DELETE FROM `consent_group`; "
+    "DELETE FROM `app_type`; "
+    "DELETE FROM `nickname`; "
+    "DELETE FROM `app_level`; "
+    "DELETE FROM `device_consent_group`; "
+    "DELETE FROM `seconds_between_retry`; "
+    "DELETE FROM `preconsented_group`; "
+    "DELETE FROM `app_group`; "
+    "DELETE FROM `application`; "
+    "DELETE FROM `rpc`; "
+    "DELETE FROM `version`; "
+    "DELETE FROM `message_type`; "
+    "DELETE FROM `language`; "
+    "DELETE FROM `notifications_by_priority`; "
+    "DELETE FROM `hmi_level`; "
+    "DELETE FROM `priority`; "
+    "DELETE FROM `functional_group`; "
+    "DELETE FROM `module_config`; "
+    "DELETE FROM `module_meta`; "
+    "DELETE FROM `usage_and_error_count`; "
+    "DELETE FROM `device`; "
+    "COMMIT; "
+    "VACUUM;";
 
 const std::string kCheckDBIntegrity = "PRAGMA integrity_check";
 
@@ -477,10 +478,11 @@ const std::string kInsertRpc =
     "INSERT INTO `rpc` (`name`, `hmi_level_value`, `functional_group_id`) "
     "  VALUES (?, ?, ?)";
 
-const std::string kInsertRpcWithParameter = "INSERT INTO `rpc` (`name`, "
-                                            "`hmi_level_value`, `parameter`, "
-                                            "`functional_group_id`) "
-                                            "  VALUES (?, ?, ?, ?)";
+const std::string kInsertRpcWithParameter =
+    "INSERT INTO `rpc` (`name`, "
+    "`hmi_level_value`, `parameter`, "
+    "`functional_group_id`) "
+    "  VALUES (?, ?, ?, ?)";
 
 const std::string kInsertApplication =
     "INSERT OR IGNORE INTO `application` (`id`, `priority_value`, "
@@ -497,9 +499,10 @@ const std::string kInsertNickname =
 const std::string kInsertAppType =
     "INSERT OR IGNORE INTO `app_type` (`application_id`, `name`) VALUES (?, ?)";
 
-const std::string kInsertRequestType = "INSERT OR IGNORE INTO `request_type` "
-                                       "(`application_id`, `request_type`) "
-                                       "VALUES (?, ?)";
+const std::string kInsertRequestType =
+    "INSERT OR IGNORE INTO `request_type` "
+    "(`application_id`, `request_type`) "
+    "VALUES (?, ?)";
 
 const std::string kUpdateVersion = "UPDATE `version` SET `number`= ?";
 
@@ -602,15 +605,18 @@ const std::string kSelectAppGroups =
     "    ON (`f`.`id` = `a`.`functional_group_id`)"
     "  WHERE `a`.`application_id` = ?";
 
-const std::string kSelectNicknames = "SELECT DISTINCT `name` FROM `nickname` "
-                                     "WHERE `application_id` = ?";
+const std::string kSelectNicknames =
+    "SELECT DISTINCT `name` FROM `nickname` "
+    "WHERE `application_id` = ?";
 
-const std::string kSelectAppTypes = "SELECT DISTINCT `name` FROM `app_type` "
-                                    "WHERE `application_id` = ?";
+const std::string kSelectAppTypes =
+    "SELECT DISTINCT `name` FROM `app_type` "
+    "WHERE `application_id` = ?";
 
-const std::string kSelectRequestTypes = "SELECT DISTINCT `request_type` FROM "
-                                        "`request_type` WHERE `application_id` "
-                                        "= ?";
+const std::string kSelectRequestTypes =
+    "SELECT DISTINCT `request_type` FROM "
+    "`request_type` WHERE `application_id` "
+    "= ?";
 
 const std::string kSelectSecondsBetweenRetries =
     "SELECT `value` FROM `seconds_between_retry` ORDER BY `index`";
@@ -691,5 +697,5 @@ const std::string kSelectApplicationFull =
     "  `heart_beat_timeout_ms`, `certificate` FROM `application` WHERE `id` = "
     "?";
 
-} // namespace sql_pt
-} // namespace policy
+}  // namespace sql_pt
+}  // namespace policy
