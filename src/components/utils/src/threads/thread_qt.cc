@@ -36,6 +36,17 @@
 
 #include <QtConcurrent/QtConcurrent>
 
+namespace {
+
+// AN: Temporary workaround for Windows platform.
+// Thread ID getting should be reworked to be crossplatform
+uint64_t ConvertQtThreadHandleToUInt64(Qt::HANDLE handle) {
+  const DWORD* win_thread_id = reinterpret_cast<DWORD*>(handle);
+  return static_cast<uint64_t>(*win_thread_id);
+}
+
+}  // namespace
+
 namespace threads {
 
 CREATE_LOGGERPTR_GLOBAL(logger_, "Utils")
@@ -62,6 +73,7 @@ void* Thread::threadFunc(void* arg) {
   DCHECK(thread);
 
   thread->state_lock_.Acquire();
+  thread->handle_ = QThread::currentThreadId();
   thread->state_cond_.Broadcast();
 
   while (!thread->finalized_) {
@@ -113,11 +125,11 @@ bool Thread::start() {
 }
 
 uint64_t Thread::CurrentId() {
-  return QThread::currentThread();
+  return ConvertQtThreadHandleToUInt64(QThread::currentThreadId());
 }
 
 bool Thread::IsCurrentThread() const {
-  return CurrentId() == thread_handle();
+  return CurrentId() == ConvertQtThreadHandleToUInt64(thread_handle());
 }
 
 void Thread::ThreadCancelledExit() {
@@ -148,7 +160,6 @@ bool Thread::start(const ThreadOptions& options) {
   // state_lock 1
   if (!thread_created_) {
     future_ = QtConcurrent::run(threadFunc, this);
-    handle_ = QThread::currentThread();
     if (NULL != handle_) {
       LOGGER_DEBUG(logger_, "Created thread: " << name_);
       // state_lock 0
