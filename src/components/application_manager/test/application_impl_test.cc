@@ -150,7 +150,7 @@ void ApplicationImplTest::CheckCurrentHMIState() {
   EXPECT_EQ(state_id, current_state->state_id());
 }
 
-TEST_F(ApplicationImplTest, AddHmiState_GetCurrentState) {
+TEST_F(ApplicationImplTest, DISABLED_AddHmiState_GetCurrentState) {
   TestAddHmiState(HMILevel::HMI_FULL,
                   HmiState::STATE_ID_PHONE_CALL,
                   &ApplicationImpl::AddHMIState);
@@ -159,7 +159,7 @@ TEST_F(ApplicationImplTest, AddHmiState_GetCurrentState) {
   EXPECT_EQ(app_id, app_impl->app_id());
 }
 
-TEST_F(ApplicationImplTest, AddRegularHmiState_GetCurrentState) {
+TEST_F(ApplicationImplTest, DISABLED_AddRegularHmiState_GetCurrentState) {
   TestAddHmiState(HMILevel::HMI_LIMITED,
                   HmiState::STATE_ID_REGULAR,
                   &ApplicationImpl::SetRegularState);
@@ -168,7 +168,7 @@ TEST_F(ApplicationImplTest, AddRegularHmiState_GetCurrentState) {
   EXPECT_EQ(app_id, app_impl->app_id());
 }
 
-TEST_F(ApplicationImplTest, AddStateAddRegularState_GetCurrentState) {
+TEST_F(ApplicationImplTest, DISABLED_AddStateAddRegularState_GetCurrentState) {
   TestAddHmiState(HMILevel::HMI_FULL,
                   HmiState::STATE_ID_REGULAR,
                   &ApplicationImpl::SetRegularState);
@@ -180,7 +180,7 @@ TEST_F(ApplicationImplTest, AddStateAddRegularState_GetCurrentState) {
   EXPECT_EQ(app_id, app_impl->app_id());
 }
 
-TEST_F(ApplicationImplTest, AddStateAddRegularState_GetRegularState) {
+TEST_F(ApplicationImplTest, DISABLED_AddStateAddRegularState_GetRegularState) {
   TestAddHmiState(HMILevel::HMI_FULL,
                   HmiState::STATE_ID_REGULAR,
                   &ApplicationImpl::SetRegularState);
@@ -194,7 +194,7 @@ TEST_F(ApplicationImplTest, AddStateAddRegularState_GetRegularState) {
   EXPECT_EQ(app_id, app_impl->app_id());
 }
 
-TEST_F(ApplicationImplTest, AddStates_RemoveLastState) {
+TEST_F(ApplicationImplTest, DISABLED_AddStates_RemoveLastState) {
   // First state
   TestAddHmiState(HMILevel::HMI_FULL,
                   HmiState::STATE_ID_PHONE_CALL,
@@ -216,7 +216,7 @@ TEST_F(ApplicationImplTest, AddStates_RemoveLastState) {
   EXPECT_EQ(HmiState::STATE_ID_NAVI_STREAMING, current_state->state_id());
 }
 
-TEST_F(ApplicationImplTest, AddStates_RemoveNotLastNotFirstState) {
+TEST_F(ApplicationImplTest, DISABLED_AddStates_RemoveNotLastNotFirstState) {
   HmiStatePtr state1 = TestAddHmiState(HMILevel::HMI_FULL,
                                        HmiState::STATE_ID_PHONE_CALL,
                                        &ApplicationImpl::AddHMIState);
@@ -239,7 +239,7 @@ TEST_F(ApplicationImplTest, AddStates_RemoveNotLastNotFirstState) {
   EXPECT_EQ(state1, current_state->parent());
 }
 
-TEST_F(ApplicationImplTest, AddStates_RemoveFirstState) {
+TEST_F(ApplicationImplTest, DISABLED_AddStates_RemoveFirstState) {
   HmiStatePtr state1 = TestAddHmiState(HMILevel::HMI_FULL,
                                        HmiState::STATE_ID_PHONE_CALL,
                                        &ApplicationImpl::AddHMIState);
@@ -262,7 +262,7 @@ TEST_F(ApplicationImplTest, AddStates_RemoveFirstState) {
   EXPECT_EQ(NULL, current_state->parent());
 }
 
-TEST_F(ApplicationImplTest, SetRegularState_RemoveFirstState) {
+TEST_F(ApplicationImplTest, DISABLED_SetRegularState_RemoveFirstState) {
   HmiStatePtr state1 = TestAddHmiState(HMILevel::HMI_NONE,
                                        HmiState::STATE_ID_NAVI_STREAMING,
                                        &ApplicationImpl::AddHMIState);
@@ -285,7 +285,7 @@ TEST_F(ApplicationImplTest, SetRegularState_RemoveFirstState) {
   EXPECT_EQ(state2, current_state->parent());
 }
 
-TEST_F(ApplicationImplTest, SetPostponedState_RemovePostponedState) {
+TEST_F(ApplicationImplTest, DISABLED_SetPostponedState_RemovePostponedState) {
   // Set postponed hmi state
   HmiStatePtr state1 = TestAddHmiState(HMILevel::HMI_NONE,
                                        HmiState::STATE_ID_POSTPONED,
@@ -301,7 +301,8 @@ TEST_F(ApplicationImplTest, SetPostponedState_RemovePostponedState) {
   EXPECT_EQ(NULL, state2);
 }
 
-TEST_F(ApplicationImplTest, AddStateAddRegularState_GetHmiLvlAudioSystemState) {
+TEST_F(ApplicationImplTest,
+       DISABLED_AddStateAddRegularState_GetHmiLvlAudioSystemState) {
   audiostate = AudioStreamingState::ATTENUATED;
   syst_context = SystemContext::SYSCTXT_ALERT;
   TestAddHmiState(HMILevel::HMI_FULL,
@@ -323,7 +324,7 @@ TEST_F(ApplicationImplTest, AddStateAddRegularState_GetHmiLvlAudioSystemState) {
   EXPECT_EQ(syst_context, app_impl->system_context());
 }
 
-TEST_F(ApplicationImplTest, IsAudioApplication) {
+TEST_F(ApplicationImplTest, DISABLED_IsAudioApplication) {
   EXPECT_FALSE(app_impl->IsAudioApplication());
   app_impl->set_is_navi(true);
   app_impl->set_is_media_application(false);
@@ -343,7 +344,7 @@ TEST_F(ApplicationImplTest, IsAudioApplication) {
   EXPECT_FALSE(app_impl->IsAudioApplication());
 }
 
-TEST_F(ApplicationImplTest, AddFile) {
+TEST_F(ApplicationImplTest, DISABLED_AddFile) {
   AppFile test_file;
 
   test_file.is_persistent = true;
@@ -358,7 +359,7 @@ TEST_F(ApplicationImplTest, AddFile) {
   EXPECT_TRUE(app_impl->AddFile(test_file));
 }
 
-TEST_F(ApplicationImplTest, UpdateFile) {
+TEST_F(ApplicationImplTest, DISABLED_UpdateFile) {
   AppFile test_file;
 
   test_file.is_persistent = true;
@@ -373,7 +374,7 @@ TEST_F(ApplicationImplTest, UpdateFile) {
   EXPECT_TRUE(app_impl->UpdateFile(test_file));
 }
 
-TEST_F(ApplicationImplTest, DeleteFile) {
+TEST_F(ApplicationImplTest, DISABLED_DeleteFile) {
   AppFile test_file;
   test_file.is_persistent = true;
   test_file.is_download_complete = false;
@@ -387,7 +388,7 @@ TEST_F(ApplicationImplTest, DeleteFile) {
   EXPECT_TRUE(app_impl->AddFile(test_file));
 }
 
-TEST_F(ApplicationImplTest, GetFile) {
+TEST_F(ApplicationImplTest, DISABLED_GetFile) {
   AppFile test_file;
   test_file.is_persistent = true;
   test_file.is_download_complete = true;
@@ -402,7 +403,7 @@ TEST_F(ApplicationImplTest, GetFile) {
   EXPECT_EQ(test_file.file_type, app_file->file_type);
 }
 
-TEST_F(ApplicationImplTest, SetIconPath) {
+TEST_F(ApplicationImplTest, DISABLED_SetIconPath) {
   AppFile test_file;
   test_file.is_persistent = true;
   test_file.is_download_complete = false;
@@ -418,7 +419,7 @@ TEST_F(ApplicationImplTest, SetIconPath) {
   EXPECT_EQ(test_file.file_name, app_impl->app_icon_path());
 }
 
-TEST_F(ApplicationImplTest, LoadPersistentFiles) {
+TEST_F(ApplicationImplTest, DISABLED_LoadPersistentFiles) {
   // Precondition
   // Create test folder with diff files
 
@@ -487,7 +488,8 @@ TEST_F(ApplicationImplTest, LoadPersistentFiles) {
   EXPECT_EQ(FileType::AUDIO_MP3, test_file8->file_type);
 }
 
-TEST_F(ApplicationImplTest, IsCommandLimitsExceeded_SetLimitFromConfig) {
+TEST_F(ApplicationImplTest,
+       DISABLED_IsCommandLimitsExceeded_SetLimitFromConfig) {
   std::pair<uint32_t, int32_t> get_frequency;
   get_frequency.first = 5;
   get_frequency.second = 1;
@@ -510,7 +512,7 @@ TEST_F(ApplicationImplTest, IsCommandLimitsExceeded_SetLimitFromConfig) {
                                                 TLimitSource::CONFIG_FILE));
 }
 
-TEST_F(ApplicationImplTest, IsCommandLimitsExceeded_LimitFromPT) {
+TEST_F(ApplicationImplTest, DISABLED_IsCommandLimitsExceeded_LimitFromPT) {
   policy_test::MockPolicyHandlerInterface policy_interface;
   EXPECT_CALL(mock_application_manager_, GetPolicyHandler())
       .WillRepeatedly(ReturnRef(policy_interface));
@@ -534,7 +536,7 @@ TEST_F(ApplicationImplTest, IsCommandLimitsExceeded_LimitFromPT) {
                                                 TLimitSource::POLICY_TABLE));
 }
 
-TEST_F(ApplicationImplTest, SubscribeToButton_UnsubscribeFromButton) {
+TEST_F(ApplicationImplTest, DISABLED_SubscribeToButton_UnsubscribeFromButton) {
   EXPECT_TRUE(app_impl->SubscribeToButton(ButtonName::PRESET_0));
   // It is impossible to subsribe to the same button twice
   EXPECT_FALSE(app_impl->SubscribeToButton(ButtonName::PRESET_0));
@@ -543,12 +545,14 @@ TEST_F(ApplicationImplTest, SubscribeToButton_UnsubscribeFromButton) {
   EXPECT_FALSE(app_impl->IsSubscribedToButton(ButtonName::PRESET_0));
 }
 
-TEST_F(ApplicationImplTest, SubscribeToDefaultButton_UnsubscribeFromButton) {
+TEST_F(ApplicationImplTest,
+       DISABLED_SubscribeToDefaultButton_UnsubscribeFromButton) {
   EXPECT_TRUE(app_impl->IsSubscribedToButton(ButtonName::CUSTOM_BUTTON));
   EXPECT_FALSE(app_impl->SubscribeToButton(ButtonName::CUSTOM_BUTTON));
 }
 
-TEST_F(ApplicationImplTest, SubscribeToSoftButton_UnsubscribeFromSoftButton) {
+TEST_F(ApplicationImplTest,
+       DISABLED_SubscribeToSoftButton_UnsubscribeFromSoftButton) {
   const size_t btn_count = 10;
   for (size_t i = 0; i < btn_count; i++) {
     EXPECT_FALSE(app_impl->IsSubscribedToSoftButton(i));
@@ -571,7 +575,8 @@ TEST_F(ApplicationImplTest, SubscribeToSoftButton_UnsubscribeFromSoftButton) {
   }
 }
 
-TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeNotNaviNotVoice) {
+TEST_F(ApplicationImplTest,
+       DISABLED_ChangeSupportingAppHMIType_TypeNotNaviNotVoice) {
   smart_objects::SmartObject type_media;
   type_media[0] = AppHMIType::MEDIA;
 
@@ -585,7 +590,7 @@ TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeNotNaviNotVoice) {
   EXPECT_FALSE(app_impl->is_voice_communication_supported());
 }
 
-TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeIsVoice) {
+TEST_F(ApplicationImplTest, DISABLED_ChangeSupportingAppHMIType_TypeIsVoice) {
   smart_objects::SmartObject type_comm;
   type_comm[0] = AppHMIType::COMMUNICATION;
 
@@ -599,7 +604,7 @@ TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeIsVoice) {
   EXPECT_TRUE(app_impl->is_voice_communication_supported());
 }
 
-TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeIsNavi) {
+TEST_F(ApplicationImplTest, DISABLED_ChangeSupportingAppHMIType_TypeIsNavi) {
   smart_objects::SmartObject type_navi;
   type_navi[0] = AppHMIType::NAVIGATION;
 
@@ -613,7 +618,8 @@ TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeIsNavi) {
   EXPECT_FALSE(app_impl->is_voice_communication_supported());
 }
 
-TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeIsNaviAndVoice) {
+TEST_F(ApplicationImplTest,
+       DISABLED_ChangeSupportingAppHMIType_TypeIsNaviAndVoice) {
   smart_objects::SmartObject app_types;
   app_types[0] = AppHMIType::NAVIGATION;
   app_types[1] = AppHMIType::COMMUNICATION;
@@ -629,7 +635,7 @@ TEST_F(ApplicationImplTest, ChangeSupportingAppHMIType_TypeIsNaviAndVoice) {
   EXPECT_TRUE(app_impl->is_voice_communication_supported());
 }
 
-TEST_F(ApplicationImplTest, UpdateHash_AppMngrNotSuspended) {
+TEST_F(ApplicationImplTest, DISABLED_UpdateHash_AppMngrNotSuspended) {
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendHashUpdateNotification(app_id, _)).Times(1);
   app_impl->UpdateHash();
@@ -637,7 +643,8 @@ TEST_F(ApplicationImplTest, UpdateHash_AppMngrNotSuspended) {
   EXPECT_TRUE(app_impl->is_application_data_changed());
 }
 
-TEST_F(ApplicationImplTest, StartStreaming_MobileNavi_StreamingNotApproved) {
+TEST_F(ApplicationImplTest,
+       DISABLED_StartStreaming_MobileNavi_StreamingNotApproved) {
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendNaviStartStream(app_id, _));
   app_impl->StartStreaming(protocol_handler::ServiceType::kMobileNav);
@@ -645,7 +652,8 @@ TEST_F(ApplicationImplTest, StartStreaming_MobileNavi_StreamingNotApproved) {
   EXPECT_EQ(0u, app_impl->video_stream_retry_number());
 }
 
-TEST_F(ApplicationImplTest, StartStreaming_Audio_StreamingNotApproved) {
+TEST_F(ApplicationImplTest,
+       DISABLED_StartStreaming_Audio_StreamingNotApproved) {
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendAudioStartStream(app_id, _));
   app_impl->StartStreaming(protocol_handler::ServiceType::kAudio);
@@ -653,7 +661,7 @@ TEST_F(ApplicationImplTest, StartStreaming_Audio_StreamingNotApproved) {
   EXPECT_EQ(0u, app_impl->video_stream_retry_number());
 }
 
-TEST_F(ApplicationImplTest, StartStreaming_StreamingApproved) {
+TEST_F(ApplicationImplTest, DISABLED_StartStreaming_StreamingApproved) {
   app_impl->set_video_streaming_approved(true);
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendNaviStartStream(app_id, _)).Times(0);
@@ -666,7 +674,7 @@ TEST_F(ApplicationImplTest, StartStreaming_StreamingApproved) {
   app_impl->StartStreaming(protocol_handler::ServiceType::kAudio);
 }
 
-TEST_F(ApplicationImplTest, SuspendNaviStreaming) {
+TEST_F(ApplicationImplTest, DISABLED_SuspendNaviStreaming) {
   protocol_handler::ServiceType type =
       protocol_handler::ServiceType::kMobileNav;
   EXPECT_CALL(mock_application_manager_, OnAppStreaming(app_id, type, false));
@@ -675,7 +683,7 @@ TEST_F(ApplicationImplTest, SuspendNaviStreaming) {
   app_impl->SuspendStreaming(type);
 }
 
-TEST_F(ApplicationImplTest, SuspendAudioStreaming) {
+TEST_F(ApplicationImplTest, DISABLED_SuspendAudioStreaming) {
   protocol_handler::ServiceType type = protocol_handler::ServiceType::kAudio;
   EXPECT_CALL(mock_application_manager_, OnAppStreaming(app_id, type, false));
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
@@ -725,7 +733,7 @@ TEST_F(ApplicationImplTest, DISABLED_Suspend_WakeUpNaviStreaming) {
   app_impl->WakeUpStreaming(type);
 }
 
-TEST_F(ApplicationImplTest, StopStreaming_StreamingApproved) {
+TEST_F(ApplicationImplTest, DISABLED_StopStreaming_StreamingApproved) {
   // Stop navigation streaming
   protocol_handler::ServiceType type =
       protocol_handler::ServiceType::kMobileNav;
