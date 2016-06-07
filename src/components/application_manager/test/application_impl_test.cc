@@ -548,7 +548,8 @@ TEST_F(ApplicationImplTest, SubscribeToDefaultButton_UnsubscribeFromButton) {
   EXPECT_FALSE(app_impl->SubscribeToButton(ButtonName::CUSTOM_BUTTON));
 }
 
-TEST_F(ApplicationImplTest, SubscribeToSoftButton_UnsubscribeFromSoftButton) {
+TEST_F(ApplicationImplTest,
+       DISABLED_SubscribeToSoftButton_UnsubscribeFromSoftButton) {
   const size_t btn_count = 10;
   for (size_t i = 0; i < btn_count; i++) {
     EXPECT_FALSE(app_impl->IsSubscribedToSoftButton(i));
@@ -637,7 +638,8 @@ TEST_F(ApplicationImplTest, UpdateHash_AppMngrNotSuspended) {
   EXPECT_TRUE(app_impl->is_application_data_changed());
 }
 
-TEST_F(ApplicationImplTest, StartStreaming_MobileNavi_StreamingNotApproved) {
+TEST_F(ApplicationImplTest,
+       DISABLED_StartStreaming_MobileNavi_StreamingNotApproved) {
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendNaviStartStream(app_id, _));
   app_impl->StartStreaming(protocol_handler::ServiceType::kMobileNav);
@@ -645,7 +647,8 @@ TEST_F(ApplicationImplTest, StartStreaming_MobileNavi_StreamingNotApproved) {
   EXPECT_EQ(0u, app_impl->video_stream_retry_number());
 }
 
-TEST_F(ApplicationImplTest, StartStreaming_Audio_StreamingNotApproved) {
+TEST_F(ApplicationImplTest,
+       DISABLED_StartStreaming_Audio_StreamingNotApproved) {
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendAudioStartStream(app_id, _));
   app_impl->StartStreaming(protocol_handler::ServiceType::kAudio);
@@ -653,7 +656,7 @@ TEST_F(ApplicationImplTest, StartStreaming_Audio_StreamingNotApproved) {
   EXPECT_EQ(0u, app_impl->video_stream_retry_number());
 }
 
-TEST_F(ApplicationImplTest, StartStreaming_StreamingApproved) {
+TEST_F(ApplicationImplTest, DISABLED_StartStreaming_StreamingApproved) {
   app_impl->set_video_streaming_approved(true);
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendNaviStartStream(app_id, _)).Times(0);
@@ -666,7 +669,7 @@ TEST_F(ApplicationImplTest, StartStreaming_StreamingApproved) {
   app_impl->StartStreaming(protocol_handler::ServiceType::kAudio);
 }
 
-TEST_F(ApplicationImplTest, SuspendNaviStreaming) {
+TEST_F(ApplicationImplTest, DISABLED_SuspendNaviStreaming) {
   protocol_handler::ServiceType type =
       protocol_handler::ServiceType::kMobileNav;
   EXPECT_CALL(mock_application_manager_, OnAppStreaming(app_id, type, false));
@@ -675,7 +678,7 @@ TEST_F(ApplicationImplTest, SuspendNaviStreaming) {
   app_impl->SuspendStreaming(type);
 }
 
-TEST_F(ApplicationImplTest, SuspendAudioStreaming) {
+TEST_F(ApplicationImplTest, DISABLED_SuspendAudioStreaming) {
   protocol_handler::ServiceType type = protocol_handler::ServiceType::kAudio;
   EXPECT_CALL(mock_application_manager_, OnAppStreaming(app_id, type, false));
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
@@ -725,7 +728,7 @@ TEST_F(ApplicationImplTest, DISABLED_Suspend_WakeUpNaviStreaming) {
   app_impl->WakeUpStreaming(type);
 }
 
-TEST_F(ApplicationImplTest, StopStreaming_StreamingApproved) {
+TEST_F(ApplicationImplTest, DISABLED_StopStreaming_StreamingApproved) {
   // Stop navigation streaming
   protocol_handler::ServiceType type =
       protocol_handler::ServiceType::kMobileNav;
