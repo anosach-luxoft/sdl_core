@@ -48,7 +48,7 @@
     )
 
     set(testSources
-        ${AM_TEST_DIR}/application_state_test.cc
+        #${AM_TEST_DIR}/application_state_test.cc
         #${AM_TEST_DIR}/application_impl_test.cc
         ${AM_TEST_DIR}/event_engine_test.cc
         ${AM_TEST_DIR}/hmi_capabilities_test.cc
