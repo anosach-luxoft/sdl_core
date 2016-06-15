@@ -116,6 +116,7 @@ void* Thread::threadFunc(void* arg) {
 
       thread->state_lock_.Release();
       thread->delegate_->threadMain();
+      thread->thread_finish_start_ = true;
       thread->state_lock_.Acquire();
 
       pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
@@ -125,10 +126,8 @@ void* Thread::threadFunc(void* arg) {
     LOGGER_DEBUG(logger_,
                  "Thread #" << pthread_self() << " finished iteration");
   }
-
   thread->state_lock_.Release();
   pthread_cleanup_pop(1);
-
   LOGGER_DEBUG(logger_, "Thread #" << pthread_self() << " exited successfully");
   return NULL;
 }
@@ -154,7 +153,8 @@ Thread::Thread(const char* name, ThreadDelegate* delegate)
     , isThreadRunning_(false)
     , stopped_(false)
     , finalized_(false)
-    , thread_created_(false) {}
+    , thread_created_(false)
+    , thread_finish_start_(false) {}
 
 bool Thread::start() {
   return start(thread_options_);
@@ -246,6 +246,7 @@ bool Thread::start(const ThreadOptions& options) {
     }
   }
   stopped_ = false;
+  thread_finish_start_ = true;
   run_cond_.NotifyOne();
   LOGGER_DEBUG(logger_,
                "Thread " << name_ << " #" << handle_
@@ -278,6 +279,9 @@ void Thread::stop() {
 void Thread::join() {
   LOGGER_AUTO_TRACE(logger_);
   DCHECK_OR_RETURN_VOID(!IsCurrentThread());
+
+  while (!thread_finish_start_ && isThreadRunning_) {
+  }
 
   stop();
 

@@ -117,6 +117,7 @@ class Thread {
   volatile bool stopped_;
   volatile bool finalized_;
   bool thread_created_;
+  bool thread_finish_start_;
   // Signalled when Thread::start() is called
   sync_primitives::ConditionalVariable run_cond_;
 
