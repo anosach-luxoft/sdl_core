@@ -67,6 +67,10 @@ set(testSources
   timer_test.cc
   lock_test.cc
   thread_test.cc
+  conditional_variable_test.cc
+  rwlock_test.cc
+  singleton_test.cc
+  message_queue_test.cc
 )
 
 if (ENABLE_LOG)
@@ -80,10 +84,6 @@ endif()
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   list (APPEND testSources
     system_test.cc
-    conditional_variable_test.cc
-    message_queue_test.cc
-    singleton_test.cc
-    rwlock_posix_test.cc
     resource_usage_test.cc
   )
 
