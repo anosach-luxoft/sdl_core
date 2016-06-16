@@ -38,7 +38,7 @@
         gmock
         ApplicationManager
         jsoncpp
-        connectionHandler
+        connection_handler
         Utils
     )
 

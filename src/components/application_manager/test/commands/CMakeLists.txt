@@ -48,7 +48,7 @@ set(LIBRARIES
   gmock
   Utils
   ApplicationManager
-  connectionHandler
+  connection_handler
   HMI_API
   MOBILE_API
   smart_object
