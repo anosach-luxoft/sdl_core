@@ -47,7 +47,7 @@ set(LIBRARIES
   connectionHandler
   HMI_API
   MOBILE_API
-  SmartObjects
+  smart_object
   MessageHelper
 )
 
