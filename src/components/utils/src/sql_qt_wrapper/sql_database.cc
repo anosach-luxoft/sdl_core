@@ -1,4 +1,4 @@
-#include "sql_qt_wrapper/sql_database.h"
+#include "utils/sql_qt_wrapper/sql_database.h"
 
 #include <QSqlError>
 

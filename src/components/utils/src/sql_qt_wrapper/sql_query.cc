@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sql_qt_wrapper/sql_query.h"
+#include "utils/sql_qt_wrapper/sql_query.h"
 
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -41,7 +41,7 @@
 #include <cassert>
 #include <limits>
 
-#include "sql_qt_wrapper/sql_database.h"
+#include "utils/sql_qt_wrapper/sql_database.h"
 #include "utils/macro.h"
 
 namespace utils {
