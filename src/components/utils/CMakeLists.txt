@@ -151,10 +151,13 @@ if(${OS} STREQUAL "posix")
     ${RTLIB}
     dl
   )
-else()
+else(${OS} STREQUAL "win")
   list(APPEND EXCLUDE_PATHS
     appenders_loader.cc
     resource_usage.cc
+  )
+  list(APPEND LIBRARIES
+    ws2_32
   )
 endif()
 

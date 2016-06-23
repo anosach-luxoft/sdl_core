@@ -44,6 +44,7 @@ set(LIBRARIES
   media_manager
   application_manager
   protocol_handler
+  utils
   gmock
 )
 
