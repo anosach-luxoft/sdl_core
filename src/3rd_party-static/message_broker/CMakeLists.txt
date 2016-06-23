@@ -28,16 +28,52 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+include(${CMAKE_SOURCE_DIR}/tools/cmake/helpers/sources.cmake)
+
+set(MESSAGE_BROKER_INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(MESSAGE_BROKER_INCLUDE_DIRECTORY ${MESSAGE_BROKER_INCLUDE_DIRECTORY} PARENT_SCOPE)
+
 include_directories(
-  ${GMOCK_INCLUDE_DIRECTORY}
+  ${COMPONENTS_DIR}/utils/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${JSONCPP_INCLUDE_DIRECTORY}
 )
 
-collect_sources(SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
+set(CLIENT_PATHS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/client
+)
+collect_sources(CLIENT_SOURCES "${CLIENT_PATHS}")
 
-set(LIBRARIES
-  gmock
-  jsoncpp
+set(SERVER_PATHS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/server
+)
+collect_sources(SERVER_SOURCES "${SERVER_PATHS}")
+
+set(EXCLUDE_PATHS
+  ${CLIENT_PATHS}
+  ${SERVER_PATHS}
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/example
 )
 
-create_test(jsoncpp_test "${SOURCES}" "${LIBRARIES}")
+set(PATHS
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+collect_sources(SOURCES "${PATHS}" "${EXCLUDE_PATHS}")
+
+set(LIBRARIES
+  utils
+)
+
+add_library(message_broker ${SOURCES})
+target_link_libraries(message_broker ${LIBRARIES})
+
+list(APPEND LIBRARIES
+  message_broker
+)
+
+add_library(message_broker_client ${CLIENT_SOURCES})
+target_link_libraries(message_broker_client ${LIBRARIES})
+
+add_library(message_broker_server ${SERVER_SOURCES})
+target_link_libraries(message_broker_server ${LIBRARIES})

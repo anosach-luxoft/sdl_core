@@ -71,9 +71,9 @@ set(LIBRARIES
   transport_manager
   security_manager
   hmi_message_handler
-  MessageBroker
-  MessageBrokerClient
-  MessageBrokerServer
+  message_broker
+  message_broker_client
+  message_broker_server
   utils
   jsoncpp
   config_profile
