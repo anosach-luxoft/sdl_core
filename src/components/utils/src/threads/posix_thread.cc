@@ -48,6 +48,7 @@
 #include <string.h>
 #include <pthread.h>
 #include <thread>
+#include <stdio.h>
 
 #ifndef __QNXNTO__
 const int EOK = 0;
@@ -75,11 +76,13 @@ void Thread::cleanup(void* arg) {
   LOGGER_AUTO_TRACE(logger_);
   Thread* thread = static_cast<Thread*>(arg);
   sync_primitives::AutoLock auto_lock(thread->state_lock_);
-  thread->isThreadRunning_ = false;
+  thread->thread_state_ = NOT_STARTED;
+  //thread->isThreadRunning_ = false;
   thread->state_cond_.Broadcast();
 }
 
 void* Thread::threadFunc(void* arg) {
+  printf("start threadFunc\n");
   // 0 - state_lock unlocked
   //     stopped   = 0
   //     running   = 0
@@ -95,13 +98,13 @@ void* Thread::threadFunc(void* arg) {
   pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 
   threads::Thread* thread = static_cast<Thread*>(arg);
+  thread->thread_state_ = RUNNING;
   DCHECK(thread);
 
   pthread_cleanup_push(&cleanup, thread);
 
   thread->state_lock_.Acquire();
   thread->state_cond_.Broadcast();
-
   while (!thread->finalized_) {
     LOGGER_DEBUG(logger_, "Thread #" << pthread_self() << " iteration");
     thread->run_cond_.Wait(thread->state_lock_);
@@ -110,22 +113,31 @@ void* Thread::threadFunc(void* arg) {
                             << "stopped_ = " << thread->stopped_
                             << "; finalized_ = " << thread->finalized_);
     if (!thread->stopped_ && !thread->finalized_) {
-      thread->isThreadRunning_ = true;
+      //thread->isThreadRunning_ = true;
+      thread->thread_state_ = RUNNING;
       pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
       pthread_testcancel();
 
       thread->state_lock_.Release();
+      printf("Start executing!\n");
+//      thread->run_lock_.Acquire();
       thread->delegate_->threadMain();
       thread->thread_finish_start_ = true;
+//      thread->run_lock_.Release();
+//      thread->thread_state_ = DONE;
+      //thread->thread_finish_start_ = true;
+      printf("Thread finished executing!\n");
       thread->state_lock_.Acquire();
 
       pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
-      thread->isThreadRunning_ = false;
+//      thread->thread_state_ = DONE;
+//      thread->isThreadRunning_ = false;
     }
     thread->state_cond_.Broadcast();
     LOGGER_DEBUG(logger_,
                  "Thread #" << pthread_self() << " finished iteration");
   }
+  //thread->thread_finish_start_ = true;
   thread->state_lock_.Release();
   pthread_cleanup_pop(1);
   LOGGER_DEBUG(logger_, "Thread #" << pthread_self() << " exited successfully");
@@ -154,7 +166,9 @@ Thread::Thread(const char* name, ThreadDelegate* delegate)
     , stopped_(false)
     , finalized_(false)
     , thread_created_(false)
-    , thread_finish_start_(false) {}
+    , thread_finish_start_(false)
+    , is_joined_(false)
+    , thread_state_(NOT_STARTED){}
 
 bool Thread::start() {
   return start(thread_options_);
@@ -170,6 +184,7 @@ bool Thread::IsCurrentThread() const {
 
 bool Thread::start(const ThreadOptions& options) {
   LOGGER_AUTO_TRACE(logger_);
+  printf("Start start()\n");
 
   sync_primitives::AutoLock auto_lock(state_lock_);
   // 1 - state_lock locked
@@ -183,7 +198,8 @@ bool Thread::start(const ThreadOptions& options) {
     return false;
   }
 
-  if (isThreadRunning_) {
+  if (RUNNING == thread_state_) {
+//  if (isThreadRunning_) {
     LOGGER_TRACE(logger_,
                  "EXIT thread " << name_ << " #" << handle_
                                 << " is already running");
@@ -230,6 +246,7 @@ bool Thread::start(const ThreadOptions& options) {
 
   if (!thread_created_) {
     // state_lock 1
+    printf("Create thread!\n");
     pthread_result = pthread_create(&handle_, &attributes, threadFunc, this);
     if (pthread_result == EOK) {
       LOGGER_DEBUG(logger_, "Created thread: " << name_);
@@ -238,6 +255,7 @@ bool Thread::start(const ThreadOptions& options) {
       // possible concurrencies: stop and threadFunc
       state_cond_.Wait(auto_lock);
       thread_created_ = true;
+      //thread_finish_start_ = true;
     } else {
       LOGGER_ERROR(logger_,
                    "Couldn't create thread "
@@ -247,11 +265,14 @@ bool Thread::start(const ThreadOptions& options) {
   }
   stopped_ = false;
   thread_finish_start_ = true;
+  thread_state_ = RUNNING;
+
   run_cond_.NotifyOne();
   LOGGER_DEBUG(logger_,
                "Thread " << name_ << " #" << handle_
                          << " started. pthread_result = " << pthread_result);
   pthread_attr_destroy(&attributes);
+  printf("End start()\n");
   return pthread_result == EOK;
 }
 
@@ -268,7 +289,8 @@ void Thread::stop() {
   LOGGER_DEBUG(logger_,
                "Stopping thread #" << handle_ << " \"" << name_ << " \"");
 
-  if (delegate_ && isThreadRunning_) {
+  if (delegate_ && (RUNNING == thread_state_)) {
+//  if (delegate_ && isThreadRunning_) {
     delegate_->exitThreadMain();
   }
 
@@ -280,16 +302,18 @@ void Thread::join() {
   LOGGER_AUTO_TRACE(logger_);
   DCHECK_OR_RETURN_VOID(!IsCurrentThread());
 
-  while (!thread_finish_start_ && isThreadRunning_) {
-  }
-
-  stop();
+  printf("Start join()\n");
+  is_joined_ = true;
 
   sync_primitives::AutoLock auto_lock(state_lock_);
+
   run_cond_.NotifyOne();
-  if (isThreadRunning_) {
+  if (thread_state_ == RUNNING || thread_state_ == NOT_STARTED) {
     state_cond_.Wait(auto_lock);
   }
+//  if(delegate_)
+//    delegate_->exitThreadMain();
+  printf("End join()\n");
 }
 
 Thread::~Thread() {
