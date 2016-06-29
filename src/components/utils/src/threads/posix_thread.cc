@@ -75,7 +75,7 @@ void Thread::cleanup(void* arg) {
   LOGGER_AUTO_TRACE(logger_);
   Thread* thread = static_cast<Thread*>(arg);
   sync_primitives::AutoLock auto_lock(thread->state_lock_);
-  thread->thread_state_ = NOT_STARTED;
+  thread->thread_state_ = FINISHED;
   thread->state_cond_.Broadcast();
 }
 
@@ -123,7 +123,7 @@ void* Thread::threadFunc(void* arg) {
     LOGGER_DEBUG(logger_,
                  "Thread #" << pthread_self() << " finished iteration");
   }
-  thread->thread_state_ = DONE;
+  thread->thread_state_ = FINISHED;
   thread->state_lock_.Release();
   pthread_cleanup_pop(1);
   LOGGER_DEBUG(logger_, "Thread #" << pthread_self() << " exited successfully");
@@ -150,7 +150,6 @@ Thread::Thread(const char* name, ThreadDelegate* delegate)
     , thread_options_()
     , stopped_(false)
     , finalized_(false)
-    , thread_created_(false)
     , thread_state_(NOT_STARTED){}
 
 bool Thread::start() {
@@ -225,7 +224,7 @@ bool Thread::start(const ThreadOptions& options) {
     thread_options_ = thread_options_temp;
   }
 
-  if (!thread_created_) {
+  if (thread_state_ == NOT_STARTED) {
     // state_lock 1
     pthread_result = pthread_create(&handle_, &attributes, threadFunc, this);
     if (pthread_result == EOK) {
@@ -234,7 +233,6 @@ bool Thread::start(const ThreadOptions& options) {
       // state_lock 0
       // possible concurrencies: stop and threadFunc
       state_cond_.Wait(auto_lock);
-      thread_created_ = true;
     } else {
       LOGGER_ERROR(logger_,
                    "Couldn't create thread "
@@ -243,7 +241,6 @@ bool Thread::start(const ThreadOptions& options) {
     }
   }
   stopped_ = false;
-  thread_state_ = RUNNING;
 
   run_cond_.NotifyOne();
   LOGGER_DEBUG(logger_,
@@ -281,7 +278,7 @@ void Thread::join() {
   sync_primitives::AutoLock auto_lock(state_lock_);
 
   run_cond_.NotifyOne();
-  if (thread_state_ == RUNNING) {
+  if (thread_state_ != FINISHED) {
     state_cond_.Wait(auto_lock);
   }
   if (delegate_)
