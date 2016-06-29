@@ -89,6 +89,8 @@ typedef Qt::HANDLE PlatformThreadHandle;
  * printf("ok!\n");
  */
 
+enum InternalThreadState {NOT_STARTED, RUNNING, FINISHED};
+
 class Thread;
 void enqueue_to_join(Thread* thread);
 void sleep(uint32_t ms);
@@ -113,10 +115,9 @@ class Thread {
   ThreadOptions thread_options_;
   // Should be locked to protect isThreadRunning_ and thread_created_ values
   sync_primitives::Lock state_lock_;
-  volatile bool isThreadRunning_;
   volatile bool stopped_;
   volatile bool finalized_;
-  bool thread_created_;
+  InternalThreadState thread_state_;
   // Signalled when Thread::start() is called
   sync_primitives::ConditionalVariable run_cond_;
 
@@ -188,7 +189,7 @@ class Thread {
    * @return true if the thread has been started, and not yet stopped.
    */
   bool is_running() const {
-    return isThreadRunning_;
+    return thread_state_ == RUNNING;
   }
 
   void set_running(bool running);
