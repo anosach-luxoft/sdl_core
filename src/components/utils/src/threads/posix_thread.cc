@@ -98,7 +98,7 @@ void* Thread::threadFunc(void* arg) {
   pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 
   threads::Thread* thread = static_cast<Thread*>(arg);
-  thread->thread_state_ = RUNNING;
+//  thread->thread_state_ = RUNNING;
   DCHECK(thread);
 
   pthread_cleanup_push(&cleanup, thread);
@@ -129,9 +129,9 @@ void* Thread::threadFunc(void* arg) {
       printf("Thread finished executing!\n");
       thread->state_lock_.Acquire();
 
-      pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 //      thread->thread_state_ = DONE;
-//      thread->isThreadRunning_ = false;
+      pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
+      thread->isThreadRunning_ = false;
     }
     thread->state_cond_.Broadcast();
     LOGGER_DEBUG(logger_,
@@ -303,16 +303,21 @@ void Thread::join() {
   DCHECK_OR_RETURN_VOID(!IsCurrentThread());
 
   printf("Start join()\n");
+  printf("thread state = %d\n", thread_state_);
   is_joined_ = true;
+
+//  stop();
 
   sync_primitives::AutoLock auto_lock(state_lock_);
 
   run_cond_.NotifyOne();
-  if (thread_state_ == RUNNING || thread_state_ == NOT_STARTED) {
+  printf("Before wait\n");
+  if (thread_state_ == RUNNING) {
     state_cond_.Wait(auto_lock);
   }
-//  if(delegate_)
-//    delegate_->exitThreadMain();
+  printf("After wait\n");
+  if (delegate_)
+    delegate_->exitThreadMain();
   printf("End join()\n");
 }
 
