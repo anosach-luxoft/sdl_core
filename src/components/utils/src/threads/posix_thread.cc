@@ -75,7 +75,7 @@ void Thread::cleanup(void* arg) {
   LOGGER_AUTO_TRACE(logger_);
   Thread* thread = static_cast<Thread*>(arg);
   sync_primitives::AutoLock auto_lock(thread->state_lock_);
-  thread->isThreadRunning_ = false;
+  thread->thread_state_ = NOT_STARTED;
   thread->state_cond_.Broadcast();
 }
 
@@ -101,7 +101,6 @@ void* Thread::threadFunc(void* arg) {
 
   thread->state_lock_.Acquire();
   thread->state_cond_.Broadcast();
-
   while (!thread->finalized_) {
     LOGGER_DEBUG(logger_, "Thread #" << pthread_self() << " iteration");
     thread->run_cond_.Wait(thread->state_lock_);
@@ -110,7 +109,7 @@ void* Thread::threadFunc(void* arg) {
                             << "stopped_ = " << thread->stopped_
                             << "; finalized_ = " << thread->finalized_);
     if (!thread->stopped_ && !thread->finalized_) {
-      thread->isThreadRunning_ = true;
+      thread->thread_state_ = RUNNING;
       pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
       pthread_testcancel();
 
@@ -119,16 +118,14 @@ void* Thread::threadFunc(void* arg) {
       thread->state_lock_.Acquire();
 
       pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
-      thread->isThreadRunning_ = false;
     }
     thread->state_cond_.Broadcast();
     LOGGER_DEBUG(logger_,
                  "Thread #" << pthread_self() << " finished iteration");
   }
-
+  thread->thread_state_ = DONE;
   thread->state_lock_.Release();
   pthread_cleanup_pop(1);
-
   LOGGER_DEBUG(logger_, "Thread #" << pthread_self() << " exited successfully");
   return NULL;
 }
@@ -151,10 +148,10 @@ Thread::Thread(const char* name, ThreadDelegate* delegate)
     , delegate_(delegate)
     , handle_(0)
     , thread_options_()
-    , isThreadRunning_(false)
     , stopped_(false)
     , finalized_(false)
-    , thread_created_(false) {}
+    , thread_created_(false)
+    , thread_state_(NOT_STARTED){}
 
 bool Thread::start() {
   return start(thread_options_);
@@ -183,7 +180,7 @@ bool Thread::start(const ThreadOptions& options) {
     return false;
   }
 
-  if (isThreadRunning_) {
+  if (RUNNING == thread_state_) {
     LOGGER_TRACE(logger_,
                  "EXIT thread " << name_ << " #" << handle_
                                 << " is already running");
@@ -246,6 +243,8 @@ bool Thread::start(const ThreadOptions& options) {
     }
   }
   stopped_ = false;
+  thread_state_ = RUNNING;
+
   run_cond_.NotifyOne();
   LOGGER_DEBUG(logger_,
                "Thread " << name_ << " #" << handle_
@@ -267,7 +266,7 @@ void Thread::stop() {
   LOGGER_DEBUG(logger_,
                "Stopping thread #" << handle_ << " \"" << name_ << " \"");
 
-  if (delegate_ && isThreadRunning_) {
+  if (delegate_ && (RUNNING == thread_state_)) {
     delegate_->exitThreadMain();
   }
 
@@ -279,13 +278,14 @@ void Thread::join() {
   LOGGER_AUTO_TRACE(logger_);
   DCHECK_OR_RETURN_VOID(!IsCurrentThread());
 
-  stop();
-
   sync_primitives::AutoLock auto_lock(state_lock_);
+
   run_cond_.NotifyOne();
-  if (isThreadRunning_) {
+  if (thread_state_ == RUNNING) {
     state_cond_.Wait(auto_lock);
   }
+  if (delegate_)
+    delegate_->exitThreadMain();
 }
 
 Thread::~Thread() {
