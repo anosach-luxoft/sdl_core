@@ -56,7 +56,7 @@ void SecurityManagerImpl::OnMessageReceived(
     return;
   }
 
-  SecurityMessage securityMessagePtr(new SecurityQuery());
+  SecurityMessage securityMessagePtr(new(__FILE__, __LINE__) SecurityQuery());
   const bool result =
       securityMessagePtr->SerializeQuery(message->data(), message->data_size());
   if (!result) {
@@ -398,7 +398,7 @@ void SecurityManagerImpl::SendQuery(const SecurityQuery& query,
   if (session_observer_->ProtocolVersionUsed(
           connection_handle, sessionID, protocol_version)) {
     const ::protocol_handler::RawMessagePtr rawMessagePtr(
-        new protocol_handler::RawMessage(connection_key,
+        new(__FILE__, __LINE__) protocol_handler::RawMessage(connection_key,
                                          protocol_version,
                                          &data_sending[0],
                                          data_sending.size(),

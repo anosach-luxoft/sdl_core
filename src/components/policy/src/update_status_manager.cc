@@ -46,7 +46,7 @@ UpdateStatusManager::UpdateStatusManager()
     , exchange_pending_(false)
     , apps_search_in_progress_(false)
     , last_update_status_(policy::StatusUnknown) {
-  update_status_thread_delegate_ = new UpdateThreadDelegate(this);
+  update_status_thread_delegate_ = new(__FILE__, __LINE__) UpdateThreadDelegate(this);
   thread_ = threads::CreateThread("UpdateStatusThread",
                                   update_status_thread_delegate_);
   thread_->start();

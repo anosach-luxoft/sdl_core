@@ -66,7 +66,7 @@ DBusAdapter::DBusAdapter(const std::string& sdlServiceName,
     , hmi_service_name_(hmiServiceName)
     , hmi_object_path_(hmiObjectPath)
     , conn_(NULL)
-    , schema_(new DBusSchema(ford_message_descriptions::message_descriptions)) {
+    , schema_(new(__FILE__, __LINE__) DBusSchema(ford_message_descriptions::message_descriptions)) {
 }
 
 DBusAdapter::~DBusAdapter() {

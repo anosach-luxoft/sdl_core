@@ -42,7 +42,7 @@ utils::SharedPtr<CStringSchemaItem> CStringSchemaItem::create(
     const TSchemaItemParameter<size_t>& MinLength,
     const TSchemaItemParameter<size_t>& MaxLength,
     const TSchemaItemParameter<std::string>& DefaultValue) {
-  return new CStringSchemaItem(MinLength, MaxLength, DefaultValue);
+  return new(__FILE__, __LINE__) CStringSchemaItem(MinLength, MaxLength, DefaultValue);
 }
 
 Errors::eType CStringSchemaItem::validate(const SmartObject& Object) {

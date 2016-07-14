@@ -512,10 +512,10 @@ TEST(CopyObjectsTest, SmartObjectTest) {
 
   ASSERT_EQ("test string", obj.asString());
 
-  obj["abc"] = "new test string";
+  obj["abc"] = "new(__FILE__, __LINE__) test string";
   obj = obj["abc"];
 
-  ASSERT_EQ("new test string", obj.asString());
+  ASSERT_EQ("new(__FILE__, __LINE__) test string", obj.asString());
 }
 
 TEST(CopyConstructorTest, SmartObjectTest) {

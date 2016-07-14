@@ -50,7 +50,7 @@ namespace dbus {
 class DBusSchemaTest : public ::testing::Test {
  protected:
   static void SetUpTestCase() {
-    schema_ = new DBusSchema(ford_message_descriptions::message_descriptions);
+    schema_ = new(__FILE__, __LINE__) DBusSchema(ford_message_descriptions::message_descriptions);
   }
 
   static void TearDownTestCase() {

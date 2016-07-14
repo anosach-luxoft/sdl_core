@@ -37,7 +37,7 @@ QString QtQuick2ApplicationViewerPrivate::adjustPath(const QString& path) {
 }
 
 QtQuick2ApplicationViewer::QtQuick2ApplicationViewer(QWindow* parent)
-    : QQuickView(parent), d(new QtQuick2ApplicationViewerPrivate()) {
+    : QQuickView(parent), d(new(__FILE__, __LINE__) QtQuick2ApplicationViewerPrivate()) {
   connect(engine(), SIGNAL(quit()), SLOT(close()));
   setResizeMode(QQuickView::SizeRootObjectToView);
 }

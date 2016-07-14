@@ -71,7 +71,7 @@ bool BluetoothSocketConnection::Establish(ConnectError** error) {
                                           &rfcomm_channel)) {
     LOG4CXX_DEBUG(logger_,
                   "Application " << application_handle() << " not found");
-    *error = new ConnectError();
+    *error = new(__FILE__, __LINE__) ConnectError();
     LOG4CXX_TRACE(logger_, "exit with FALSE");
     return false;
   }
@@ -94,7 +94,7 @@ bool BluetoothSocketConnection::Establish(ConnectError** error) {
       LOG4CXX_ERROR_WITH_ERRNO(logger_,
                                "Failed to create RFCOMM socket for device "
                                    << device_handle());
-      *error = new ConnectError();
+      *error = new(__FILE__, __LINE__) ConnectError();
       LOG4CXX_TRACE(logger_, "exit with FALSE");
       return false;
     }
@@ -122,7 +122,7 @@ bool BluetoothSocketConnection::Establish(ConnectError** error) {
         "Failed to Connect to remote device "
             << BluetoothDevice::GetUniqueDeviceId(remoteSocketAddress.rc_bdaddr)
             << " for session " << this);
-    *error = new ConnectError();
+    *error = new(__FILE__, __LINE__) ConnectError();
     LOG4CXX_TRACE(logger_, "exit with FALSE");
     return false;
   }

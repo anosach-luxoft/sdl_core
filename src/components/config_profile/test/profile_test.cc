@@ -135,7 +135,7 @@ TEST_F(ProfileTest, UpdateIntValues) {
   // Values are same
   EXPECT_EQ(thread_min_stack_size, profile_.thread_min_stack_size());
 
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 
@@ -461,7 +461,7 @@ TEST_F(ProfileTest, CheckCorrectValueWhenOtherValueInvalid) {
 }
 
 TEST_F(ProfileTest, PairsValueInsteadOfInt) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_invalid_int.ini");
   EXPECT_EQ("smartDeviceLink_invalid_int.ini", profile_.config_file_name());
   // Get first number
@@ -568,7 +568,7 @@ TEST_F(ProfileTest, CapitalLetterInBoolValue) {
 }
 
 TEST_F(ProfileTest, CheckReadStringValue) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 
@@ -585,7 +585,7 @@ TEST_F(ProfileTest, CheckReadStringValue) {
 }
 
 TEST_F(ProfileTest, CheckReadBoolValue) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 
@@ -599,7 +599,7 @@ TEST_F(ProfileTest, CheckReadBoolValue) {
 }
 
 TEST_F(ProfileTest, CheckReadIntValue) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 
@@ -610,7 +610,7 @@ TEST_F(ProfileTest, CheckReadIntValue) {
 }
 
 TEST_F(ProfileTest, CheckIntContainer) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 
@@ -667,7 +667,7 @@ TEST_F(ProfileTest, CheckVectorContainer) {
 }
 
 TEST_F(ProfileTest, CheckStringContainer) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 
@@ -696,7 +696,7 @@ TEST_F(ProfileTest, CheckStringContainer) {
 
 #ifdef ENABLE_SECURITY
 TEST_F(ProfileTest, CheckIntContainerInSecurityData) {
-  // Set new config file
+  // Set new(__FILE__, __LINE__) config file
   profile_.config_file_name("smartDeviceLink_test.ini");
   EXPECT_EQ("smartDeviceLink_test.ini", profile_.config_file_name());
 

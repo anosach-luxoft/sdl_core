@@ -40,7 +40,7 @@ CREATE_LOGGERPTR_GLOBAL(logger_, "FileStreamerAdapter")
 
 FileStreamerAdapter::FileStreamerAdapter(const std::string& file_name,
                                          const std::string& app_storage_folder)
-    : StreamerAdapter(new FileStreamer(this, file_name, app_storage_folder)) {}
+    : StreamerAdapter(new(__FILE__, __LINE__) FileStreamer(this, file_name, app_storage_folder)) {}
 
 FileStreamerAdapter::~FileStreamerAdapter() {}
 

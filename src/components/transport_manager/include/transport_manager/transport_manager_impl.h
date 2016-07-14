@@ -130,7 +130,7 @@ class TransportManagerImpl
   virtual int Reinit() OVERRIDE;
 
   /**
-   * @brief Start scanning for new devices.
+   * @brief Start scanning for new(__FILE__, __LINE__) devices.
    *
    * @return Code error.
    **/
@@ -171,7 +171,7 @@ class TransportManagerImpl
    */
   int DisconnectForce(const ConnectionUID connection_id) OVERRIDE;
   /**
-   * @brief Post new message in queue for massages destined to device.
+   * @brief Post new(__FILE__, __LINE__) message in queue for massages destined to device.
    *
    * @param message Smart pointer to the raw massage.
    *

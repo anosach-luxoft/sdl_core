@@ -75,12 +75,12 @@ class CObjectSchemaItem : public ISchemaItem {
   };
   typedef std::map<std::string, SMember> Members;
   /**
-   * @brief Create a new schema item.
+   * @brief Create a new(__FILE__, __LINE__) schema item.
    *
    * @param Members Map of member name to SMember structure
    *                describing the object member.
    *
-   * @return Shared pointer to a new schema item.
+   * @return Shared pointer to a new(__FILE__, __LINE__) schema item.
    **/
   static utils::SharedPtr<CObjectSchemaItem> create(const Members& Members);
   /**

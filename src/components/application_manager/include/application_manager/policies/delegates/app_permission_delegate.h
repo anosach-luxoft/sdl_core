@@ -53,7 +53,7 @@ class AppPermissionDelegate : public threads::ThreadDelegate {
    *
    * @param connection_key connection key.
    *
-   * @param permissions new permissions
+   * @param permissions new(__FILE__, __LINE__) permissions
    */
   AppPermissionDelegate(const uint32_t connection_key,
                         const PermissionConsent& permissions,

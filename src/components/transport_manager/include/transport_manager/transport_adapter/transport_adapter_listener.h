@@ -85,7 +85,7 @@ class TransportAdapterListener {
       const TransportAdapter* transport_adapter) = 0;
 
   /**
-   * @brief Reaction to "Find new applications" request
+   * @brief Reaction to "Find new(__FILE__, __LINE__) applications" request
    * @param adapter Current transport adapter
    */
   virtual void OnFindNewApplicationsRequest(

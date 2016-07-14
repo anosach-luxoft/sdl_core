@@ -131,7 +131,7 @@ class ConnectionHandlerImpl
   /**
    * \brief Notifies about established connection.
    *
-   * \param connection_id ID of new connection.
+   * \param connection_id ID of new(__FILE__, __LINE__) connection.
    **/
   void OnConnectionEstablished(
       const transport_manager::DeviceInfo& device_info,
@@ -161,14 +161,14 @@ class ConnectionHandlerImpl
 
   /**
    * \brief Callback function used by ProtocolHandler
-   * when Mobile Application initiates start of new session.
+   * when Mobile Application initiates start of new(__FILE__, __LINE__) session.
    * \param connection_handle Connection identifier within which session has to
    * be started.
    * \param session_id Identifier of the session to be started
    * \param service_type Type of service
    * \param is_protected would be service protected
    * \param hash_id pointer for session hash identifier
-   * \return uint32_t Id (number) of new session if successful, otherwise 0.
+   * \return uint32_t Id (number) of new(__FILE__, __LINE__) session if successful, otherwise 0.
    */
   virtual uint32_t OnSessionStartedCallback(
       const transport_manager::ConnectionUID connection_handle,

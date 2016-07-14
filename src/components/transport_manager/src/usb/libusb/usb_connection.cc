@@ -131,7 +131,7 @@ void UsbConnection::OnInTransfer(libusb_transfer* transfer) {
                   "USB incoming transfer, size:"
                       << transfer->actual_length << ", data:"
                       << hex_data(transfer->buffer, transfer->actual_length));
-    ::protocol_handler::RawMessagePtr data(new protocol_handler::RawMessage(
+    ::protocol_handler::RawMessagePtr data(new(__FILE__, __LINE__) protocol_handler::RawMessage(
         0, 0, in_buffer_, transfer->actual_length));
     controller_->DataReceiveDone(device_uid_, app_handle_, data);
   } else {
@@ -307,7 +307,7 @@ bool UsbConnection::Init() {
     LOG4CXX_TRACE(logger_, "exit with FALSE. Condition: !FindEndpoints()");
     return false;
   }
-  in_buffer_ = new unsigned char[in_endpoint_max_packet_size_];
+  in_buffer_ = new(__FILE__, __LINE__) unsigned char[in_endpoint_max_packet_size_];
   in_transfer_ = libusb_alloc_transfer(0);
   if (NULL == in_transfer_) {
     LOG4CXX_ERROR(logger_, "libusb_alloc_transfer failed");

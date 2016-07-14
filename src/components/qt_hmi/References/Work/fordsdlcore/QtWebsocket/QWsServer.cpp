@@ -29,7 +29,7 @@ const QString QWsServer::regExpExtensionsStr(
     QLatin1String("\r\nSec-WebSocket-Extensions:\\s(.+)\r\n"));
 
 QWsServer::QWsServer(QObject* parent) : QObject(parent) {
-  tcpServer = new QTcpServer(this);
+  tcpServer = new(__FILE__, __LINE__) QTcpServer(this);
   connect(tcpServer, SIGNAL(newConnection()), this, SLOT(newTcpConnection()));
   qsrand(QDateTime::currentMSecsSinceEpoch());
 }
@@ -210,7 +210,7 @@ void QWsServer::dataReceived() {
     tcpSocket->write(response.toUtf8());
   tcpSocket->flush();
 
-  QWsSocket* wsSocket = new QWsSocket(this, tcpSocket, version);
+  QWsSocket* wsSocket = new(__FILE__, __LINE__) QWsSocket(this, tcpSocket, version);
   wsSocket->setResourceName(resourceName);
   wsSocket->setHost(host);
   wsSocket->setHostAddress(hostAddress);
@@ -230,10 +230,10 @@ void QWsServer::dataReceived() {
 }
 
 void QWsServer::incomingConnection(int socketDescriptor) {
-  QTcpSocket* tcpSocket = new QTcpSocket(tcpServer);
+  QTcpSocket* tcpSocket = new(__FILE__, __LINE__) QTcpSocket(tcpServer);
   tcpSocket->setSocketDescriptor(socketDescriptor,
                                  QAbstractSocket::ConnectedState);
-  QWsSocket* wsSocket = new QWsSocket(this, tcpSocket);
+  QWsSocket* wsSocket = new(__FILE__, __LINE__) QWsSocket(this, tcpSocket);
 
   addPendingConnection(wsSocket);
   emit newConnection();

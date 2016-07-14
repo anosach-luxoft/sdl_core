@@ -39,7 +39,7 @@
       </description>
     </element>
     <element name="RETRY">
-      <description>The user interrupted the RPC (e.g. PerformAudioPassThru) and indicated to start over.  Note, the app must issue the new RPC.</description>
+      <description>The user interrupted the RPC (e.g. PerformAudioPassThru) and indicated to start over.  Note, the app must issue the new(__FILE__, __LINE__) RPC.</description>
     </element>
     <element name="IN_USE">
       <description>
@@ -2368,7 +2368,7 @@
       	The mobile application name, e.g. "Ford Drive Green".
       	Needs to be unique over all applications.
       	May not be empty.
-      	May not start with a new line character.
+      	May not start with a new(__FILE__, __LINE__) line character.
       	May not interfere with any name or synonym of previously registered applications and any predefined blacklist of words (global commands)
       	Needs to be unique over all applications. Applications with the same name will be rejected.
       	Only characters from char set [@TODO: Create char set (character/hex value) for each ACM and refer to] are supported.
@@ -2381,7 +2381,7 @@
       	Meant to overcome any failing on speech engine in properly pronouncing / understanding app name.
       	Needs to be unique over all applications.
       	May not be empty.
-      	May not start with a new line character.
+      	May not start with a new(__FILE__, __LINE__) line character.
       	Only characters from char set [@TODO: Create char set (character/hex value) for each ACM and refer to] are supported.
       </description>
     </param>
@@ -3491,7 +3491,7 @@
     <description>
     	Subscribes for specific published data items.
     	The data will be only sent if it has changed.
-    	The application will be notified by the onVehicleData notification whenever new data is available.
+    	The application will be notified by the onVehicleData notification whenever new(__FILE__, __LINE__) data is available.
     	To unsubscribe the notifications, use unsubscribe with the same subscriptionType.
     </description>
 
@@ -4426,16 +4426,16 @@
       <description>Request display language registration</description>
     </param>
     <param name="appName" type="String" maxlength="100" mandatory="false">
-      <description>Request new app name registration</description>
+      <description>Request new(__FILE__, __LINE__) app name registration</description>
     </param>
     <param name="ttsName" type="TTSChunk" minsize="1" maxsize="100" array="true" mandatory="false" >
-      <description>Request new ttsName registration</description>
+      <description>Request new(__FILE__, __LINE__) ttsName registration</description>
     </param>
     <param name="ngnMediaScreenAppName" type="String" maxlength="100" mandatory="false">
-      <description>Request new app short name registration</description>
+      <description>Request new(__FILE__, __LINE__) app short name registration</description>
     </param>
     <param name="vrSynonyms" type="String" maxlength="40" minsize="1" maxsize="100" array="true" mandatory="false">
-      <description>Request new VR synonyms registration</description>
+      <description>Request new(__FILE__, __LINE__) VR synonyms registration</description>
     </param>
 
 </function>

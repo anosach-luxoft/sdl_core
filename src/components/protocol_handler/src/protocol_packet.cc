@@ -328,7 +328,7 @@ RawMessagePtr ProtocolPacket::serializePacket() const {
   size_t total_packet_size =
       offset + (packet_data_.data ? packet_data_.totalDataBytes : 0);
 
-  uint8_t* packet = new (std::nothrow) uint8_t[total_packet_size];
+  uint8_t* packet = new(__FILE__, __LINE__)  uint8_t[total_packet_size];
   if (!packet) {
     return RawMessagePtr();
   }
@@ -338,7 +338,7 @@ RawMessagePtr ProtocolPacket::serializePacket() const {
     memcpy(packet + offset, packet_data_.data, packet_data_.totalDataBytes);
   }
 
-  const RawMessagePtr out_message(new RawMessage(connection_id(),
+  const RawMessagePtr out_message(new(__FILE__, __LINE__) RawMessage(connection_id(),
                                                  packet_header_.version,
                                                  packet,
                                                  total_packet_size,
@@ -421,7 +421,7 @@ RESULT_CODE ProtocolPacket::deserializePacket(const uint8_t* message,
     }
   } else if (dataPayloadSize) {
     delete[] packet_data_.data;
-    packet_data_.data = new (std::nothrow) uint8_t[dataPayloadSize];
+    packet_data_.data = new(__FILE__, __LINE__)  uint8_t[dataPayloadSize];
     memcpy(packet_data_.data, message + offset, dataPayloadSize);
     payload_size_ = dataPayloadSize;
   }
@@ -476,7 +476,7 @@ uint8_t* ProtocolPacket::data() const {
 void ProtocolPacket::set_total_data_bytes(size_t dataBytes) {
   if (dataBytes) {
     delete[] packet_data_.data;
-    packet_data_.data = new (std::nothrow) uint8_t[dataBytes];
+    packet_data_.data = new(__FILE__, __LINE__)  uint8_t[dataBytes];
     packet_data_.totalDataBytes = packet_data_.data ? dataBytes : 0u;
   }
 }
@@ -486,7 +486,7 @@ void ProtocolPacket::set_data(const uint8_t* const new_data,
   if (new_data_size && new_data) {
     packet_header_.dataSize = packet_data_.totalDataBytes = new_data_size;
     delete[] packet_data_.data;
-    packet_data_.data = new (std::nothrow) uint8_t[packet_data_.totalDataBytes];
+    packet_data_.data = new(__FILE__, __LINE__)  uint8_t[packet_data_.totalDataBytes];
     if (packet_data_.data) {
       memcpy(packet_data_.data, new_data, packet_data_.totalDataBytes);
     } else {

@@ -178,7 +178,7 @@ class ResumptionDataJson : public ResumptionData {
  private:
   /**
    * @brief GetFromSavedOrAppend allows to get existed record about application
-   * or adds the new one.
+   * or adds the new(__FILE__, __LINE__) one.
    * @param policy_app_id application id.
    * @param device_id unique id of device.
    * @return the reference to the record in applications array.

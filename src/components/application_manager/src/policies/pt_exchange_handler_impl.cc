@@ -44,7 +44,7 @@ CREATE_LOGGERPTR_GLOBAL(logger_, "PolicyHandler")
 PTExchangeHandlerImpl::PTExchangeHandlerImpl(PolicyHandler* handler)
     : policy_handler_(handler)
     , retry_sequence_(
-          threads::CreateThread("RetrySequence", new RetrySequence(handler))) {
+          threads::CreateThread("RetrySequence", new(__FILE__, __LINE__) RetrySequence(handler))) {
   DCHECK(policy_handler_);
   LOG4CXX_INFO(logger_, "Exchan created");
 }
@@ -61,7 +61,7 @@ void PTExchangeHandlerImpl::Start() {
   retry_sequence_->stop();
   threads::DeleteThread(retry_sequence_);
   retry_sequence_ = threads::CreateThread("RetrySequence",
-                                          new RetrySequence(policy_handler_));
+                                          new(__FILE__, __LINE__) RetrySequence(policy_handler_));
 
   if (policy_handler_) {
     policy_handler_->ResetRetrySequence();

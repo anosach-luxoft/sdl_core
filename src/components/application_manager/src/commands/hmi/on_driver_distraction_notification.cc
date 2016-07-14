@@ -58,7 +58,7 @@ void OnDriverDistractionNotification::Run() {
   application_manager_.set_driver_distraction(state);
 
   smart_objects::SmartObjectSPtr on_driver_distraction =
-      new smart_objects::SmartObject();
+      new(__FILE__, __LINE__) smart_objects::SmartObject();
 
   if (!on_driver_distraction) {
     LOG4CXX_ERROR(logger_, "NULL pointer");

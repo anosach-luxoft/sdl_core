@@ -68,7 +68,7 @@ class TransportAdapterController {
   virtual void ApplicationListUpdated(const DeviceUID& device_handle) = 0;
 
   /**
-   * @brief "Find new applications" request
+   * @brief "Find new(__FILE__, __LINE__) applications" request
    */
   virtual void FindNewApplicationsRequest() = 0;
 

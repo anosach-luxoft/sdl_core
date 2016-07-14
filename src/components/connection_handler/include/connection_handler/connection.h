@@ -150,7 +150,7 @@ class Connection {
 
   /**
    * @brief Adds session to connection
-   * @return new session id or 0 in case of issues
+   * @return new(__FILE__, __LINE__) session id or 0 in case of issues
    */
   uint32_t AddNewSession();
 

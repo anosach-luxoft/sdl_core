@@ -128,7 +128,7 @@ T* Singleton<T, Deleter>::instance() {
     lock_.Acquire();
     local_instance = *instance_pointer();
     if (!local_instance) {
-      local_instance = new T();
+      local_instance = new(__FILE__, __LINE__) T();
       memory_barrier();
       atomic_pointer_assign(*instance_pointer(), local_instance);
       deleter()->grab(local_instance);

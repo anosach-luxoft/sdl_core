@@ -95,7 +95,7 @@ TEST(IniFileTest, WriteSameItemInDifferentChapters) {
   EXPECT_TRUE(read_result);
   EXPECT_STREQ(res, value);
 
-  // Create new chapter and write the same value
+  // Create new(__FILE__, __LINE__) chapter and write the same value
   const char* chapter2 = "Chapter2";
 
   const bool write_result2 =

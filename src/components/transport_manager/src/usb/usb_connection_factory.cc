@@ -73,7 +73,7 @@ TransportAdapter::Error UsbConnectionFactory::CreateConnection(
   }
 
   UsbDevice* usb_device = static_cast<UsbDevice*>(device.get());
-  UsbConnection* usb_connection = new UsbConnection(device_uid,
+  UsbConnection* usb_connection = new(__FILE__, __LINE__) UsbConnection(device_uid,
                                                     app_handle,
                                                     controller_,
                                                     usb_handler_,

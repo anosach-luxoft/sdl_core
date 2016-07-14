@@ -55,10 +55,10 @@ template <typename EnumType>
 class TEnumSchemaItem : public CDefaultSchemaItem<EnumType> {
  public:
   /**
-   * @brief Create a new schema item.
+   * @brief Create a new(__FILE__, __LINE__) schema item.
    * @param AllowedElements Set of allowed enumeration elements.
    * @param DefaultValue Default value.
-   * @return Shared pointer to a new schema item.
+   * @return Shared pointer to a new(__FILE__, __LINE__) schema item.
    **/
   static utils::SharedPtr<TEnumSchemaItem> create(
       const std::set<EnumType>& AllowedElements,
@@ -202,7 +202,7 @@ template <typename EnumType>
 utils::SharedPtr<TEnumSchemaItem<EnumType> > TEnumSchemaItem<EnumType>::create(
     const std::set<EnumType>& AllowedElements,
     const TSchemaItemParameter<EnumType>& DefaultValue) {
-  return new TEnumSchemaItem<EnumType>(AllowedElements, DefaultValue);
+  return new(__FILE__, __LINE__) TEnumSchemaItem<EnumType>(AllowedElements, DefaultValue);
 }
 
 template <typename EnumType>

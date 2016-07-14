@@ -81,7 +81,7 @@ int FindPairedDevs(std::vector<bdaddr_t>* result) {
     LOG4CXX_TRACE(logger_, "exit -1. Condition: !pipe");
     return -1;
   }
-  char* buffer = new char[1028];
+  char* buffer = new(__FILE__, __LINE__) char[1028];
   size_t counter = 0;
   while (fgets(buffer, 1028, pipe) != NULL) {
     if (0 < counter++) {  //  skip first line
@@ -93,7 +93,7 @@ int FindPairedDevs(std::vector<bdaddr_t>* result) {
       }
     }
     delete[] buffer;
-    buffer = new char[1028];
+    buffer = new(__FILE__, __LINE__) char[1028];
   }
   pclose(pipe);
   LOG4CXX_TRACE(logger_, "exit with 0");
@@ -134,7 +134,7 @@ BluetoothDeviceScanner::BluetoothDeviceScanner(
   sdp_uuid128_create(&smart_device_link_service_uuid_,
                      smart_device_link_service_uuid_data);
   thread_ = threads::CreateThread("BT Device Scaner",
-                                  new BluetoothDeviceScannerDelegate(this));
+                                  new(__FILE__, __LINE__) BluetoothDeviceScannerDelegate(this));
 }
 
 BluetoothDeviceScanner::~BluetoothDeviceScanner() {
@@ -196,7 +196,7 @@ void BluetoothDeviceScanner::DoInquiry() {
   LOG4CXX_INFO(logger_, "Starting hci_inquiry on device " << device_id);
   const uint8_t inquiry_time = 8u;  // Time unit is 1.28 seconds
   const size_t max_devices = 256u;
-  inquiry_info* inquiry_info_list = new inquiry_info[max_devices];
+  inquiry_info* inquiry_info_list = new(__FILE__, __LINE__) inquiry_info[max_devices];
 
   const int number_of_devices = hci_inquiry(device_id,
                                             inquiry_time,
@@ -261,7 +261,7 @@ void BluetoothDeviceScanner::CheckSDLServiceOnDevices(
     }
 
     Device* bluetooth_device =
-        new BluetoothDevice(bd_address, deviceName, sdl_rfcomm_channels[i]);
+        new(__FILE__, __LINE__) BluetoothDevice(bd_address, deviceName, sdl_rfcomm_channels[i]);
     if (bluetooth_device) {
       LOG4CXX_INFO(logger_, "Bluetooth device created successfully");
       discovered_devices->push_back(bluetooth_device);

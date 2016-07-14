@@ -65,7 +65,7 @@ class PolicyEventObserverTest : public ::testing::Test {
 
   virtual void SetUp() OVERRIDE {
     policy_event_observer_ =
-        new PolicyEventObserver(&policy_handler_mock_, mock_event_dispatcher_);
+        new(__FILE__, __LINE__) PolicyEventObserver(&policy_handler_mock_, mock_event_dispatcher_);
   }
 
   void TearDown() OVERRIDE {
@@ -74,7 +74,7 @@ class PolicyEventObserverTest : public ::testing::Test {
   }
 
   void CreateEvent(const Event::EventID& event_id) {
-    event_ = new Event(event_id);
+    event_ = new(__FILE__, __LINE__) Event(event_id);
   }
 
   void CookSmartObject(const hmi_apis::Common_Result::eType& result,

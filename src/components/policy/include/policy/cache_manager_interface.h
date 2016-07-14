@@ -127,7 +127,7 @@ class CacheManagerInterface {
   /**
    * @brief Allows to update 'vin' field in module_meta table.
    *
-   * @param new 'vin' value.
+   * @param new(__FILE__, __LINE__) 'vin' value.
    *
    * @return true in case when data has been successfully updated,
    * false otherwise.

@@ -456,7 +456,7 @@ void HMICapabilities::set_ui_supported_languages(
   if (ui_supported_languages_) {
     delete ui_supported_languages_;
   }
-  ui_supported_languages_ = new smart_objects::SmartObject(supported_languages);
+  ui_supported_languages_ = new(__FILE__, __LINE__) smart_objects::SmartObject(supported_languages);
 }
 
 void HMICapabilities::set_tts_supported_languages(
@@ -465,7 +465,7 @@ void HMICapabilities::set_tts_supported_languages(
     delete tts_supported_languages_;
   }
   tts_supported_languages_ =
-      new smart_objects::SmartObject(supported_languages);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(supported_languages);
 }
 
 void HMICapabilities::set_vr_supported_languages(
@@ -473,7 +473,7 @@ void HMICapabilities::set_vr_supported_languages(
   if (vr_supported_languages_) {
     delete vr_supported_languages_;
   }
-  vr_supported_languages_ = new smart_objects::SmartObject(supported_languages);
+  vr_supported_languages_ = new(__FILE__, __LINE__) smart_objects::SmartObject(supported_languages);
 }
 
 void HMICapabilities::set_display_capabilities(
@@ -481,7 +481,7 @@ void HMICapabilities::set_display_capabilities(
   if (display_capabilities_) {
     delete display_capabilities_;
   }
-  display_capabilities_ = new smart_objects::SmartObject(display_capabilities);
+  display_capabilities_ = new(__FILE__, __LINE__) smart_objects::SmartObject(display_capabilities);
 }
 
 void HMICapabilities::set_hmi_zone_capabilities(
@@ -490,7 +490,7 @@ void HMICapabilities::set_hmi_zone_capabilities(
     delete hmi_zone_capabilities_;
   }
   hmi_zone_capabilities_ =
-      new smart_objects::SmartObject(hmi_zone_capabilities);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(hmi_zone_capabilities);
 }
 
 void HMICapabilities::set_soft_button_capabilities(
@@ -499,7 +499,7 @@ void HMICapabilities::set_soft_button_capabilities(
     delete soft_buttons_capabilities_;
   }
   soft_buttons_capabilities_ =
-      new smart_objects::SmartObject(soft_button_capabilities);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(soft_button_capabilities);
 }
 
 void HMICapabilities::set_button_capabilities(
@@ -507,7 +507,7 @@ void HMICapabilities::set_button_capabilities(
   if (button_capabilities_) {
     delete button_capabilities_;
   }
-  button_capabilities_ = new smart_objects::SmartObject(button_capabilities);
+  button_capabilities_ = new(__FILE__, __LINE__) smart_objects::SmartObject(button_capabilities);
 }
 
 void HMICapabilities::set_vr_capabilities(
@@ -515,7 +515,7 @@ void HMICapabilities::set_vr_capabilities(
   if (vr_capabilities_) {
     delete vr_capabilities_;
   }
-  vr_capabilities_ = new smart_objects::SmartObject(vr_capabilities);
+  vr_capabilities_ = new(__FILE__, __LINE__) smart_objects::SmartObject(vr_capabilities);
 }
 
 void HMICapabilities::set_speech_capabilities(
@@ -523,7 +523,7 @@ void HMICapabilities::set_speech_capabilities(
   if (speech_capabilities_) {
     delete speech_capabilities_;
   }
-  speech_capabilities_ = new smart_objects::SmartObject(speech_capabilities);
+  speech_capabilities_ = new(__FILE__, __LINE__) smart_objects::SmartObject(speech_capabilities);
 }
 
 void HMICapabilities::set_audio_pass_thru_capabilities(
@@ -532,7 +532,7 @@ void HMICapabilities::set_audio_pass_thru_capabilities(
     delete audio_pass_thru_capabilities_;
   }
   audio_pass_thru_capabilities_ =
-      new smart_objects::SmartObject(audio_pass_thru_capabilities);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(audio_pass_thru_capabilities);
 }
 
 void HMICapabilities::set_pcm_stream_capabilities(
@@ -541,7 +541,7 @@ void HMICapabilities::set_pcm_stream_capabilities(
     delete pcm_stream_capabilities_;
   }
   pcm_stream_capabilities_ =
-      new smart_objects::SmartObject(pcm_stream_capabilities);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(pcm_stream_capabilities);
 }
 
 void HMICapabilities::set_preset_bank_capabilities(
@@ -550,7 +550,7 @@ void HMICapabilities::set_preset_bank_capabilities(
     delete preset_bank_capabilities_;
   }
   preset_bank_capabilities_ =
-      new smart_objects::SmartObject(preset_bank_capabilities);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(preset_bank_capabilities);
 }
 
 void HMICapabilities::set_vehicle_type(
@@ -558,7 +558,7 @@ void HMICapabilities::set_vehicle_type(
   if (vehicle_type_) {
     delete vehicle_type_;
   }
-  vehicle_type_ = new smart_objects::SmartObject(vehicle_type);
+  vehicle_type_ = new(__FILE__, __LINE__) smart_objects::SmartObject(vehicle_type);
 }
 
 void HMICapabilities::set_prerecorded_speech(
@@ -567,7 +567,7 @@ void HMICapabilities::set_prerecorded_speech(
     delete prerecorded_speech_;
     prerecorded_speech_ = NULL;
   }
-  prerecorded_speech_ = new smart_objects::SmartObject(prerecorded_speech);
+  prerecorded_speech_ = new(__FILE__, __LINE__) smart_objects::SmartObject(prerecorded_speech);
 }
 
 void HMICapabilities::set_ccpu_version(const std::string& ccpu_version) {

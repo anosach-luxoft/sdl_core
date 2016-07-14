@@ -84,10 +84,10 @@ class SQLPTRepresentationTest : public SQLPTRepresentation,
     const std::string kAppStorageFolder = "storage1";
     file_system::RemoveDirectory(kAppStorageFolder);
     file_system::DeleteFile("policy.sqlite");
-    reps = new SQLPTRepresentation;
-    dbms = new DBMS(kDatabaseName);
+    reps = new(__FILE__, __LINE__) SQLPTRepresentation;
+    dbms = new(__FILE__, __LINE__) DBMS(kDatabaseName);
     policy_settings_ = std::auto_ptr<policy_handler_test::MockPolicySettings>(
-        new policy_handler_test::MockPolicySettings());
+        new(__FILE__, __LINE__) policy_handler_test::MockPolicySettings());
     ON_CALL(*policy_settings_, app_storage_folder())
         .WillByDefault(ReturnRef(kAppStorageFolder));
     EXPECT_EQ(::policy::SUCCESS, reps->Init(policy_settings_.get()));
@@ -370,7 +370,7 @@ class SQLPTRepresentationTest2 : public ::testing::Test {
         .WillByDefault(Return(kOpenAttemptTimeoutMs));
     ON_CALL(policy_settings_, attempts_to_open_policy_db())
         .WillByDefault(Return(kAttemptsToOpenPolicyDB));
-    reps = new SQLPTRepresentation;
+    reps = new(__FILE__, __LINE__) SQLPTRepresentation;
   }
 
   void TearDown() OVERRIDE {
@@ -999,7 +999,7 @@ TEST(SQLPTRepresentationTest3, Init_InitNewDataBase_ExpectResultSuccess) {
   // Arrange
   NiceMock<policy_handler_test::MockPolicySettings> policy_settings_;
   SQLPTRepresentation* reps;
-  reps = new SQLPTRepresentation;
+  reps = new(__FILE__, __LINE__) SQLPTRepresentation;
   // Checks
   ON_CALL(policy_settings_, app_storage_folder())
       .WillByDefault(ReturnRef(kAppStorageFolder));
@@ -1479,7 +1479,7 @@ TEST_F(SQLPTRepresentationTest,
 TEST(SQLPTRepresentationTest3, RemoveDB_RemoveDB_ExpectFileDeleted) {
   // Arrange
   policy_handler_test::MockPolicySettings policy_settings_;
-  SQLPTRepresentation* reps = new SQLPTRepresentation;
+  SQLPTRepresentation* reps = new(__FILE__, __LINE__) SQLPTRepresentation;
   EXPECT_EQ(::policy::SUCCESS, reps->Init(&policy_settings_));
   EXPECT_EQ(::policy::EXISTS, reps->Init(&policy_settings_));
   std::string path = (reps->db())->get_path();

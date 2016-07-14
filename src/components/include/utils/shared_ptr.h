@@ -73,7 +73,7 @@ class SharedPtr {
 
   SharedPtr(ObjectType* Object, Deleter deleter)
       : mObject(Object)
-      , mReferenceCounter(new uint32_t(1))
+      , mReferenceCounter(new(__FILE__, __LINE__) uint32_t(1))
       , deleter_(deleter) {}
 
   SharedPtr();
@@ -221,7 +221,7 @@ class SharedPtr {
 template <typename ObjectType>
 inline utils::SharedPtr<ObjectType>::SharedPtr(ObjectType* Object)
     : mObject(NULL)
-    , mReferenceCounter(new uint32_t(1))
+    , mReferenceCounter(new(__FILE__, __LINE__) uint32_t(1))
     , deleter_(DummyDeleter) {
   DCHECK(Object != NULL);
   mObject = Object;
@@ -358,7 +358,7 @@ template <typename ObjectType>
 void utils::SharedPtr<ObjectType>::reset_impl(ObjectType* other) {
   dropReference();
   mObject = other;
-  mReferenceCounter = new uint32_t(1);
+  mReferenceCounter = new(__FILE__, __LINE__) uint32_t(1);
 }
 
 template <typename ObjectType>

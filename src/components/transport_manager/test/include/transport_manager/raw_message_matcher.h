@@ -65,7 +65,7 @@ class RawMessageMatcher : public MatcherInterface<RawMessagePtr> {
 };
 
 inline const Matcher<RawMessagePtr> RawMessageEq(RawMessagePtr msg) {
-  return MakeMatcher(new RawMessageMatcher(msg));
+  return MakeMatcher(new(__FILE__, __LINE__) RawMessageMatcher(msg));
 }
 
 }  // namespace transport_manager

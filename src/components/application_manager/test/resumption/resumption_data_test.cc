@@ -384,8 +384,8 @@ void ResumptionDataTest::SetMenuTitleAndIcon() {
 
   sm::SmartObject sm_title;
   sm_title = "test title";
-  menu_title_ = new sm::SmartObject(sm_title);
-  menu_icon_ = new sm::SmartObject(sm_icon);
+  menu_title_ = new(__FILE__, __LINE__) sm::SmartObject(sm_title);
+  menu_icon_ = new(__FILE__, __LINE__) sm::SmartObject(sm_icon);
 }
 
 void ResumptionDataTest::SetHelpAndTimeoutPrompt() {
@@ -398,7 +398,7 @@ void ResumptionDataTest::SetHelpAndTimeoutPrompt() {
     help_prompt[i][am::strings::text] = "help prompt name" + std::string(numb);
     help_prompt[i][am::strings::type] = SpeechCapabilities::PRE_RECORDED;
   }
-  help_prompt_ = new sm::SmartObject(help_prompt);
+  help_prompt_ = new(__FILE__, __LINE__) sm::SmartObject(help_prompt);
   for (uint i = 0; i < tts_chunks_count; ++i) {
     char numb[12];
     std::snprintf(numb, 12, "%d", i);
@@ -406,7 +406,7 @@ void ResumptionDataTest::SetHelpAndTimeoutPrompt() {
     timeout_prompt[i][am::strings::type] = SpeechCapabilities::SC_TEXT;
   }
 
-  timeout_prompt_ = new sm::SmartObject(timeout_prompt);
+  timeout_prompt_ = new(__FILE__, __LINE__) sm::SmartObject(timeout_prompt);
 }
 
 void ResumptionDataTest::SetVRHelpTitle() {
@@ -421,8 +421,8 @@ void ResumptionDataTest::SetVRHelpTitle() {
     vr_help[i][am::strings::position] = i;
   }
 
-  vr_help_ = new sm::SmartObject(vr_help);
-  vr_help_title_ = new sm::SmartObject(vr_help_title);
+  vr_help_ = new(__FILE__, __LINE__) sm::SmartObject(vr_help);
+  vr_help_title_ = new(__FILE__, __LINE__) sm::SmartObject(vr_help_title);
 }
 
 void ResumptionDataTest::SetCommands() {
@@ -451,7 +451,7 @@ void ResumptionDataTest::SetCommands() {
 
     sm_comm[am::strings::cmd_icon] = sm_icon;
 
-    test_commands_map[i] = new sm::SmartObject(sm_comm);
+    test_commands_map[i] = new(__FILE__, __LINE__) sm::SmartObject(sm_comm);
   }
 }
 
@@ -463,7 +463,7 @@ void ResumptionDataTest::SetSubmenues() {
     sm_comm[am::strings::menu_id] = i;
     sm_comm[am::strings::position] = i;
     sm_comm[am::strings::menu_name] = "SubMenu" + std::string(numb);
-    test_submenu_map[i] = new sm::SmartObject(sm_comm);
+    test_submenu_map[i] = new(__FILE__, __LINE__) sm::SmartObject(sm_comm);
   }
 }
 
@@ -505,7 +505,7 @@ void ResumptionDataTest::SetChoiceSet() {
     app_choice_set[am::strings::choice_set] = choice_vector;
     application_choice_sets[i] = app_choice_set;
 
-    test_choiceset_map[i] = new sm::SmartObject(application_choice_sets[i]);
+    test_choiceset_map[i] = new(__FILE__, __LINE__) sm::SmartObject(application_choice_sets[i]);
   }
 }
 
@@ -533,7 +533,7 @@ void ResumptionDataTest::SetKeyboardProperties() {
   keyboard[am::strings::auto_complete_text] = "complete";
   keyboard[am::strings::limited_character_list][0] = "y";
   keyboard[am::strings::limited_character_list][1] = "n";
-  keyboard_props_ = new sm::SmartObject(keyboard);
+  keyboard_props_ = new(__FILE__, __LINE__) sm::SmartObject(keyboard);
 }
 
 void ResumptionDataTest::SetSubscriptions() {

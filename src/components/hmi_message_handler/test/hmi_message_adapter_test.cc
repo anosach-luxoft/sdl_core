@@ -55,7 +55,7 @@ TEST(HMIMessageAdapterImplTest, Handler_CorrectPointer_CorrectReturnedPointer) {
   ON_CALL(mock_hmi_message_handler_settings, thread_min_stack_size())
       .WillByDefault(ReturnRef(stack_size));
   HMIMessageHandler* message_handler =
-      new hmi_message_handler::HMIMessageHandlerImpl(
+      new(__FILE__, __LINE__) hmi_message_handler::HMIMessageHandlerImpl(
           mock_hmi_message_handler_settings);
   ;
 

@@ -54,14 +54,14 @@ ResumptionDataDB::ResumptionDataDB(
     const application_manager::ApplicationManager& application_manager)
     : ResumptionData(application_manager) {
   if (db_storage == In_File_Storage) {
-    db_ = new utils::dbms::SQLDatabase(kDatabaseName);
+    db_ = new(__FILE__, __LINE__) utils::dbms::SQLDatabase(kDatabaseName);
 #ifndef __QNX__
     std::string path = application_manager_.get_settings().app_storage_folder();
     if (!path.empty()) {
       db_->set_path(path + "/");
     }
   } else if (db_storage == In_Memory_Storage) {
-    db_ = new utils::dbms::SQLDatabase();
+    db_ = new(__FILE__, __LINE__) utils::dbms::SQLDatabase();
 #endif  // __QNX__
   } else {
     LOG4CXX_AUTO_TRACE(logger_);
@@ -608,7 +608,7 @@ void ResumptionDataDB::UpdateHmiLevel(const std::string& policy_app_id,
       LOG4CXX_INFO(logger_,
                    "Saved data has application with policy appID = "
                        << policy_app_id << " and deviceID = " << device_id
-                       << " has new HMI level = " << hmi_level);
+                       << " has new(__FILE__, __LINE__) HMI level = " << hmi_level);
       WriteDb();
     }
   }
@@ -2753,7 +2753,7 @@ bool ResumptionDataDB::UpdateGrammarID(const std::string& policy_app_id,
 
 utils::dbms::SQLDatabase* ResumptionDataDB::db() const {
 #ifdef __QNX__
-  utils::dbms::SQLDatabase* db = new utils::dbms::SQLDatabase(kDatabaseName);
+  utils::dbms::SQLDatabase* db = new(__FILE__, __LINE__) utils::dbms::SQLDatabase(kDatabaseName);
   db->Open();
   return db;
 #else

@@ -167,7 +167,7 @@ void MessageBrokerAdapter::ProcessRecievedFromMB(Json::Value& root) {
   // assign default priority
   hmi_message_handler::MessageSharedPointer message =
       hmi_message_handler::MessageSharedPointer(
-          new application_manager::Message(
+          new(__FILE__, __LINE__) application_manager::Message(
               protocol_handler::MessagePriority::kDefault));
   // message->set_message_type()
   message->set_json_message(message_string);

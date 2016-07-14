@@ -105,9 +105,9 @@ class PolicyManagerImplTest : public ::testing::Test {
   NiceMock<MockPolicyListener> listener;
 
   void SetUp() OVERRIDE {
-    manager = new PolicyManagerImpl();
+    manager = new(__FILE__, __LINE__) PolicyManagerImpl();
     manager->set_listener(&listener);
-    cache_manager = new MockCacheManagerInterface();
+    cache_manager = new(__FILE__, __LINE__) MockCacheManagerInterface();
     manager->set_cache_manager(cache_manager);
   }
 
@@ -154,7 +154,7 @@ class PolicyManagerImplTest2 : public ::testing::Test {
     file_system::CreateDirectory("storage1");
     file_system::DeleteFile("policy.sqlite");
 
-    manager = new PolicyManagerImpl();
+    manager = new(__FILE__, __LINE__) PolicyManagerImpl();
     ON_CALL(policy_settings_, app_storage_folder())
         .WillByDefault(ReturnRef(kAppStorageFolder));
     manager->set_listener(&listener);

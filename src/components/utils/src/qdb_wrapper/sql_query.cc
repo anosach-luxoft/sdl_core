@@ -122,7 +122,7 @@ uint8_t SQLQuery::SetBinds() {
   uint8_t binding_count = int_binds_.size() + double_binds_.size() +
                           string_binds_.size() + null_binds_.size();
 
-  bindings_ = new qdb_binding_t[binding_count];
+  bindings_ = new(__FILE__, __LINE__) qdb_binding_t[binding_count];
 
   std::for_each(
       int_binds_.begin(), int_binds_.end(), SetBindInteger(bindings_));

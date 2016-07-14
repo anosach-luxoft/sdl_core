@@ -83,11 +83,11 @@ SmartObject::SmartObject(SmartType Type) : m_type(SmartType_Null), m_schema() {
       set_value_string(custom_str::CustomString());
       break;
     case SmartType_Map:
-      m_data.map_value = new SmartMap();
+      m_data.map_value = new(__FILE__, __LINE__) SmartMap();
       m_type = SmartType_Map;
       break;
     case SmartType_Array:
-      m_data.array_value = new SmartArray();
+      m_data.array_value = new(__FILE__, __LINE__) SmartArray();
       m_type = SmartType_Array;
       break;
     case SmartType_Binary:
@@ -472,7 +472,7 @@ bool SmartObject::operator==(const std::string& Value) const {
 
 void SmartObject::set_value_string(const custom_str::CustomString& NewValue) {
   set_new_type(SmartType_String);
-  m_data.str_value = new custom_str::CustomString(NewValue);
+  m_data.str_value = new(__FILE__, __LINE__) custom_str::CustomString(NewValue);
 }
 
 std::string SmartObject::convert_string() const {
@@ -573,7 +573,7 @@ bool SmartObject::operator==(const SmartBinary& Value) const {
 
 void SmartObject::set_value_binary(const SmartBinary& NewValue) {
   set_new_type(SmartType_Binary);
-  m_data.binary_value = new SmartBinary(NewValue);
+  m_data.binary_value = new(__FILE__, __LINE__) SmartBinary(NewValue);
 }
 
 SmartBinary SmartObject::convert_binary() const {
@@ -606,7 +606,7 @@ inline SmartObject& SmartObject::handle_array_access(const int32_t Index) {
   if (m_type != SmartType_Array) {
     cleanup_data();
     m_type = SmartType_Array;
-    m_data.array_value = new SmartArray();
+    m_data.array_value = new(__FILE__, __LINE__) SmartArray();
   }
   SmartArray& array = *m_data.array_value;
   if (Index == -1 || static_cast<size_t>(Index) == array.size()) {
@@ -676,7 +676,7 @@ SmartObject& SmartObject::handle_map_access(const std::string& Key) {
   if (m_type != SmartType_Map) {
     cleanup_data();
     m_type = SmartType_Map;
-    m_data.map_value = new SmartMap();
+    m_data.map_value = new(__FILE__, __LINE__) SmartMap();
   }
   SmartMap& map = *m_data.map_value;
 
@@ -693,10 +693,10 @@ void SmartObject::duplicate(const SmartObject& OtherObject) {
     case SmartType_Null:  // on duplicate empty SmartObject
       return;
     case SmartType_Map:
-      newData.map_value = new SmartMap(*OtherObject.m_data.map_value);
+      newData.map_value = new(__FILE__, __LINE__) SmartMap(*OtherObject.m_data.map_value);
       break;
     case SmartType_Array:
-      newData.array_value = new SmartArray(*OtherObject.m_data.array_value);
+      newData.array_value = new(__FILE__, __LINE__) SmartArray(*OtherObject.m_data.array_value);
       break;
     case SmartType_Integer:
       newData.int_value = OtherObject.m_data.int_value;
@@ -712,10 +712,10 @@ void SmartObject::duplicate(const SmartObject& OtherObject) {
       break;
     case SmartType_String:
       newData.str_value =
-          new custom_str::CustomString(*OtherObject.m_data.str_value);
+          new(__FILE__, __LINE__) custom_str::CustomString(*OtherObject.m_data.str_value);
       break;
     case SmartType_Binary:
-      newData.binary_value = new SmartBinary(*OtherObject.m_data.binary_value);
+      newData.binary_value = new(__FILE__, __LINE__) SmartBinary(*OtherObject.m_data.binary_value);
       break;
     default:
       DCHECK(!"Unhandled smart object type");

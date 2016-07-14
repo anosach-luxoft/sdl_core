@@ -85,7 +85,7 @@ AppStopwatchImpl::AppStopwatchImpl(
     , stopwatch_type_(SECONDS_HMI_NONE)
     , statistics_manager_(statistics_manager)
     , timer_("HMI levels timer",
-             new timer::TimerTaskImpl<AppStopwatchImpl>(
+             new(__FILE__, __LINE__) timer::TimerTaskImpl<AppStopwatchImpl>(
                  this, &AppStopwatchImpl::WriteTime))
     , time_out_(60) {}
 
@@ -97,7 +97,7 @@ AppStopwatchImpl::AppStopwatchImpl(
     , stopwatch_type_(SECONDS_HMI_NONE)
     , statistics_manager_(statistics_manager)
     , timer_("HMI levels timer",
-             new timer::TimerTaskImpl<AppStopwatchImpl>(
+             new(__FILE__, __LINE__) timer::TimerTaskImpl<AppStopwatchImpl>(
                  this, &AppStopwatchImpl::WriteTime))
     , time_out_(timeout) {}
 

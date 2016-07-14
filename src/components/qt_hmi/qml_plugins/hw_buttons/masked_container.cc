@@ -78,7 +78,7 @@ void MaskedContainer::componentComplete() {
   setHeight(height);
   setWidth(width);
 
-  mask_ = new int[height * width];
+  mask_ = new(__FILE__, __LINE__) int[height * width];
   std::fill(mask_, mask_ + height * width, -1);
 
   for (size_t i = 0; i < images_.size(); ++i) {

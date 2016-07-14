@@ -418,7 +418,7 @@ void TransportAdapterImpl::SearchDeviceDone(const DeviceVector& devices) {
 
     if (!device_found) {
       LOG4CXX_INFO(logger_,
-                   "Adding new device " << device->unique_device_id() << " (\""
+                   "Adding new(__FILE__, __LINE__) device " << device->unique_device_id() << " (\""
                                         << device->name() << "\")");
     }
 

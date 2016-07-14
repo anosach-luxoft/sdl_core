@@ -675,7 +675,7 @@ void StateControllerImpl::OnStateChanged(ApplicationSharedPtr app,
                                   << ", system_context "
                                   << old_state->system_context());
   LOG4CXX_DEBUG(logger_,
-                "new: hmi_level " << new_state->hmi_level() << ", audio_state "
+                "new(__FILE__, __LINE__): hmi_level " << new_state->hmi_level() << ", audio_state "
                                   << new_state->audio_streaming_state()
                                   << ", system_context "
                                   << new_state->system_context());

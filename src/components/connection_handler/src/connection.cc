@@ -85,7 +85,7 @@ Connection::Connection(ConnectionHandle connection_handle,
   LOG4CXX_AUTO_TRACE(logger_);
   DCHECK(connection_handler_);
 
-  heartbeat_monitor_ = new HeartBeatMonitor(heartbeat_timeout_, this);
+  heartbeat_monitor_ = new(__FILE__, __LINE__) HeartBeatMonitor(heartbeat_timeout_, this);
   heart_beat_monitor_thread_ =
       threads::CreateThread("HeartBeatMonitor", heartbeat_monitor_);
   heart_beat_monitor_thread_->start();

@@ -1320,7 +1320,7 @@
           TTS string for VR recognition of the mobile application name, e.g. "Ford Drive Green".
           Meant to overcome any failing on speech engine in properly pronouncing / understanding app name.
           May not be empty.
-          May not start with a new line character.
+          May not start with a new(__FILE__, __LINE__) line character.
           Not unique value
         </description>
       </param>
@@ -1955,7 +1955,7 @@
     <function name="OnSDLPersistenceComplete" messagetype="notification" provider="sdl">
     </function>
     <function name="UpdateAppList" messagetype="request" provider="hmi">
-      <description>Issued by SDL to notify HMI about new applications registered.</description>
+      <description>Issued by SDL to notify HMI about new(__FILE__, __LINE__) applications registered.</description>
       <param name="applications" type="Common.HMIApplication" mandatory="true" array="true" minsize="0" maxsize="100"/>
     </function>
     <function name="UpdateAppList" messagetype="response">
@@ -1981,7 +1981,7 @@
       </param>
     </function>
     <function name="AllowDeviceToConnect" messagetype="request" provider="hmi">
-      <description>Request from SmartDeviceLink to HMI to get the permissions of new device connection.</description>
+      <description>Request from SmartDeviceLink to HMI to get the permissions of new(__FILE__, __LINE__) device connection.</description>
       <param name="device" type="Common.DeviceInfo" mandatory="true"/>
     </function>
     <function name="AllowDeviceToConnect" messagetype="response">
@@ -2029,7 +2029,7 @@
       </param>
     </function>
     <function name="OnAppRegistered" messagetype="notification" provider="sdl">
-      <description>Issued by SDL to notify HMI about new application registered.</description>
+      <description>Issued by SDL to notify HMI about new(__FILE__, __LINE__) application registered.</description>
       <param name="application" type="Common.HMIApplication" mandatory="true">
         <description>The information about application registered. See HMIApplication. </description>
       </param>
@@ -2038,7 +2038,7 @@
           TTS string for VR recognition of the mobile application name, e.g. "Ford Drive Green".
           Meant to overcome any failing on speech engine in properly pronouncing / understanding app name.
           May not be empty.
-          May not start with a new line character.
+          May not start with a new(__FILE__, __LINE__) line character.
           Not unique value
         </description>
       </param>
@@ -2341,7 +2341,7 @@
       <description>Request from SmartDeviceLink to HMI to change language of VR.</description>
       <param name="vrSynonyms" type="String" maxlength="40" minsize="1" maxsize="100" array="true" mandatory="false">
         <description>
-          Request new VR synonyms registration
+          Request new(__FILE__, __LINE__) VR synonyms registration
           Defines an additional voice recognition command.
           Must not interfere with any name of previously registered applications(SDL makes check).
         </description>
@@ -2435,11 +2435,11 @@
       <description>Request from SmartDeviceLink to HMI to change language of TTS.</description>
       <param name="ttsName" type="Common.TTSChunk" minsize="1" maxsize="100" array="true" mandatory="false" >
         <description>
-          Request new ttsName registration
+          Request new(__FILE__, __LINE__) ttsName registration
           TTS string for VR recognition of the mobile application name, e.g. "Ford Drive Green".
           Meant to overcome any failing on speech engine in properly pronouncing / understanding app name.
           May not be empty.
-          May not start with a new line character.
+          May not start with a new(__FILE__, __LINE__) line character.
           Not unique value (SDL makes all the checks)
         </description>
       </param>
@@ -2751,15 +2751,15 @@
       <description>Request from SmartDeviceLink to HMI to change language for app.</description>
       <param name="appName" type="String" maxlength="100" mandatory="false">
         <description>
-          Request new app name registration
+          Request new(__FILE__, __LINE__) app name registration
           Needs to be unique over all applications.
-          May not be empty. May not start with a new line character.
+          May not be empty. May not start with a new(__FILE__, __LINE__) line character.
           May not interfere with any name or synonym of any registered applications.
           Applications with the same name will be rejected. (SDL makes all the checks)
         </description>
       </param>
       <param name="ngnMediaScreenAppName" type="String" maxlength="100" mandatory="false">
-        <description>Request new app short name registration</description>
+        <description>Request new(__FILE__, __LINE__) app short name registration</description>
       </param>
       <param name="language" type="Common.Language" mandatory="true">
         <description>The language application wants to switch to.</description>
@@ -4055,7 +4055,7 @@
       <description>
         From: SYNCP Manager
         To: SDL
-        Notifies SDL to supply a new "PolicyUpdate" request with more recent snapshot data
+        Notifies SDL to supply a new(__FILE__, __LINE__) "PolicyUpdate" request with more recent snapshot data
       </description>
     </function>
     <!-- End of SyncP RPC-->

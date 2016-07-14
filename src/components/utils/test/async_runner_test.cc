@@ -80,7 +80,7 @@ class AsyncRunnerTest : public ::testing::Test {
   void CreateThreadsArray() {
     srand(std::time(NULL));
     kDelegatesNum_ = (rand() % 20 + 1);
-    delegates_ = new TestThreadDelegate* [kDelegatesNum_];
+    delegates_ = new(__FILE__, __LINE__) TestThreadDelegate* [kDelegatesNum_];
   }
 
   void DeleteThreadsArray() {
@@ -88,7 +88,7 @@ class AsyncRunnerTest : public ::testing::Test {
   }
 
   void CreateAsyncRunner() {
-    asr_pt_ = new AsyncRunner("test");
+    asr_pt_ = new(__FILE__, __LINE__) AsyncRunner("test");
   }
   void DeleteAsyncRunner() {
     delete asr_pt_;
@@ -101,7 +101,7 @@ TEST_F(AsyncRunnerTest, ASyncRunManyDelegates_ExpectSuccessfulAllDelegatesRun) {
   check_value = 0;
   // Create Delegates and run
   for (unsigned int i = 0; i < kDelegatesNum_; ++i) {
-    delegates_[i] = new TestThreadDelegate();
+    delegates_[i] = new(__FILE__, __LINE__) TestThreadDelegate();
     asr_pt_->AsyncRun(delegates_[i]);
   }
   // Wait for 2 secs. Give this time to delegates to be run
@@ -118,7 +118,7 @@ TEST_F(AsyncRunnerTest,
   check_value = 0;
   // Create Delegates
   for (unsigned int i = 0; i < kDelegatesNum_; ++i) {
-    delegates_[i] = new TestThreadDelegate();
+    delegates_[i] = new(__FILE__, __LINE__) TestThreadDelegate();
   }
   // Wait for 2 secs
   cond_var_.WaitFor(lock, 2000);

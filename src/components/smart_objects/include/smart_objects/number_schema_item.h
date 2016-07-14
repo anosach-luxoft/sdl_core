@@ -50,11 +50,11 @@ template <typename NumberType>
 class TNumberSchemaItem : public CDefaultSchemaItem<NumberType> {
  public:
   /**
-   * @brief Create a new schema item.
+   * @brief Create a new(__FILE__, __LINE__) schema item.
    * @param MinValue Minimum allowed value.
    * @param MaxValue Maximum allowed value.
    * @param DefaultValue Default value.
-   * @return Shared pointer to a new schema item.
+   * @return Shared pointer to a new(__FILE__, __LINE__) schema item.
    **/
   static utils::SharedPtr<TNumberSchemaItem> create(
       const TSchemaItemParameter<NumberType>& MinValue =
@@ -106,7 +106,7 @@ utils::SharedPtr<TNumberSchemaItem<NumberType> > TNumberSchemaItem<
     NumberType>::create(const TSchemaItemParameter<NumberType>& MinValue,
                         const TSchemaItemParameter<NumberType>& MaxValue,
                         const TSchemaItemParameter<NumberType>& DefaultValue) {
-  return new TNumberSchemaItem<NumberType>(MinValue, MaxValue, DefaultValue);
+  return new(__FILE__, __LINE__) TNumberSchemaItem<NumberType>(MinValue, MaxValue, DefaultValue);
 }
 
 template <typename NumberType>

@@ -209,7 +209,7 @@ void PutFileRequest::Run() {
             LOG4CXX_INFO(logger_,
                          "Couldn't add file to application (File already Exist"
                              << " in application and was rewritten on FS)");
-            /* It can be first part of new big file, so we need to update
+            /* It can be first part of new(__FILE__, __LINE__) big file, so we need to update
                information about it's downloading status and persistence */
             if (!application->UpdateFile(file)) {
               LOG4CXX_ERROR(logger_, "Couldn't update file");
@@ -247,7 +247,7 @@ void PutFileRequest::Run() {
 void PutFileRequest::SendOnPutFileNotification() {
   LOG4CXX_INFO(logger_, "SendOnPutFileNotification");
   smart_objects::SmartObjectSPtr notification =
-      new smart_objects::SmartObject(smart_objects::SmartType_Map);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map);
 
   smart_objects::SmartObject& message = *notification;
   message[strings::params][strings::function_id] =

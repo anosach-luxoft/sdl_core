@@ -67,7 +67,7 @@ void TransportAdapterListenerImpl::OnSearchDeviceFailed(
     const TransportAdapter* adapter, const SearchDeviceError& error) {
   LOG4CXX_TRACE(logger_,
                 "enter. adapter: " << adapter << ", error: " << &error);
-  SearchDeviceError* err = new SearchDeviceError(error);
+  SearchDeviceError* err = new(__FILE__, __LINE__) SearchDeviceError(error);
   const TransportAdapterEvent event(
       TransportAdapterListenerImpl::EventTypeEnum::ON_SEARCH_FAIL,
       transport_adapter_,
@@ -132,7 +132,7 @@ void TransportAdapterListenerImpl::OnConnectDone(
       device,
       application_id,
       ::protocol_handler::RawMessagePtr(),
-      BaseErrorPtr(new BaseError()));
+      BaseErrorPtr(new(__FILE__, __LINE__) BaseError()));
   if (transport_manager_ != NULL &&
       transport_manager::E_SUCCESS !=
           transport_manager_->ReceiveEventFromDevice(event)) {
@@ -150,7 +150,7 @@ void TransportAdapterListenerImpl::OnConnectFailed(
                 "enter. adapter: " << adapter << ", device: " << &device
                                    << ", application_id: " << &app_id
                                    << ", error: " << &error);
-  ConnectError* err = new ConnectError(error);
+  ConnectError* err = new(__FILE__, __LINE__) ConnectError(error);
   const TransportAdapterEvent event(
       TransportAdapterListenerImpl::EventTypeEnum::ON_CONNECT_FAIL,
       transport_adapter_,
@@ -179,7 +179,7 @@ void TransportAdapterListenerImpl::OnDisconnectDone(
       device,
       app_id,
       ::protocol_handler::RawMessagePtr(),
-      BaseErrorPtr(new BaseError()));
+      BaseErrorPtr(new(__FILE__, __LINE__) BaseError()));
   if (transport_manager_ != NULL &&
       transport_manager::E_SUCCESS !=
           transport_manager_->ReceiveEventFromDevice(event)) {
@@ -197,7 +197,7 @@ void TransportAdapterListenerImpl::OnDisconnectFailed(
                 "enter. adapter: " << adapter << ", device: " << &device
                                    << ", application_id: " << &app_id
                                    << ", error: " << &error);
-  DisconnectError* err = new DisconnectError(error);
+  DisconnectError* err = new(__FILE__, __LINE__) DisconnectError(error);
   const TransportAdapterEvent event(
       TransportAdapterListenerImpl::EventTypeEnum::ON_DISCONNECT_FAIL,
       transport_adapter_,
@@ -236,7 +236,7 @@ void TransportAdapterListenerImpl::OnDataReceiveDone(
       device,
       app_id,
       data_container,
-      BaseErrorPtr(new BaseError()));
+      BaseErrorPtr(new(__FILE__, __LINE__) BaseError()));
   if (transport_manager_ != NULL &&
       transport_manager::E_SUCCESS !=
           transport_manager_->ReceiveEventFromDevice(event)) {
@@ -254,7 +254,7 @@ void TransportAdapterListenerImpl::OnDataReceiveFailed(
                 "enter. adapter: " << adapter << ", device: " << &device
                                    << ", application_id: " << &app_id
                                    << ", error: " << &error);
-  DataReceiveError* err = new DataReceiveError(error);
+  DataReceiveError* err = new(__FILE__, __LINE__) DataReceiveError(error);
   const TransportAdapterEvent event(
       TransportAdapterListenerImpl::EventTypeEnum::ON_RECEIVED_FAIL,
       transport_adapter_,
@@ -285,7 +285,7 @@ void TransportAdapterListenerImpl::OnDataSendDone(
       device,
       app_id,
       data_container,
-      new BaseError());
+      new(__FILE__, __LINE__) BaseError());
   if (transport_manager_ != NULL &&
       transport_manager::E_SUCCESS !=
           transport_manager_->ReceiveEventFromDevice(event)) {
@@ -305,7 +305,7 @@ void TransportAdapterListenerImpl::OnDataSendFailed(
                                    << ", application_id: " << &app_id
                                    << ", data_container: " << data_container
                                    << ", error: " << &error);
-  DataSendError* err = new DataSendError(error);
+  DataSendError* err = new(__FILE__, __LINE__) DataSendError(error);
   const TransportAdapterEvent event(
       TransportAdapterListenerImpl::EventTypeEnum::ON_SEND_FAIL,
       transport_adapter_,
@@ -335,7 +335,7 @@ void TransportAdapterListenerImpl::OnUnexpectedDisconnect(
                 "enter. adapter: " << adapter << ", device: " << &device
                                    << ", application: " << &application
                                    << ", error: " << &error);
-  CommunicationError* err = new CommunicationError(error);
+  CommunicationError* err = new(__FILE__, __LINE__) CommunicationError(error);
   const TransportAdapterEvent event(
       TransportAdapterListenerImpl::EventTypeEnum::ON_UNEXPECTED_DISCONNECT,
       transport_adapter_,
@@ -364,7 +364,7 @@ void TransportAdapterListenerImpl::OnCommunicationError(
       device,
       app_id,
       ::protocol_handler::RawMessagePtr(),
-      BaseErrorPtr(new BaseError()));
+      BaseErrorPtr(new(__FILE__, __LINE__) BaseError()));
   if (transport_manager_ != NULL &&
       transport_manager::E_SUCCESS !=
           transport_manager_->ReceiveEventFromDevice(event)) {

@@ -68,7 +68,7 @@ TEST_F(TcpAdapterTest, StoreDataWithOneDeviceAndOneApplication) {
   MockTCPTransportAdapter transport_adapter(
       port, last_state_, transport_manager_settings);
   std::string uniq_id = "unique_device_name";
-  utils::SharedPtr<MockTCPDevice> mockdev = new MockTCPDevice(port, uniq_id);
+  utils::SharedPtr<MockTCPDevice> mockdev = new(__FILE__, __LINE__) MockTCPDevice(port, uniq_id);
   transport_adapter.AddDevice(mockdev);
 
   std::vector<std::string> devList = transport_adapter.GetDeviceList();
@@ -79,7 +79,7 @@ TEST_F(TcpAdapterTest, StoreDataWithOneDeviceAndOneApplication) {
   std::vector<int> intList = {app_handle};
   EXPECT_CALL(*mockdev, GetApplicationList()).WillOnce(Return(intList));
 
-  ConnectionSPtr mock_connection = new MockConnection();
+  ConnectionSPtr mock_connection = new(__FILE__, __LINE__) MockConnection();
   EXPECT_CALL(transport_adapter, FindDevice(uniq_id)).WillOnce(Return(mockdev));
   EXPECT_CALL(transport_adapter, FindEstablishedConnection(uniq_id, app_handle))
       .WillOnce(Return(mock_connection));
@@ -113,7 +113,7 @@ TEST_F(TcpAdapterTest, StoreDataWithSeveralDevicesAndOneApplication) {
     char numb[12];
     std::snprintf(numb, 12, "%d", i);
     uniq_id[i] = "unique_device_name" + std::string(numb);
-    mockdev[i] = new MockTCPDevice(port, uniq_id[i]);
+    mockdev[i] = new(__FILE__, __LINE__) MockTCPDevice(port, uniq_id[i]);
     EXPECT_CALL(*(mockdev[i]), IsSameAs(_)).WillRepeatedly(Return(false));
     transport_adapter.AddDevice(mockdev[i]);
   }
@@ -125,7 +125,7 @@ TEST_F(TcpAdapterTest, StoreDataWithSeveralDevicesAndOneApplication) {
   const int app_handle = 1;
   std::vector<int> intList = {app_handle};
 
-  ConnectionSPtr mock_connection = new MockConnection();
+  ConnectionSPtr mock_connection = new(__FILE__, __LINE__) MockConnection();
   for (uint32_t i = 0; i < count_dev; i++) {
     EXPECT_CALL(transport_adapter, FindDevice(uniq_id[i]))
         .WillOnce(Return(mockdev[i]));
@@ -167,7 +167,7 @@ TEST_F(TcpAdapterTest, StoreDataWithSeveralDevicesAndSeveralApplications) {
     char numb[12];
     std::snprintf(numb, 12, "%d", i);
     uniq_id[i] = "unique_device_name" + std::string(numb);
-    mockdev[i] = new MockTCPDevice(port, uniq_id[i]);
+    mockdev[i] = new(__FILE__, __LINE__) MockTCPDevice(port, uniq_id[i]);
     EXPECT_CALL(*(mockdev[i]), IsSameAs(_)).WillRepeatedly(Return(false));
     transport_adapter.AddDevice(mockdev[i]);
   }
@@ -181,7 +181,7 @@ TEST_F(TcpAdapterTest, StoreDataWithSeveralDevicesAndSeveralApplications) {
   std::vector<int> intList = {app_handle[0], app_handle[1], app_handle[2]};
   const std::string ports[connection_count] = {"11111", "67890", "98765"};
   const int int_port[connection_count] = {11111, 67890, 98765};
-  ConnectionSPtr mock_connection = new MockConnection();
+  ConnectionSPtr mock_connection = new(__FILE__, __LINE__) MockConnection();
   for (uint32_t i = 0; i < count_dev; i++) {
     EXPECT_CALL(transport_adapter, FindDevice(uniq_id[i]))
         .WillOnce(Return(mockdev[i]));
@@ -219,7 +219,7 @@ TEST_F(TcpAdapterTest, StoreData_ConnectionNotExist_DataNotStored) {
   MockTCPTransportAdapter transport_adapter(
       port, last_state_, transport_manager_settings);
   std::string uniq_id = "unique_device_name";
-  utils::SharedPtr<MockTCPDevice> mockdev = new MockTCPDevice(port, uniq_id);
+  utils::SharedPtr<MockTCPDevice> mockdev = new(__FILE__, __LINE__) MockTCPDevice(port, uniq_id);
   transport_adapter.AddDevice(mockdev);
 
   std::vector<std::string> devList = transport_adapter.GetDeviceList();
@@ -254,7 +254,7 @@ TEST_F(TcpAdapterTest, StoreDataWithOneDevice_RestoreData) {
   MockTCPTransportAdapter transport_adapter(
       port, last_state_, transport_manager_settings);
   std::string uniq_id = "unique_device_name";
-  utils::SharedPtr<MockTCPDevice> mockdev = new MockTCPDevice(port, uniq_id);
+  utils::SharedPtr<MockTCPDevice> mockdev = new(__FILE__, __LINE__) MockTCPDevice(port, uniq_id);
   transport_adapter.AddDevice(mockdev);
 
   std::vector<std::string> devList = transport_adapter.GetDeviceList();
@@ -265,7 +265,7 @@ TEST_F(TcpAdapterTest, StoreDataWithOneDevice_RestoreData) {
   std::vector<int> intList = {app_handle};
   EXPECT_CALL(*mockdev, GetApplicationList()).WillOnce(Return(intList));
 
-  ConnectionSPtr mock_connection = new MockConnection();
+  ConnectionSPtr mock_connection = new(__FILE__, __LINE__) MockConnection();
   EXPECT_CALL(transport_adapter, FindDevice(uniq_id)).WillOnce(Return(mockdev));
   EXPECT_CALL(transport_adapter, FindEstablishedConnection(uniq_id, app_handle))
       .WillOnce(Return(mock_connection));
@@ -295,7 +295,7 @@ TEST_F(TcpAdapterTest, StoreDataWithSeveralDevices_RestoreData) {
     char numb[12];
     std::snprintf(numb, 12, "%d", i);
     uniq_id[i] = "unique_device_name" + std::string(numb);
-    mockdev[i] = new MockTCPDevice(port, uniq_id[i]);
+    mockdev[i] = new(__FILE__, __LINE__) MockTCPDevice(port, uniq_id[i]);
     EXPECT_CALL(*(mockdev[i]), IsSameAs(_)).WillRepeatedly(Return(false));
     transport_adapter.AddDevice(mockdev[i]);
   }
@@ -307,7 +307,7 @@ TEST_F(TcpAdapterTest, StoreDataWithSeveralDevices_RestoreData) {
   const int app_handle = 1;
   std::vector<int> intList = {app_handle};
 
-  ConnectionSPtr mock_connection = new MockConnection();
+  ConnectionSPtr mock_connection = new(__FILE__, __LINE__) MockConnection();
   for (uint32_t i = 0; i < count_dev; i++) {
     EXPECT_CALL(transport_adapter, FindDevice(uniq_id[i]))
         .WillOnce(Return(mockdev[i]));

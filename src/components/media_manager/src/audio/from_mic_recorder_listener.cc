@@ -67,7 +67,7 @@ void FromMicRecorderListener::OnActivityStarted(int32_t application_key) {
     return;
   }
   if (!reader_) {
-    AudioStreamSenderThread* thread_delegate = new AudioStreamSenderThread(
+    AudioStreamSenderThread* thread_delegate = new(__FILE__, __LINE__) AudioStreamSenderThread(
         file_name_, application_key, application_manager_);
     reader_ = threads::CreateThread("RecorderSender", thread_delegate);
   }

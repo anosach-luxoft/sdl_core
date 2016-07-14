@@ -51,7 +51,7 @@
 #include "utils/timer_task_impl.h"
 
 policy::PolicyManager* CreateManager() {
-  return new policy::PolicyManagerImpl();
+  return new(__FILE__, __LINE__) policy::PolicyManagerImpl();
 }
 void DeleteManager(policy::PolicyManager* pm) {
   delete pm;
@@ -68,11 +68,11 @@ CREATE_LOGGERPTR_GLOBAL(logger_, "Policy")
 PolicyManagerImpl::PolicyManagerImpl()
     : PolicyManager()
     , listener_(NULL)
-    , cache_(new CacheManager)
+    , cache_(new(__FILE__, __LINE__) CacheManager)
     , retry_sequence_timeout_(kDefaultRetryTimeoutInSec)
     , retry_sequence_index_(0)
     , timer_retry_sequence_("Retry sequence timer",
-                            new timer::TimerTaskImpl<PolicyManagerImpl>(
+                            new(__FILE__, __LINE__) timer::TimerTaskImpl<PolicyManagerImpl>(
                                 this, &PolicyManagerImpl::RetrySequence))
     , ignition_check(true) {}
 
@@ -89,7 +89,7 @@ utils::SharedPtr<policy_table::Table> PolicyManagerImpl::Parse(
   Json::Value value;
   Json::Reader reader;
   if (reader.parse(json.c_str(), value)) {
-    return new policy_table::Table(&value);
+    return new(__FILE__, __LINE__) policy_table::Table(&value);
   } else {
     return utils::SharedPtr<policy_table::Table>();
   }
@@ -106,9 +106,9 @@ utils::SharedPtr<policy_table::Table> PolicyManagerImpl::ParseArray(
     // For PT Update received from SDL Server.
     if (value["data"].size() != 0) {
       Json::Value data = value["data"];
-      return new policy_table::Table(&data[0]);
+      return new(__FILE__, __LINE__) policy_table::Table(&data[0]);
     } else {
-      return new policy_table::Table(&value);
+      return new(__FILE__, __LINE__) policy_table::Table(&value);
     }
   } else {
     return utils::SharedPtr<policy_table::Table>();
@@ -998,7 +998,7 @@ void PolicyManagerImpl::set_cache_manager(
 }
 
 void PolicyManagerImpl::RetrySequence() {
-  LOG4CXX_INFO(logger_, "Start new retry sequence");
+  LOG4CXX_INFO(logger_, "Start new(__FILE__, __LINE__) retry sequence");
   RequestPTUpdate();
 
   uint32_t timeout = NextRetryTimeout();

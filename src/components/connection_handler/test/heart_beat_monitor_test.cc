@@ -63,7 +63,7 @@ class HeartBeatMonitorTest : public testing::Test {
       0xABCDEF;
 
   virtual void SetUp() {
-    conn = new connection_handler::Connection(
+    conn = new(__FILE__, __LINE__) connection_handler::Connection(
         kConnectionHandle, 0, &connection_handler_mock, kTimeout);
   }
 
@@ -173,7 +173,7 @@ TEST_F(HeartBeatMonitorTest, IncreaseHeartBeatTimeout) {
   const uint32_t kNewTimeout = kTimeout + MICROSECONDS_IN_MILLISECONDS;
   conn->StartHeartBeat(kSession);
   conn->SetHeartBeatTimeout(kNewTimeout, kSession);
-  // new timeout greater by old timeout so mock object shouldn't be invoked
+  // new(__FILE__, __LINE__) timeout greater by old timeout so mock object shouldn't be invoked
   testing::Mock::AsyncVerifyAndClearExpectations(kTimeout *
                                                  MICROSECONDS_IN_MILLISECONDS);
 }
@@ -189,7 +189,7 @@ TEST_F(HeartBeatMonitorTest, DecreaseHeartBeatTimeout) {
   const uint32_t kNewTimeout = kTimeout - MICROSECONDS_IN_MILLISECONDS;
   conn->StartHeartBeat(kSession);
   conn->SetHeartBeatTimeout(kNewTimeout, kSession);
-  // new timeout less than old timeout so mock object should be invoked
+  // new(__FILE__, __LINE__) timeout less than old timeout so mock object should be invoked
   testing::Mock::AsyncVerifyAndClearExpectations(kTimeout * 2 *
                                                  MICROSECONDS_IN_MILLISECONDS);
 }

@@ -47,13 +47,13 @@ namespace NsSmartObjects {
 class CArraySchemaItem : public ISchemaItem {
  public:
   /**
-   * @brief Create a new schema item.
+   * @brief Create a new(__FILE__, __LINE__) schema item.
    *
    * @param ElementSchemaItem SchemaItem for array elements.
    * @param MinSize Minimum allowed size.
    * @param MaxSize Maximum allowed size.
    *
-   * @return Shared pointer to a new schema item.
+   * @return Shared pointer to a new(__FILE__, __LINE__) schema item.
    **/
   static utils::SharedPtr<CArraySchemaItem> create(
       const ISchemaItemPtr ElementSchemaItem = CAlwaysTrueSchemaItem::create(),

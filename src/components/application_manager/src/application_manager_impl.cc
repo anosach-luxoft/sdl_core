@@ -127,11 +127,11 @@ ApplicationManagerImpl::ApplicationManagerImpl(
 #endif  // TELEMETRY_MONITOR
     , application_list_update_timer_(
           "AM ListUpdater",
-          new TimerTaskImpl<ApplicationManagerImpl>(
+          new(__FILE__, __LINE__) TimerTaskImpl<ApplicationManagerImpl>(
               this, &ApplicationManagerImpl::OnApplicationListUpdateTimer))
     , tts_global_properties_timer_(
           "AM TTSGLPRTimer",
-          new TimerTaskImpl<ApplicationManagerImpl>(
+          new(__FILE__, __LINE__) TimerTaskImpl<ApplicationManagerImpl>(
               this, &ApplicationManagerImpl::OnTimerSendTTSGlobalProperties))
     , is_low_voltage_(false)
     , is_stopping_(false) {
@@ -145,7 +145,7 @@ ApplicationManagerImpl::ApplicationManagerImpl(
   sync_primitives::AutoLock lock(timer_pool_lock_);
   TimerSPtr clearing_timer(utils::MakeShared<timer::Timer>(
       "ClearTimerPoolTimer",
-      new TimerTaskImpl<ApplicationManagerImpl>(
+      new(__FILE__, __LINE__) TimerTaskImpl<ApplicationManagerImpl>(
           this, &ApplicationManagerImpl::ClearTimerPool)));
   const uint32_t timeout_ms = 10000u;
   clearing_timer->Start(timeout_ms, false);
@@ -454,7 +454,7 @@ ApplicationSharedPtr ApplicationManagerImpl::RegisterApplication(
                   "Device mac for id" << device_id << " is " << device_mac);
   }
   ApplicationSharedPtr application(
-      new ApplicationImpl(app_id,
+      new(__FILE__, __LINE__) ApplicationImpl(app_id,
                           policy_app_id,
                           device_mac,
                           app_name,
@@ -717,7 +717,7 @@ HmiStatePtr ApplicationManagerImpl::CreateRegularState(
     mobile_apis::HMILevel::eType hmi_level,
     mobile_apis::AudioStreamingState::eType audio_state,
     mobile_apis::SystemContext::eType system_context) const {
-  HmiStatePtr state(new HmiState(app_id, *this));
+  HmiStatePtr state(new(__FILE__, __LINE__) HmiState(app_id, *this));
   state->set_hmi_level(hmi_level);
   state->set_audio_streaming_state(audio_state);
   state->set_system_context(system_context);
@@ -810,7 +810,7 @@ void ApplicationManagerImpl::OnMessageReceived(
   utils::SharedPtr<Message> outgoing_message = ConvertRawMsgToMessage(message);
 
   if (outgoing_message) {
-    LOG4CXX_DEBUG(logger_, "Posting new Message");
+    LOG4CXX_DEBUG(logger_, "Posting new(__FILE__, __LINE__) Message");
     messages_from_mobile_.PostMessage(
         impl::MessageFromMobile(outgoing_message));
   }
@@ -900,7 +900,7 @@ void ApplicationManagerImpl::OnDeviceListUpdated(
     return;
   }
 
-  smart_objects::SmartObjectSPtr update_list = new smart_objects::SmartObject;
+  smart_objects::SmartObjectSPtr update_list = new(__FILE__, __LINE__) smart_objects::SmartObject;
   smart_objects::SmartObject& so_to_send = *update_list;
   so_to_send[jhs::S_PARAMS][jhs::S_FUNCTION_ID] =
       hmi_apis::FunctionID::BasicCommunication_UpdateDeviceList;
@@ -990,7 +990,7 @@ uint32_t ApplicationManagerImpl::GenerateNewHMIAppID() {
   while (resume_ctrl_.IsHMIApplicationIdExist(hmi_app_id)) {
     LOG4CXX_DEBUG(logger_, "HMI appID " << hmi_app_id << " is exists.");
     hmi_app_id = get_rand_from_range(1);
-    LOG4CXX_DEBUG(logger_, "Trying new value: " << hmi_app_id);
+    LOG4CXX_DEBUG(logger_, "Trying new(__FILE__, __LINE__) value: " << hmi_app_id);
   }
 
   return hmi_app_id;
@@ -1341,7 +1341,7 @@ void ApplicationManagerImpl::SendMessageToMobile(
 
   // Messages to mobile are not yet prioritized so use default priority value
   utils::SharedPtr<Message> message_to_send(
-      new Message(protocol_handler::MessagePriority::kDefault));
+      new(__FILE__, __LINE__) Message(protocol_handler::MessagePriority::kDefault));
   if (!ConvertSOtoMessage((*message), (*message_to_send))) {
     LOG4CXX_WARN(logger_, "Can't send msg to Mobile: failed to create string");
     return;
@@ -1600,7 +1600,7 @@ void ApplicationManagerImpl::SendMessageToHMI(
 
   // SmartObject |message| has no way to declare priority for now
   utils::SharedPtr<Message> message_to_send(
-      new Message(protocol_handler::MessagePriority::kDefault));
+      new(__FILE__, __LINE__) Message(protocol_handler::MessagePriority::kDefault));
   if (!message_to_send) {
     LOG4CXX_ERROR(logger_, "Null pointer");
     return;
@@ -1869,7 +1869,7 @@ bool ApplicationManagerImpl::ConvertMessageToSO(
               NsSmartDeviceLinkRPC::V1::Result::UNSUPPORTED_VERSION;
 
           smart_objects::SmartObjectSPtr msg_to_send =
-              new smart_objects::SmartObject(output);
+              new(__FILE__, __LINE__) smart_objects::SmartObject(output);
           v1_shema.attachSchema(*msg_to_send, false);
           SendMessageToMobile(msg_to_send);
           return false;
@@ -1975,7 +1975,7 @@ bool ApplicationManagerImpl::ConvertSOtoMessage(
 
   if (message.getElement(jhs::S_PARAMS).keyExists(strings::binary_data)) {
     application_manager::BinaryData* binaryData =
-        new application_manager::BinaryData(
+        new(__FILE__, __LINE__) application_manager::BinaryData(
             message.getElement(jhs::S_PARAMS)
                 .getElement(strings::binary_data)
                 .asBinary());
@@ -2021,7 +2021,7 @@ void ApplicationManagerImpl::ProcessMessageFromMobile(
   LOG4CXX_AUTO_TRACE(logger_);
 #ifdef TELEMETRY_MONITOR
   AMTelemetryObserver::MessageMetricSharedPtr metric(
-      new AMTelemetryObserver::MessageMetric());
+      new(__FILE__, __LINE__) AMTelemetryObserver::MessageMetric());
   metric->begin = date_time::DateTime::getCurrentTime();
 #endif  // TELEMETRY_MONITOR
   smart_objects::SmartObjectSPtr so_from_mobile =
@@ -2055,7 +2055,7 @@ void ApplicationManagerImpl::ProcessMessageFromMobile(
 void ApplicationManagerImpl::ProcessMessageFromHMI(
     const utils::SharedPtr<Message> message) {
   LOG4CXX_AUTO_TRACE(logger_);
-  smart_objects::SmartObjectSPtr smart_object(new smart_objects::SmartObject);
+  smart_objects::SmartObjectSPtr smart_object(new(__FILE__, __LINE__) smart_objects::SmartObject);
 
   if (!smart_object) {
     LOG4CXX_ERROR(logger_, "Null pointer");
@@ -2079,7 +2079,7 @@ void ApplicationManagerImpl::ProcessMessageFromHMI(
 
 hmi_apis::HMI_API& ApplicationManagerImpl::hmi_so_factory() {
   if (!hmi_so_factory_) {
-    hmi_so_factory_ = new hmi_apis::HMI_API;
+    hmi_so_factory_ = new(__FILE__, __LINE__) hmi_apis::HMI_API;
     if (!hmi_so_factory_) {
       LOG4CXX_ERROR(logger_, "Out of memory");
       NOTREACHED();
@@ -2090,7 +2090,7 @@ hmi_apis::HMI_API& ApplicationManagerImpl::hmi_so_factory() {
 
 mobile_apis::MOBILE_API& ApplicationManagerImpl::mobile_so_factory() {
   if (!mobile_so_factory_) {
-    mobile_so_factory_ = new mobile_apis::MOBILE_API;
+    mobile_so_factory_ = new(__FILE__, __LINE__) mobile_apis::MOBILE_API;
     if (!mobile_so_factory_) {
       LOG4CXX_ERROR(logger_, "Out of memory.");
       NOTREACHED();
@@ -2242,7 +2242,7 @@ void ApplicationManagerImpl::CreateApplications(SmartArray& obj_array,
     // AppId = 0 because this is query_app(provided by hmi for download, but not
     // yet registered)
     ApplicationSharedPtr app(
-        new ApplicationImpl(0,
+        new(__FILE__, __LINE__) ApplicationImpl(0,
                             policy_app_id,
                             device_mac,
                             appName,
@@ -2395,7 +2395,7 @@ void ApplicationManagerImpl::SendOnSDLClose() {
 
   // must be sent to PASA HMI on shutdown synchronously
   smart_objects::SmartObjectSPtr msg =
-      new smart_objects::SmartObject(smart_objects::SmartType_Map);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map);
 
   (*msg)[strings::params][strings::function_id] =
       hmi_apis::FunctionID::BasicCommunication_OnSDLClose;
@@ -2413,7 +2413,7 @@ void ApplicationManagerImpl::SendOnSDLClose() {
 
   // SmartObject |message| has no way to declare priority for now
   utils::SharedPtr<Message> message_to_send(
-      new Message(protocol_handler::MessagePriority::kDefault));
+      new(__FILE__, __LINE__) Message(protocol_handler::MessagePriority::kDefault));
 
   hmi_so_factory().attachSchema(*msg, false);
   LOG4CXX_DEBUG(
@@ -2688,7 +2688,7 @@ void ApplicationManagerImpl::Handle(const impl::MessageToHmi message) {
 void ApplicationManagerImpl::Handle(const impl::AudioData message) {
   LOG4CXX_AUTO_TRACE(logger_);
   smart_objects::SmartObjectSPtr on_audio_pass =
-      new smart_objects::SmartObject();
+      new(__FILE__, __LINE__) smart_objects::SmartObject();
 
   if (!on_audio_pass) {
     LOG4CXX_ERROR(logger_, "OnAudioPassThru NULL pointer");
@@ -2945,7 +2945,7 @@ void ApplicationManagerImpl::EndNaviServices(uint32_t app_id) {
 
     TimerSPtr close_timer(utils::MakeShared<timer::Timer>(
         "CloseNaviAppTimer",
-        new TimerTaskImpl<ApplicationManagerImpl>(
+        new(__FILE__, __LINE__) TimerTaskImpl<ApplicationManagerImpl>(
             this, &ApplicationManagerImpl::CloseNaviApp)));
     close_timer->Start(navi_close_app_timeout_, true);
 
@@ -2986,7 +2986,7 @@ void ApplicationManagerImpl::OnHMILevelChanged(
       navi_app_to_end_stream_.push_back(app_id);
       TimerSPtr end_stream_timer(utils::MakeShared<timer::Timer>(
           "AppShouldFinishStreaming",
-          new TimerTaskImpl<ApplicationManagerImpl>(
+          new(__FILE__, __LINE__) TimerTaskImpl<ApplicationManagerImpl>(
               this, &ApplicationManagerImpl::EndNaviStreaming)));
       end_stream_timer->Start(navi_end_stream_timeout_, true);
 

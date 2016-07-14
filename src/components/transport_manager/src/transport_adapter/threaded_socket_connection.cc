@@ -65,7 +65,7 @@ ThreadedSocketConnection::ThreadedSocketConnection(
     , thread_(NULL) {
   const std::string thread_name = std::string("Socket ") + device_handle();
   thread_ = threads::CreateThread(thread_name.c_str(),
-                                  new SocketConnectionDelegate(this));
+                                  new(__FILE__, __LINE__) SocketConnectionDelegate(this));
 }
 
 ThreadedSocketConnection::~ThreadedSocketConnection() {
@@ -281,7 +281,7 @@ bool ThreadedSocketConnection::Receive() {
                     "Received " << bytes_read << " bytes for connection "
                                 << this);
       ::protocol_handler::RawMessagePtr frame(
-          new protocol_handler::RawMessage(0, 0, buffer, bytes_read));
+          new(__FILE__, __LINE__) protocol_handler::RawMessage(0, 0, buffer, bytes_read));
       controller_->DataReceiveDone(
           device_handle(), application_handle(), frame);
     } else if (bytes_read < 0) {

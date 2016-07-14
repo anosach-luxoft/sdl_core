@@ -56,7 +56,7 @@ class TransportManagerListener {
   virtual void OnDeviceListUpdated(const std::vector<DeviceInfo>&) = 0;
 
   /**
-  * @brief Reaction to "Find new applications" request
+  * @brief Reaction to "Find new(__FILE__, __LINE__) applications" request
   */
   virtual void OnFindNewApplicationsRequest() = 0;
 

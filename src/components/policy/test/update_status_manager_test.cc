@@ -53,7 +53,7 @@ class UpdateStatusManagerTest : public ::testing::Test {
   UpdateStatusManagerTest() : k_timeout_(1) {}
 
   void SetUp() {
-    manager_ = new UpdateStatusManager();
+    manager_ = new(__FILE__, __LINE__) UpdateStatusManager();
   }
 
   void TearDown() OVERRIDE {

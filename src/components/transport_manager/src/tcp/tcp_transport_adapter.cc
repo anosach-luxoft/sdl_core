@@ -56,8 +56,8 @@ TcpTransportAdapter::TcpTransportAdapter(
     resumption::LastState& last_state,
     const TransportManagerSettings& settings)
     : TransportAdapterImpl(NULL,
-                           new TcpConnectionFactory(this),
-                           new TcpClientListener(this, port, true),
+                           new(__FILE__, __LINE__) TcpConnectionFactory(this),
+                           new(__FILE__, __LINE__) TcpClientListener(this, port, true),
                            last_state,
                            settings) {}
 
@@ -127,7 +127,7 @@ bool TcpTransportAdapter::Restore() {
     std::string name = device_dictionary["name"].asString();
     std::string address_record = device_dictionary["address"].asString();
     in_addr_t address = inet_addr(address_record.c_str());
-    TcpDevice* tcp_device = new TcpDevice(address, name);
+    TcpDevice* tcp_device = new(__FILE__, __LINE__) TcpDevice(address, name);
     DeviceSptr device(tcp_device);
     AddDevice(device);
     const Json::Value applications_dictionary =

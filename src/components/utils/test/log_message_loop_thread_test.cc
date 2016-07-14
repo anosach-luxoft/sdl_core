@@ -44,7 +44,7 @@ using ::testing::_;
 
 TEST(LogMessageLoopThread, DestroyLogMessage_loggerStatusDeletingLogger) {
   logger::logger_status = CreatingLoggerThread;
-  LogMessageLoopThread* loop_thread = new LogMessageLoopThread();
+  LogMessageLoopThread* loop_thread = new(__FILE__, __LINE__) LogMessageLoopThread();
   // assert
   EXPECT_EQ(CreatingLoggerThread, logger::logger_status);
 
@@ -67,7 +67,7 @@ TEST(LogMessageLoopThread, HandleNeverCalled) {
 
   MockLogMessageTest mmock;
   EXPECT_CALL(mmock, Handle(_)).Times(0);
-  LogMessageLoopThread* loop_thread = new LogMessageLoopThread();
+  LogMessageLoopThread* loop_thread = new(__FILE__, __LINE__) LogMessageLoopThread();
 
   delete loop_thread;
   logger::logger_status = LoggerThreadNotCreated;

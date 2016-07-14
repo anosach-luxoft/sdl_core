@@ -58,8 +58,8 @@ BluetoothTransportAdapter::~BluetoothTransportAdapter() {}
 
 BluetoothTransportAdapter::BluetoothTransportAdapter(
     resumption::LastState& last_state, const TransportManagerSettings& settings)
-    : TransportAdapterImpl(new BluetoothDeviceScanner(this, true, 0),
-                           new BluetoothConnectionFactory(this),
+    : TransportAdapterImpl(new(__FILE__, __LINE__) BluetoothDeviceScanner(this, true, 0),
+                           new(__FILE__, __LINE__) BluetoothConnectionFactory(this),
                            NULL,
                            last_state,
                            settings) {}
@@ -145,7 +145,7 @@ bool BluetoothTransportAdapter::Restore() {
       rfcomm_channels.push_back(rfcomm_channel);
     }
     BluetoothDevice* bluetooth_device =
-        new BluetoothDevice(address, name.c_str(), rfcomm_channels);
+        new(__FILE__, __LINE__) BluetoothDevice(address, name.c_str(), rfcomm_channels);
     DeviceSptr device(bluetooth_device);
     AddDevice(device);
     for (RfcommChannelVector::const_iterator j = rfcomm_channels.begin();

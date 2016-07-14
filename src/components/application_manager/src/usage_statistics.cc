@@ -58,7 +58,7 @@ UsageStatistics::UsageStatistics(
     const std::string& app_id,
     utils::SharedPtr<StatisticsManager> statistics_manager)
     : time_in_hmi_state_sptr_(
-          new usage_statistics::AppStopwatchImpl(statistics_manager, app_id))
+          new(__FILE__, __LINE__) usage_statistics::AppStopwatchImpl(statistics_manager, app_id))
     , app_registration_language_gui_(statistics_manager, app_id, LANGUAGE_GUI)
     , app_registration_language_vui_(statistics_manager, app_id, LANGUAGE_VUI)
     , count_of_rejected_rpc_calls_(

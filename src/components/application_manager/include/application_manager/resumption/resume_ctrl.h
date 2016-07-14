@@ -281,7 +281,7 @@ class ResumeCtrl : public application_manager::event_engine::EventObserver {
   bool Init(LastState& last_state);
 
   /**
-   * @brief Notify resume controller about new application
+   * @brief Notify resume controller about new(__FILE__, __LINE__) application
    * @param policy_app_id - mobile application id
    * @param device_id - id of device where application is run
    */
@@ -289,7 +289,7 @@ class ResumeCtrl : public application_manager::event_engine::EventObserver {
                               const std::string& device_id);
 
   /**
-   * @brief Notify resume controller about delete new application
+   * @brief Notify resume controller about delete new(__FILE__, __LINE__) application
    */
   void OnAppRegistrationEnd();
 

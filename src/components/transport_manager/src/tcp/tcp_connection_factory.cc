@@ -55,7 +55,7 @@ TransportAdapter::Error TcpConnectionFactory::CreateConnection(
                 "DeviceUID: " << &device_uid
                               << ", ApplicationHandle: " << &app_handle);
   TcpServerOiginatedSocketConnection* connection(
-      new TcpServerOiginatedSocketConnection(
+      new(__FILE__, __LINE__) TcpServerOiginatedSocketConnection(
           device_uid, app_handle, controller_));
   controller_->ConnectionCreated(connection, device_uid, app_handle);
   if (connection->Start() == TransportAdapter::OK) {

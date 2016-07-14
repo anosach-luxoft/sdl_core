@@ -66,7 +66,7 @@ void RequestFromHMI::SendResponse(
     const hmi_apis::FunctionID::eType function_id,
     const hmi_apis::Common_Result::eType result_code) {
   smart_objects::SmartObject* message =
-      new smart_objects::SmartObject(smart_objects::SmartType_Map);
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map);
   FillCommonParametersOfSO(message, correlation_id, function_id);
   (*message)[strings::params][strings::message_type] = MessageType::kResponse;
   (*message)[strings::params][hmi_response::code] = 0;
@@ -81,7 +81,7 @@ void RequestFromHMI::SendResponse(
 //                                       function_id,
 //                                       hmi_apis::Common_Result::eType
 //                                       result_code) {
-//  smart_objects::SmartObject* message = new smart_objects::SmartObject(
+//  smart_objects::SmartObject* message = new(__FILE__, __LINE__) smart_objects::SmartObject(
 //      smart_objects::SmartType_Map);
 //  FillCommonParametersOfSO(message, correlation_id, function_id);
 //  (*message)[strings::params][strings::message_type] =

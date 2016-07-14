@@ -56,7 +56,7 @@ typedef pthread_t PlatformThreadHandle;
 
 /**
  * @brief Non platform specific thread abstraction that establishes a
- * threads::ThreadDelegate on a new thread.
+ * threads::ThreadDelegate on a new(__FILE__, __LINE__) thread.
  *
  * ThreadDelegate example:
  * class TestThread : public threads::ThreadDelegate {
@@ -68,7 +68,7 @@ typedef pthread_t PlatformThreadHandle;
  * };
  *
  * Example usage:
- * threads::Thread thread("test thread", new TestThread());
+ * threads::Thread thread("test thread", new(__FILE__, __LINE__) TestThread());
  * thread.startWithOptions(
  *     threads::ThreadOptions(threads::Thread::kMinStackSize));
  * printf("join!\n");

@@ -77,7 +77,7 @@ class TransportManagerImplTest : public ::testing::Test {
   void SetUp() OVERRIDE {
     resumption::LastState last_state_("app_storage_folder", "app_info_storage");
     tm_.Init(last_state_);
-    mock_adapter_ = new MockTransportAdapter();
+    mock_adapter_ = new(__FILE__, __LINE__) MockTransportAdapter();
     tm_listener_ = MakeShared<TransportManagerListenerMock>();
 
 #ifdef TELEMETRY_MONITOR
@@ -508,7 +508,7 @@ TEST_F(TransportManagerImplTest, SendMessageToDevice_SendingFailed) {
   // Arrange
   HandleConnection();
 
-  MockTMTelemetryObserver* mock_metric_observer = new MockTMTelemetryObserver();
+  MockTMTelemetryObserver* mock_metric_observer = new(__FILE__, __LINE__) MockTMTelemetryObserver();
   tm_.SetTelemetryObserver(mock_metric_observer);
   EXPECT_CALL(*mock_metric_observer, StartRawMsg(_));
 
@@ -529,7 +529,7 @@ TEST_F(TransportManagerImplTest, SendMessageToDevice_StartTimeObserver) {
   // Arrange
   HandleConnection();
 
-  MockTMTelemetryObserver* mock_metric_observer = new MockTMTelemetryObserver();
+  MockTMTelemetryObserver* mock_metric_observer = new(__FILE__, __LINE__) MockTMTelemetryObserver();
   tm_.SetTelemetryObserver(mock_metric_observer);
   EXPECT_CALL(*mock_adapter_,
               SendData(mac_address_, application_id_, test_message_))
@@ -907,7 +907,7 @@ TEST_F(TransportManagerImplTest,
 TEST_F(TransportManagerImplTest,
        UpdateDeviceList_AddDevices_TwoTransportAdapters) {
   // Arrange
-  MockTransportAdapter* second_mock_adapter = new MockTransportAdapter();
+  MockTransportAdapter* second_mock_adapter = new(__FILE__, __LINE__) MockTransportAdapter();
   device_list_.push_back(dev_info_.mac_address());
   // Check before Act
   EXPECT_CALL(*second_mock_adapter, AddListener(_));
@@ -938,7 +938,7 @@ TEST_F(TransportManagerImplTest,
 TEST_F(TransportManagerImplTest,
        UpdateDeviceList_RemoveDevices_TwoTransportAdapters) {
   // Arrange
-  MockTransportAdapter* second_mock_adapter = new MockTransportAdapter();
+  MockTransportAdapter* second_mock_adapter = new(__FILE__, __LINE__) MockTransportAdapter();
   device_list_.push_back(dev_info_.mac_address());
   // Check before Act
   EXPECT_CALL(*second_mock_adapter, AddListener(_));

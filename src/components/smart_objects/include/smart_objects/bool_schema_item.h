@@ -45,9 +45,9 @@ namespace NsSmartObjects {
 class CBoolSchemaItem : public CDefaultSchemaItem<bool> {
  public:
   /**
-   * @brief Create a new schema item.
+   * @brief Create a new(__FILE__, __LINE__) schema item.
    * @param DefaultValue Default value of a parameter.
-   * @return Shared pointer to a new schema item.
+   * @return Shared pointer to a new(__FILE__, __LINE__) schema item.
    **/
   static utils::SharedPtr<CBoolSchemaItem> create(
       const TSchemaItemParameter<bool>& DefaultValue =

@@ -67,7 +67,7 @@ class UpdateDeviceListRequest : public RequestToHMI,
   virtual void Run();
 
   /**
-   * @brief Interface method that is called whenever new event received
+   * @brief Interface method that is called whenever new(__FILE__, __LINE__) event received
    * Need to observe OnHMIReady event, to send UpdateDeviceListRequest
    * when HMI will be ready
    * @param event The received event

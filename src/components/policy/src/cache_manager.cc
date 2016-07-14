@@ -83,11 +83,11 @@ struct LanguageFinder {
 
 CacheManager::CacheManager()
     : CacheManagerInterface()
-    , pt_(new policy_table::Table)
-    , backup_(new SQLPTRepresentation())
+    , pt_(new(__FILE__, __LINE__) policy_table::Table)
+    , backup_(new(__FILE__, __LINE__) SQLPTRepresentation())
     , update_required(false) {
   LOG4CXX_AUTO_TRACE(logger_);
-  backuper_ = new BackgroundBackuper(this);
+  backuper_ = new(__FILE__, __LINE__) BackgroundBackuper(this);
   backup_thread_ = threads::CreateThread("Backup thread", backuper_);
   backup_thread_->start();
 }
@@ -317,7 +317,7 @@ bool CacheManager::AddDevice(const std::string& device_id,
   // Open SDL stored just device id in policy
   UNUSED(params);
 
-  // We have to set preloaded flag as false in policy table on adding new
+  // We have to set preloaded flag as false in policy table on adding new(__FILE__, __LINE__)
   // information (SDLAQ-CRS-2365). It can happens only after device addition.
   *pt_->policy_table.module_config.preloaded_pt = false;
 
@@ -950,7 +950,7 @@ utils::SharedPtr<policy_table::Table> CacheManager::GenerateSnapshot() {
   CACHE_MANAGER_CHECK(snapshot_);
   sync_primitives::AutoLock lock(cache_lock_);
 
-  snapshot_ = new policy_table::Table();
+  snapshot_ = new(__FILE__, __LINE__) policy_table::Table();
 
   // Copy all members of policy table except messages in consumer friendly
   // messages

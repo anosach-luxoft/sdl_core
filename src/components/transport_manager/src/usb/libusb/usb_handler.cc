@@ -85,7 +85,7 @@ UsbHandler::UsbHandler()
     , libusb_context_(NULL)
     , arrived_callback_handle_()
     , left_callback_handle_() {
-  thread_ = threads::CreateThread("UsbHandler", new UsbHandlerDelegate(this));
+  thread_ = threads::CreateThread("UsbHandler", new(__FILE__, __LINE__) UsbHandlerDelegate(this));
 }
 
 UsbHandler::~UsbHandler() {
@@ -160,7 +160,7 @@ void UsbHandler::DeviceArrived(libusb_device* device_libusb) {
     return;
   }
 
-  PlatformUsbDevice* device(new PlatformUsbDevice(bus_number,
+  PlatformUsbDevice* device(new(__FILE__, __LINE__) PlatformUsbDevice(bus_number,
                                                   device_address,
                                                   descriptor,
                                                   device_libusb,
@@ -219,7 +219,7 @@ void UsbHandler::StartControlTransferSequence(
                     << sequence << "PlatformUsbDevice* " << device);
   TransferSequences::iterator it = transfer_sequences_.insert(
       transfer_sequences_.end(),
-      new ControlTransferSequenceState(this, sequence, device));
+      new(__FILE__, __LINE__) ControlTransferSequenceState(this, sequence, device));
   SubmitControlTransfer(*it);
   LOG4CXX_TRACE(logger_, "exit");
 }

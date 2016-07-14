@@ -174,7 +174,7 @@ void DBusMessageAdapter::SendMessageToCore(
     return;
   }
 
-  MessageSharedPointer message = new application_manager::Message(
+  MessageSharedPointer message = new(__FILE__, __LINE__) application_manager::Message(
       protocol_handler::MessagePriority::kDefault);  // todo: ykazakov constant
                                                      // is a temp solution to
                                                      // finish

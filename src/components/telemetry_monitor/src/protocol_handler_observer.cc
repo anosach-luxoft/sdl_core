@@ -68,7 +68,7 @@ void ProtocolHandlerObserver::EndMessageProcess(
   }
   m->begin = time_starts[message_id];
   m->end = date_time::DateTime::getCurrentTime();
-  ProtocolHandlerMecticWrapper* metric = new ProtocolHandlerMecticWrapper();
+  ProtocolHandlerMecticWrapper* metric = new(__FILE__, __LINE__) ProtocolHandlerMecticWrapper();
   metric->message_metric = m;
   metric->grabResources();
   telemetry_monitor_->SendMetric(metric);

@@ -57,12 +57,12 @@ using namespace ::protocol_handler;
 class ConnectionTest : public ::testing::Test {
  protected:
   void SetUp() OVERRIDE {
-    connection_handler_ = new ConnectionHandlerImpl(
+    connection_handler_ = new(__FILE__, __LINE__) ConnectionHandlerImpl(
         mock_connection_handler_settings, transport_manager_mock);
     const ConnectionHandle connectionHandle = 0;
     const DeviceHandle device_handle = 0u;
     const uint32_t heart_beat = 10000u;
-    connection_ = new Connection(
+    connection_ = new(__FILE__, __LINE__) Connection(
         connectionHandle, device_handle, connection_handler_, heart_beat);
   }
 
@@ -192,7 +192,7 @@ TEST_F(ConnectionTest, HeartBeat_Protocol4_ZeroHeartBeat_NotSupported) {
   const ConnectionHandle connectionHandle = 0;
   const DeviceHandle device_handle = 0u;
   const uint32_t heart_beat = 0u;
-  connection_ = new Connection(
+  connection_ = new(__FILE__, __LINE__) Connection(
       connectionHandle, device_handle, connection_handler_, heart_beat);
   StartSession();
   // Check execution if protocol version is 4

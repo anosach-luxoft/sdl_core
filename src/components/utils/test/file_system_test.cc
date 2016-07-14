@@ -269,7 +269,7 @@ TEST(FileSystemTest, OpenFileWriteInFileStream) {
 
   // Write data in file
   uint32_t data_size = 4;
-  uint8_t* data = new uint8_t[data_size];
+  uint8_t* data = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data[i] = i;
   }
@@ -305,7 +305,7 @@ TEST(FileSystemTest, CannotWriteInClosedFileStream) {
 
   // Write data in file
   uint32_t data_size = 4;
-  uint8_t* data = new uint8_t[data_size];
+  uint8_t* data = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data[i] = i;
   }
@@ -333,7 +333,7 @@ TEST(FileSystemTest, CreateWriteInFileStream_CreateFileAgain_FileRewritten) {
 
   // Write data in file
   uint32_t data_size = 4;
-  uint8_t* data = new uint8_t[data_size];
+  uint8_t* data = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data[i] = i;
   }
@@ -406,7 +406,7 @@ TEST(FileSystemTest,
   EXPECT_TRUE(test_file->is_open());
 
   // Write in filestream
-  uint8_t* data_2 = new uint8_t[data_size];
+  uint8_t* data_2 = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data_2[i] = i + data_size;
   }
@@ -444,11 +444,11 @@ TEST(FileSystemTest, WriteInFilestreamTwice_FileRewritten) {
   EXPECT_TRUE(test_file_2->is_open());
 
   uint32_t data_size = 4;
-  uint8_t* data = new uint8_t[data_size];
+  uint8_t* data = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data[i] = i;
   }
-  uint8_t* data_2 = new uint8_t[data_size];
+  uint8_t* data_2 = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data_2[i] = i + 4;
   }
@@ -491,7 +491,7 @@ TEST(FileSystemTest, WriteInFilestreamConsequentially_FileRewritten) {
   EXPECT_TRUE(test_file->is_open());
 
   uint32_t data_size = 4;
-  uint8_t* data = new uint8_t[data_size];
+  uint8_t* data = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data[i] = i;
   }
@@ -507,7 +507,7 @@ TEST(FileSystemTest, WriteInFilestreamConsequentially_FileRewritten) {
   EXPECT_TRUE(test_file_2->is_open());
 
   // Write second time
-  uint8_t* data_2 = new uint8_t[data_size];
+  uint8_t* data_2 = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data_2[i] = i + 4;
   }
@@ -723,7 +723,7 @@ TEST(FileSystemTest, OpenFileStreamForRead_WriteInFileStream) {
 
   // Write data in file
   uint32_t data_size = 4;
-  uint8_t* data = new uint8_t[data_size];
+  uint8_t* data = new(__FILE__, __LINE__) uint8_t[data_size];
   for (uint i = 0; i < data_size; ++i) {
     data[i] = i;
   }

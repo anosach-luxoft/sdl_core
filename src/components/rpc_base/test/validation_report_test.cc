@@ -50,8 +50,8 @@ class ValidationReportTest : public testing::Test {
   static const std::string parent_object_name_;
 
   static void SetUpTestCase() {
-    report_ = new ValidationReport(object_name_);
-    report_2 = new ValidationReport(object_name_2);
+    report_ = new(__FILE__, __LINE__) ValidationReport(object_name_);
+    report_2 = new(__FILE__, __LINE__) ValidationReport(object_name_2);
   }
   virtual void TearDown() {
     ClearReports();

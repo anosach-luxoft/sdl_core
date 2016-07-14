@@ -16,7 +16,7 @@ QWsSocket::QWsSocket(QObject* parent,
                      QTcpSocket* socket,
                      EWebsocketVersion ws_v)
     : QAbstractSocket(QAbstractSocket::UnknownSocketType, parent)
-    , tcpSocket(socket ? socket : new QTcpSocket(this))
+    , tcpSocket(socket ? socket : new(__FILE__, __LINE__) QTcpSocket(this))
     , _version(ws_v)
     , _hostPort(-1)
     , closingHandshakeSent(false)

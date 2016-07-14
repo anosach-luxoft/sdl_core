@@ -438,7 +438,7 @@
 			<description>The mobile application name, e.g. "Ford Drive Green".</description>
 			<description>Needs to be unique over all applications.</description>
 			<description>May not be empty.</description>
-			<description>May not start with a new line character.</description>
+			<description>May not start with a new(__FILE__, __LINE__) line character.</description>
 			<description>May not interfere with any name or synonym of previously registered applications and the following list of words @TODO: Create list(global commands)</description>
 			<description>Needs to be unique over all applications. Applications with the same name will be rejected.</description>
 			<description>Only characters from char set [@TODO: Create char set (character/hex value) for each ACM and refer to] are supported.</description>

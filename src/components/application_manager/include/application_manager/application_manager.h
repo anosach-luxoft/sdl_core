@@ -311,10 +311,10 @@ class ApplicationManager {
   virtual bool IsHMICooperating() const = 0;
   /**
    * @brief Notifies all components interested in Vehicle Data update
-   * i.e. new value of odometer etc and returns list of applications
+   * i.e. new(__FILE__, __LINE__) value of odometer etc and returns list of applications
    * subscribed for event.
    * @param vehicle_info Enum value of type of vehicle data
-   * @param new value (for integer values currently) of vehicle data
+   * @param new(__FILE__, __LINE__) value (for integer values currently) of vehicle data
    */
   virtual std::vector<ApplicationSharedPtr> IviInfoUpdated(
       VehicleDataType vehicle_info, int value) = 0;
@@ -512,7 +512,7 @@ class ApplicationManager {
    * @param hmi_level of returned state
    * @param audio_state of returned state
    * @param system_context of returned state
-   * @return new regular HMI state
+   * @return new(__FILE__, __LINE__) regular HMI state
    */
   virtual HmiStatePtr CreateRegularState(
       uint32_t app_id,

@@ -62,7 +62,7 @@ commands::Command* RegisterApplication() {
   test_message[strings::msg_params][strings::language_desired] = 0;
   test_message[strings::msg_params][strings::hmi_display_language_desired] = 0;
   commands::Command* testregCommand =
-      new commands::RegisterAppInterfaceRequest(resultsmart);
+      new(__FILE__, __LINE__) commands::RegisterAppInterfaceRequest(resultsmart);
   return testregCommand;
 }
 
@@ -70,7 +70,7 @@ commands::Command* UnregisterApplication() {
   SmartObjectSPtr resultsmart =
       application_manager::MessageHelper::CreateModuleInfoSO(2);
   commands::Command* testregCommand =
-      new commands::UnregisterAppInterfaceRequest(resultsmart);
+      new(__FILE__, __LINE__) commands::UnregisterAppInterfaceRequest(resultsmart);
   return testregCommand;
 }
 
@@ -85,7 +85,7 @@ commands::Command* PutFileCommand(uint32_t& correlation_id,
   test_message[strings::msg_params][strings::file_type] =
       mobile_apis::FileType::GRAPHIC_PNG;
 
-  commands::Command* testCommand = new commands::PutFileRequest(resultsmart);
+  commands::Command* testCommand = new(__FILE__, __LINE__) commands::PutFileRequest(resultsmart);
   return testCommand;
 }
 

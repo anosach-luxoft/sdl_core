@@ -233,27 +233,27 @@ class RequestInfoSet {
   const size_t Size();
 
   /**
-   * @brief Check if this app is able to add new requests,
+   * @brief Check if this app is able to add new(__FILE__, __LINE__) requests,
    * or limits was exceeded
    * @param app_id - application id
    * @param app_time_scale - time scale (seconds)
    * @param max_request_per_time_scale - maximum count of request
    * that should be allowed for app_time_scale seconds
-   * @return True if new request could be added, false otherwise
+   * @return True if new(__FILE__, __LINE__) request could be added, false otherwise
    */
   bool CheckTimeScaleMaxRequest(uint32_t app_id,
                                 uint32_t app_time_scale,
                                 uint32_t max_request_per_time_scale);
 
   /**
-   * @brief Check if this app is able to add new requests
+   * @brief Check if this app is able to add new(__FILE__, __LINE__) requests
    * in current hmi_level, or limits was exceeded
    * @param hmi_level - hmi level
    * @param app_id - application id
    * @param app_time_scale - time scale (seconds)
    * @param max_request_per_time_scale - maximum count of request
    * that should be allowed for app_time_scale seconds
-   * @return True if new request could be added, false otherwise
+   * @return True if new(__FILE__, __LINE__) request could be added, false otherwise
    */
   bool CheckHMILevelTimeScaleMaxRequest(mobile_apis::HMILevel::eType hmi_level,
                                         uint32_t app_id,

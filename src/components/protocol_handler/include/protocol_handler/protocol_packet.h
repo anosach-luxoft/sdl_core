@@ -242,7 +242,7 @@ class ProtocolPacket {
   void set_total_data_bytes(size_t dataBytes);
 
   /**
-   *\brief Setter for new data
+   *\brief Setter for new(__FILE__, __LINE__) data
    */
   void set_data(const uint8_t* const new_data, const size_t new_data_size);
 

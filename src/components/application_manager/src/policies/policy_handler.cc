@@ -313,7 +313,7 @@ bool PolicyHandler::LoadPolicyLibrary() {
     if (CreateManager()) {
       policy_manager_->set_listener(this);
       event_observer_ =
-          utils::SharedPtr<PolicyEventObserver>(new PolicyEventObserver(
+          utils::SharedPtr<PolicyEventObserver>(new(__FILE__, __LINE__) PolicyEventObserver(
               this, application_manager_.event_dispatcher()));
     }
   } else {
@@ -410,7 +410,7 @@ uint32_t PolicyHandler::GetAppIdForSending() const {
 void PolicyHandler::OnAppPermissionConsent(
     const uint32_t connection_key, const PermissionConsent& permissions) {
   LOG4CXX_AUTO_TRACE(logger_);
-  AsyncRun(new AppPermissionDelegate(connection_key, permissions, *this));
+  AsyncRun(new(__FILE__, __LINE__) AppPermissionDelegate(connection_key, permissions, *this));
 }
 
 void PolicyHandler::OnDeviceConsentChanged(const std::string& device_id,

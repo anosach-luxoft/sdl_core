@@ -98,7 +98,7 @@ class Device {
 
   /**
    * @brief Set @link keep_on_disconnect_ @endlink value
-   * @param keep_on_disconnect new value
+   * @param keep_on_disconnect new(__FILE__, __LINE__) value
    */
   inline void set_keep_on_disconnect(bool keep_on_disconnect) {
     keep_on_disconnect_ = keep_on_disconnect;

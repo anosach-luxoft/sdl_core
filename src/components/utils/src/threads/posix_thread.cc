@@ -290,7 +290,7 @@ Thread::~Thread() {
 }
 
 Thread* CreateThread(const char* name, ThreadDelegate* delegate) {
-  Thread* thread = new Thread(name, delegate);
+  Thread* thread = new(__FILE__, __LINE__) Thread(name, delegate);
   delegate->set_thread(thread);
   return thread;
 }

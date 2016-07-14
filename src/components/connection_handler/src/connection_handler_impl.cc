@@ -200,7 +200,7 @@ void ConnectionHandlerImpl::OnConnectionEstablished(
   sync_primitives::AutoWriteLock lock(connection_list_lock_);
   connection_list_.insert(ConnectionList::value_type(
       connection_id,
-      new Connection(connection_id,
+      new(__FILE__, __LINE__) Connection(connection_id,
                      device_info.device_handle(),
                      this,
                      get_settings().heart_beat_timeout())));
@@ -306,13 +306,13 @@ uint32_t ConnectionHandlerImpl::OnSessionStartedCallback(
   if ((0 == session_id) && (protocol_handler::kRpc == service_type)) {
     new_session_id = connection->AddNewSession();
     if (0 == new_session_id) {
-      LOG4CXX_ERROR(logger_, "Couldn't start new session!");
+      LOG4CXX_ERROR(logger_, "Couldn't start new(__FILE__, __LINE__) session!");
       return 0;
     }
     if (hash_id) {
       *hash_id = KeyFromPair(connection_handle, new_session_id);
     }
-  } else {  // Could be create new service or protected exists one
+  } else {  // Could be create new(__FILE__, __LINE__) service or protected exists one
     if (!connection->AddNewService(session_id, service_type, is_protected)) {
       LOG4CXX_ERROR(logger_,
                     "Couldn't establish "

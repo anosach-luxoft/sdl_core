@@ -148,11 +148,11 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::RegisterAppInterfaceID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kRequest)) {
-        command.reset(new commands::RegisterAppInterfaceRequest(
+        command.reset(new(__FILE__, __LINE__) commands::RegisterAppInterfaceRequest(
             message, application_manager));
 
       } else {
-        command.reset(new commands::RegisterAppInterfaceResponse(
+        command.reset(new(__FILE__, __LINE__) commands::RegisterAppInterfaceResponse(
             message, application_manager));
       }
       break;
@@ -160,10 +160,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::UnregisterAppInterfaceID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kRequest)) {
-        command.reset(new commands::UnregisterAppInterfaceRequest(
+        command.reset(new(__FILE__, __LINE__) commands::UnregisterAppInterfaceRequest(
             message, application_manager));
       } else {
-        command.reset(new commands::UnregisterAppInterfaceResponse(
+        command.reset(new(__FILE__, __LINE__) commands::UnregisterAppInterfaceResponse(
             message, application_manager));
       }
       break;
@@ -171,10 +171,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::SetGlobalPropertiesID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::SetGlobalPropertiesResponse(
+        command.reset(new(__FILE__, __LINE__) commands::SetGlobalPropertiesResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::SetGlobalPropertiesRequest(
+        command.reset(new(__FILE__, __LINE__) commands::SetGlobalPropertiesRequest(
             message, application_manager));
       }
       break;
@@ -182,10 +182,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::ResetGlobalPropertiesID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::ResetGlobalPropertiesResponse(
+        command.reset(new(__FILE__, __LINE__) commands::ResetGlobalPropertiesResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::ResetGlobalPropertiesRequest(
+        command.reset(new(__FILE__, __LINE__) commands::ResetGlobalPropertiesRequest(
             message, application_manager));
       }
       break;
@@ -194,10 +194,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::AddCommandResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::AddCommandResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::AddCommandRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::AddCommandRequest(message, application_manager));
       }
       break;
     }
@@ -205,10 +205,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::DeleteCommandResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::DeleteCommandResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::DeleteCommandRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::DeleteCommandRequest(message, application_manager));
       }
       break;
     }
@@ -216,10 +216,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::AddSubMenuResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::AddSubMenuResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::AddSubMenuRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::AddSubMenuRequest(message, application_manager));
       }
       break;
     }
@@ -227,20 +227,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::DeleteSubMenuResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::DeleteSubMenuResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::DeleteSubMenuRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::DeleteSubMenuRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::DeleteInteractionChoiceSetID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::DeleteInteractionChoiceSetResponse(
+        command.reset(new(__FILE__, __LINE__) commands::DeleteInteractionChoiceSetResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::DeleteInteractionChoiceSetRequest(
+        command.reset(new(__FILE__, __LINE__) commands::DeleteInteractionChoiceSetRequest(
             message, application_manager));
       }
       break;
@@ -249,9 +249,9 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::AlertResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::AlertResponse(message, application_manager));
       } else {
-        command.reset(new commands::AlertRequest(message, application_manager));
+        command.reset(new(__FILE__, __LINE__) commands::AlertRequest(message, application_manager));
       }
       break;
     }
@@ -259,9 +259,9 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::SpeakResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::SpeakResponse(message, application_manager));
       } else {
-        command.reset(new commands::SpeakRequest(message, application_manager));
+        command.reset(new(__FILE__, __LINE__) commands::SpeakRequest(message, application_manager));
       }
       break;
     }
@@ -269,20 +269,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::SliderResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::SliderResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::SliderRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::SliderRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::PerformAudioPassThruID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::PerformAudioPassThruResponse(
+        command.reset(new(__FILE__, __LINE__) commands::PerformAudioPassThruResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::PerformAudioPassThruRequest(
+        command.reset(new(__FILE__, __LINE__) commands::PerformAudioPassThruRequest(
             message, application_manager));
       }
       break;
@@ -290,10 +290,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::CreateInteractionChoiceSetID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::CreateInteractionChoiceSetResponse(
+        command.reset(new(__FILE__, __LINE__) commands::CreateInteractionChoiceSetResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::CreateInteractionChoiceSetRequest(
+        command.reset(new(__FILE__, __LINE__) commands::CreateInteractionChoiceSetRequest(
             message, application_manager));
       }
       break;
@@ -301,10 +301,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::PerformInteractionID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::PerformInteractionResponse(
+        command.reset(new(__FILE__, __LINE__) commands::PerformInteractionResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::PerformInteractionRequest(
+        command.reset(new(__FILE__, __LINE__) commands::PerformInteractionRequest(
             message, application_manager));
       }
       break;
@@ -312,10 +312,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::EndAudioPassThruID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::EndAudioPassThruResponse(
+        command.reset(new(__FILE__, __LINE__) commands::EndAudioPassThruResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::EndAudioPassThruRequest(
+        command.reset(new(__FILE__, __LINE__) commands::EndAudioPassThruRequest(
             message, application_manager));
       }
       break;
@@ -324,10 +324,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::PutFileResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::PutFileResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::PutFileRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::PutFileRequest(message, application_manager));
       }
       break;
     }
@@ -335,10 +335,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::DeleteFileResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::DeleteFileResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::DeleteFileRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::DeleteFileRequest(message, application_manager));
       }
       break;
     }
@@ -346,31 +346,31 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::ListFilesResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::ListFilesResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::ListFilesRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::ListFilesRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::SubscribeButtonID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::SubscribeButtonResponse(
+        command.reset(new(__FILE__, __LINE__) commands::SubscribeButtonResponse(
             message, application_manager));
       } else {
         command.reset(
-            new commands::SubscribeButtonRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::SubscribeButtonRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::UnsubscribeButtonID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::UnsubscribeButtonResponse(
+        command.reset(new(__FILE__, __LINE__) commands::UnsubscribeButtonResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::UnsubscribeButtonRequest(
+        command.reset(new(__FILE__, __LINE__) commands::UnsubscribeButtonRequest(
             message, application_manager));
       }
       break;
@@ -378,20 +378,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::ShowConstantTBTID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::ShowConstantTBTResponse(
+        command.reset(new(__FILE__, __LINE__) commands::ShowConstantTBTResponse(
             message, application_manager));
       } else {
         command.reset(
-            new commands::ShowConstantTBTRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::ShowConstantTBTRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::ShowID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::ShowResponse(message, application_manager));
+        command.reset(new(__FILE__, __LINE__) commands::ShowResponse(message, application_manager));
       } else {
-        command.reset(new commands::ShowRequest(message, application_manager));
+        command.reset(new(__FILE__, __LINE__) commands::ShowRequest(message, application_manager));
       }
       break;
     }
@@ -409,10 +409,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::SubscribeVehicleDataID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::SubscribeVehicleDataResponse(
+        command.reset(new(__FILE__, __LINE__) commands::SubscribeVehicleDataResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::SubscribeVehicleDataRequest(
+        command.reset(new(__FILE__, __LINE__) commands::SubscribeVehicleDataRequest(
             message, application_manager));
       }
       break;
@@ -420,10 +420,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::UnsubscribeVehicleDataID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::UnsubscribeVehicleDataResponse(
+        command.reset(new(__FILE__, __LINE__) commands::UnsubscribeVehicleDataResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::UnsubscribeVehicleDataRequest(
+        command.reset(new(__FILE__, __LINE__) commands::UnsubscribeVehicleDataRequest(
             message, application_manager));
       }
       break;
@@ -454,10 +454,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::ReadDIDResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::ReadDIDResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::ReadDIDRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::ReadDIDRequest(message, application_manager));
       }
       break;
     }
@@ -465,20 +465,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::GetVehicleDataResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::GetVehicleDataResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::GetVehicleDataRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::GetVehicleDataRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::ScrollableMessageID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::ScrollableMessageResponse(
+        command.reset(new(__FILE__, __LINE__) commands::ScrollableMessageResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::ScrollableMessageRequest(
+        command.reset(new(__FILE__, __LINE__) commands::ScrollableMessageRequest(
             message, application_manager));
       }
       break;
@@ -487,10 +487,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::AlertManeuverResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::AlertManeuverResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::AlertManeuverRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::AlertManeuverRequest(message, application_manager));
       }
       break;
     }
@@ -498,20 +498,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::SetAppIconResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::SetAppIconResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::SetAppIconRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::SetAppIconRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::SetDisplayLayoutID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::SetDisplayLayoutResponse(
+        command.reset(new(__FILE__, __LINE__) commands::SetDisplayLayoutResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::SetDisplayLayoutRequest(
+        command.reset(new(__FILE__, __LINE__) commands::SetDisplayLayoutRequest(
             message, application_manager));
       }
       break;
@@ -520,20 +520,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::UpdateTurnListResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::UpdateTurnListResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::UpdateTurnListRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::UpdateTurnListRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::ChangeRegistrationID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::ChangeRegistrationResponse(
+        command.reset(new(__FILE__, __LINE__) commands::ChangeRegistrationResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::ChangeRegistrationRequest(
+        command.reset(new(__FILE__, __LINE__) commands::ChangeRegistrationRequest(
             message, application_manager));
       }
       break;
@@ -542,20 +542,20 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::GetDTCsResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::GetDTCsResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::GetDTCsRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::GetDTCsRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::DiagnosticMessageID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::DiagnosticMessageResponse(
+        command.reset(new(__FILE__, __LINE__) commands::DiagnosticMessageResponse(
             message, application_manager));
       } else {
-        command.reset(new commands::DiagnosticMessageRequest(
+        command.reset(new(__FILE__, __LINE__) commands::DiagnosticMessageRequest(
             message, application_manager));
       }
       break;
@@ -563,11 +563,11 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
     case mobile_apis::FunctionID::SetMediaClockTimerID: {
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
-        command.reset(new commands::SetMediaClockTimerResponse(
+        command.reset(new(__FILE__, __LINE__) commands::SetMediaClockTimerResponse(
             message, application_manager));
       } else {
         command.reset(
-            new commands::SetMediaClockRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::SetMediaClockRequest(message, application_manager));
       }
       break;
     }
@@ -575,10 +575,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::SystemResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::SystemResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::SystemRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::SystemRequest(message, application_manager));
       }
       break;
     }
@@ -586,10 +586,10 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::SendLocationResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::SendLocationResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::SendLocationRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::SendLocationRequest(message, application_manager));
       }
       break;
     }
@@ -597,90 +597,90 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       if ((*message)[strings::params][strings::message_type] ==
           static_cast<int>(application_manager::MessageType::kResponse)) {
         command.reset(
-            new commands::DialNumberResponse(message, application_manager));
+            new(__FILE__, __LINE__) commands::DialNumberResponse(message, application_manager));
       } else {
         command.reset(
-            new commands::DialNumberRequest(message, application_manager));
+            new(__FILE__, __LINE__) commands::DialNumberRequest(message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::OnButtonEventID: {
-      command.reset(new commands::mobile::OnButtonEventNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnButtonEventNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnButtonPressID: {
-      command.reset(new commands::mobile::OnButtonPressNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnButtonPressNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnAudioPassThruID: {
-      command.reset(new commands::OnAudioPassThruNotification(
+      command.reset(new(__FILE__, __LINE__) commands::OnAudioPassThruNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnVehicleDataID: {
-      command.reset(new commands::OnVehicleDataNotification(
+      command.reset(new(__FILE__, __LINE__) commands::OnVehicleDataNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnAppInterfaceUnregisteredID: {
-      command.reset(new commands::OnAppInterfaceUnregisteredNotification(
+      command.reset(new(__FILE__, __LINE__) commands::OnAppInterfaceUnregisteredNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnCommandID: {
       command.reset(
-          new commands::OnCommandNotification(message, application_manager));
+          new(__FILE__, __LINE__) commands::OnCommandNotification(message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnTBTClientStateID: {
-      command.reset(new commands::OnTBTClientStateNotification(
+      command.reset(new(__FILE__, __LINE__) commands::OnTBTClientStateNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnDriverDistractionID: {
-      command.reset(new commands::mobile::OnDriverDistractionNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnDriverDistractionNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnLanguageChangeID: {
-      command.reset(new commands::OnLanguageChangeNotification(
+      command.reset(new(__FILE__, __LINE__) commands::OnLanguageChangeNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnPermissionsChangeID: {
-      command.reset(new commands::OnPermissionsChangeNotification(
+      command.reset(new(__FILE__, __LINE__) commands::OnPermissionsChangeNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnHMIStatusID: {
       if (commands::Command::ORIGIN_SDL == origin) {
-        command.reset(new commands::OnHMIStatusNotification(
+        command.reset(new(__FILE__, __LINE__) commands::OnHMIStatusNotification(
             message, application_manager));
       } else {
-        command.reset(new commands::OnHMIStatusNotificationFromMobile(
+        command.reset(new(__FILE__, __LINE__) commands::OnHMIStatusNotificationFromMobile(
             message, application_manager));
       }
       break;
     }
     case mobile_apis::FunctionID::OnKeyboardInputID: {
-      command.reset(new commands::mobile::OnKeyBoardInputNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnKeyBoardInputNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnTouchEventID: {
-      command.reset(new commands::mobile::OnTouchEventNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnTouchEventNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnSystemRequestID: {
-      command.reset(new commands::mobile::OnSystemRequestNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnSystemRequestNotification(
           message, application_manager));
       break;
     }
     case mobile_apis::FunctionID::OnHashChangeID: {
-      command.reset(new commands::mobile::OnHashChangeNotification(
+      command.reset(new(__FILE__, __LINE__) commands::mobile::OnHashChangeNotification(
           message, application_manager));
       break;
     }
@@ -693,7 +693,7 @@ CommandSharedPtr MobileCommandFactory::CreateCommand(
       (*message)[strings::params][strings::function_id] =
           static_cast<int32_t>(mobile_apis::FunctionID::GenericResponseID);
       command.reset(
-          new commands::GenericResponse(message, application_manager));
+          new(__FILE__, __LINE__) commands::GenericResponse(message, application_manager));
     }
   }
   return command;

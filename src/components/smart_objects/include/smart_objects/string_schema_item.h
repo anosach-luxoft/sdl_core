@@ -49,10 +49,10 @@ namespace NsSmartObjects {
 class CStringSchemaItem : public CDefaultSchemaItem<std::string> {
  public:
   /**
-   * @brief Create a new schema item.
+   * @brief Create a new(__FILE__, __LINE__) schema item.
    * @param MaxLength Maximum allowed string length.
    * @param DefaultValue Default value.
-   * @return Shared pointer to a new schema item.
+   * @return Shared pointer to a new(__FILE__, __LINE__) schema item.
    **/
   static utils::SharedPtr<CStringSchemaItem> create(
       const TSchemaItemParameter<size_t>& MinLength =

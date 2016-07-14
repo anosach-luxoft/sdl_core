@@ -61,12 +61,12 @@ class HMIMessageHandlerImplTest : public ::testing::Test {
   virtual void SetUp() OVERRIDE {
     ON_CALL(mock_hmi_message_handler_settings, thread_min_stack_size())
         .WillByDefault(ReturnRef(stack_size));
-    hmi_handler_ = new hmi_message_handler::HMIMessageHandlerImpl(
+    hmi_handler_ = new(__FILE__, __LINE__) hmi_message_handler::HMIMessageHandlerImpl(
         mock_hmi_message_handler_settings);
-    mb_adapter_ = new hmi_message_handler::MessageBrokerAdapter(
+    mb_adapter_ = new(__FILE__, __LINE__) hmi_message_handler::MessageBrokerAdapter(
         hmi_handler_, "localhost", 22);
     mock_hmi_message_observer_ =
-        new hmi_message_handler::MockHMIMessageObserver();
+        new(__FILE__, __LINE__) hmi_message_handler::MockHMIMessageObserver();
     hmi_handler_->set_message_observer(mock_hmi_message_observer_);
     EXPECT_TRUE(NULL != hmi_handler_->observer());
   }

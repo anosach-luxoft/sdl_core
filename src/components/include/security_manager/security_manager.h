@@ -114,11 +114,11 @@ class SecurityManager : public protocol_handler::ProtocolObserver {
   }
 
   /**
-   * \brief Create new SSLContext for connection or return exists
+   * \brief Create new(__FILE__, __LINE__) SSLContext for connection or return exists
    * Do not notify listeners, send security error on occure
    * \param connection_key Unique key used by other components as session
    * identifier
-   * @return new \c  SSLContext or \c NULL on any error
+   * @return new(__FILE__, __LINE__) \c  SSLContext or \c NULL on any error
    */
   virtual SSLContext* CreateSSLContext(const uint32_t& connection_key) = 0;
 

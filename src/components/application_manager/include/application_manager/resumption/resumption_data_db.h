@@ -540,7 +540,7 @@ class ResumptionDataDB : public ResumptionData {
       const smart_objects::SmartObject& choiceset) const;
 
   /**
-   * @brief combines primary key from several table to new table
+   * @brief combines primary key from several table to new(__FILE__, __LINE__) table
    * @param first_primary_key - will contain primary key from first DB table
    * @param second_primary_key - will contain primary key from second DB table
    * @param text_query - contains text of query

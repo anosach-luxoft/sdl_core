@@ -387,7 +387,7 @@ class PolicyManager : public usage_statistics::StatisticsManager {
 
   /**
    * @brief Allows to update Vehicle Identification Number in policy table.
-   * @param new value for the parameter.
+   * @param new(__FILE__, __LINE__) value for the parameter.
    */
   virtual void SetVINValue(const std::string& value) = 0;
 

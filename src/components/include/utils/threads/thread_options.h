@@ -60,7 +60,7 @@ class ThreadOptions {
 
   /**
    * Copy ctor.
-   * @param options - new options.
+   * @param options - new(__FILE__, __LINE__) options.
    */
   ThreadOptions(const ThreadOptions& options) {
     *this = options;
@@ -68,8 +68,8 @@ class ThreadOptions {
 
   /**
    * Assign operator.
-   * @param options - new options.
-   * @return new options.
+   * @param options - new(__FILE__, __LINE__) options.
+   * @return new(__FILE__, __LINE__) options.
    */
   ThreadOptions& operator=(const ThreadOptions& options) {
     stack_size_ = options.stack_size();

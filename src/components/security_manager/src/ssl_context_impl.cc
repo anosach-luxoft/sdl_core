@@ -53,7 +53,7 @@ CryptoManagerImpl::SSLContextImpl::SSLContextImpl(SSL* conn,
     , bioOut_(BIO_new(BIO_s_mem()))
     , bioFilter_(NULL)
     , buffer_size_(maximum_payload_size)
-    , buffer_(new uint8_t[buffer_size_])
+    , buffer_(new(__FILE__, __LINE__) uint8_t[buffer_size_])
     , is_handshake_pending_(false)
     , mode_(mode) {
   SSL_set_bio(connection_, bioIn_, bioOut_);
@@ -458,7 +458,7 @@ void CryptoManagerImpl::SSLContextImpl::SetHandshakeContext(
 void CryptoManagerImpl::SSLContextImpl::EnsureBufferSizeEnough(size_t size) {
   if (buffer_size_ < size) {
     delete[] buffer_;
-    buffer_ = new (std::nothrow) uint8_t[size];
+    buffer_ = new(__FILE__, __LINE__)  uint8_t[size];
     if (buffer_) {
       buffer_size_ = size;
     }

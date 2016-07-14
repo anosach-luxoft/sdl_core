@@ -314,7 +314,7 @@ class PolicyHandler : public PolicyHandlerInterface,
   virtual void GetAvailableApps(std::queue<std::string>& apps) OVERRIDE;
 
   /**
-   * @brief Allows to add new or update existed application during
+   * @brief Allows to add new(__FILE__, __LINE__) or update existed application during
    * registration process
    * @param application_id The policy aplication id.
    */
@@ -443,7 +443,7 @@ class PolicyHandler : public PolicyHandlerInterface,
    *
    * @param connection_key connection key
    *
-   * @param permissions new permissions.
+   * @param permissions new(__FILE__, __LINE__) permissions.
    */
   void OnAppPermissionConsentInternal(const uint32_t connection_key,
                                       PermissionConsent& permissions) OVERRIDE;
@@ -462,26 +462,26 @@ class PolicyHandler : public PolicyHandlerInterface,
     }
     // TODO(AKutsan) REMOVE THIS UGLY HOTFIX
     virtual void Increment(usage_statistics::GlobalCounterId type) {
-      policy_handler_->AsyncRun(new StatisticsDelegate(*policy_handler_, type));
+      policy_handler_->AsyncRun(new(__FILE__, __LINE__) StatisticsDelegate(*policy_handler_, type));
     }
 
     void Increment(const std::string& app_id,
                    usage_statistics::AppCounterId type) {
       policy_handler_->AsyncRun(
-          new StatisticsDelegate(*policy_handler_, app_id, type));
+          new(__FILE__, __LINE__) StatisticsDelegate(*policy_handler_, app_id, type));
     }
 
     void Set(const std::string& app_id,
              usage_statistics::AppInfoId type,
              const std::string& value) {
       policy_handler_->AsyncRun(
-          new StatisticsDelegate(*policy_handler_, app_id, type, value));
+          new(__FILE__, __LINE__) StatisticsDelegate(*policy_handler_, app_id, type, value));
     }
 
     void Add(const std::string& app_id,
              usage_statistics::AppStopwatchId type,
              int32_t timespan_seconds) {
-      policy_handler_->AsyncRun(new StatisticsDelegate(
+      policy_handler_->AsyncRun(new(__FILE__, __LINE__) StatisticsDelegate(
           *policy_handler_, app_id, type, timespan_seconds));
     }
 

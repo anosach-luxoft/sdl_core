@@ -132,7 +132,7 @@ MobileMessageHandler::HandleIncomingMessageProtocolV1(
     const ::protocol_handler::RawMessagePtr message) {
   LOG4CXX_AUTO_TRACE(logger_);
   application_manager::Message* outgoing_message =
-      new application_manager::Message(
+      new(__FILE__, __LINE__) application_manager::Message(
           protocol_handler::MessagePriority::FromServiceType(
               message->service_type()));
   if (!message) {
@@ -173,7 +173,7 @@ MobileMessageHandler::HandleIncomingMessageProtocolV2(
   }
 
   std::auto_ptr<application_manager::Message> outgoing_message(
-      new application_manager::Message(
+      new(__FILE__, __LINE__) application_manager::Message(
           protocol_handler::MessagePriority::FromServiceType(
               message->service_type())));
 
@@ -191,7 +191,7 @@ MobileMessageHandler::HandleIncomingMessageProtocolV2(
 
   if (!payload.data.empty()) {
     outgoing_message->set_binary_data(
-        new application_manager::BinaryData(payload.data));
+        new(__FILE__, __LINE__) application_manager::BinaryData(payload.data));
   }
   return outgoing_message.release();
 }
@@ -206,10 +206,10 @@ MobileMessageHandler::HandleOutgoingMessageProtocolV1(
     return NULL;
   }
 
-  uint8_t* rawMessage = new uint8_t[messageString.length() + 1];
+  uint8_t* rawMessage = new(__FILE__, __LINE__) uint8_t[messageString.length() + 1];
   memcpy(rawMessage, messageString.c_str(), messageString.length() + 1);
 
-  protocol_handler::RawMessage* result = new protocol_handler::RawMessage(
+  protocol_handler::RawMessage* result = new(__FILE__, __LINE__) protocol_handler::RawMessage(
       message->connection_key(), 1, rawMessage, messageString.length() + 1);
 
   delete[] rawMessage;
@@ -232,7 +232,7 @@ MobileMessageHandler::HandleOutgoingMessageProtocolV2(
 
   const size_t dataForSendingSize =
       protocol_handler::PROTOCOL_HEADER_V2_SIZE + jsonSize + binarySize;
-  uint8_t* dataForSending = new uint8_t[dataForSendingSize];
+  uint8_t* dataForSending = new(__FILE__, __LINE__) uint8_t[dataForSendingSize];
   uint8_t offset = 0;
 
   uint8_t rpcTypeFlag = 0;
@@ -284,7 +284,7 @@ MobileMessageHandler::HandleOutgoingMessageProtocolV2(
   }
 
   protocol_handler::RawMessage* msgToProtocolHandler =
-      new protocol_handler::RawMessage(message->connection_key(),
+      new(__FILE__, __LINE__) protocol_handler::RawMessage(message->connection_key(),
                                        message->protocol_version(),
                                        dataForSending,
                                        dataForSendingSize,

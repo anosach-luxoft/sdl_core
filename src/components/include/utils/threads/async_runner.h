@@ -54,7 +54,7 @@ namespace threads {
 class AsyncRunner {
  public:
   /**
-   * @brief AsyncRunner constructor, allows to create and run new thread.
+   * @brief AsyncRunner constructor, allows to create and run new(__FILE__, __LINE__) thread.
    * The thread will be removed in destructor and appropriate delegate will
    * be removed some time latter after pthred_join.
    *

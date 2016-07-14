@@ -90,7 +90,7 @@ struct IsNameType : public std::unary_function<const Description*, bool> {
 DBusSchema::DBusSchema(const MessageDescription** array) {
   const MessageDescription** msg = array;
   while (*msg != NULL) {
-    Description* desc = new Description();
+    Description* desc = new(__FILE__, __LINE__) Description();
     desc->id = (*msg)->function_id;
     desc->name = std::make_pair((*msg)->interface, (*msg)->name);
     desc->type = (*msg)->message_type;

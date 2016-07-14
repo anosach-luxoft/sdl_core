@@ -37,7 +37,7 @@ namespace NsSmartObjects {
 
 utils::SharedPtr<CBoolSchemaItem> CBoolSchemaItem::create(
     const TSchemaItemParameter<bool>& DefaultValue) {
-  return new CBoolSchemaItem(DefaultValue);
+  return new(__FILE__, __LINE__) CBoolSchemaItem(DefaultValue);
 }
 
 CBoolSchemaItem::CBoolSchemaItem(const TSchemaItemParameter<bool>& DefaultValue)

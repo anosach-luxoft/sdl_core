@@ -66,7 +66,7 @@ class ConnectionHandlerObserver {
       const connection_handler::DeviceMap& device_list) = 0;
 
   /**
-   * @brief Reaction to "Find new applications" request
+   * @brief Reaction to "Find new(__FILE__, __LINE__) applications" request
    */
   virtual void OnFindNewApplicationsRequest() = 0;
 
@@ -82,7 +82,7 @@ class ConnectionHandlerObserver {
 
   /**
    * \brief Callback function used by connection_handler
-   * when Mobile Application initiates start of new service.
+   * when Mobile Application initiates start of new(__FILE__, __LINE__) service.
    * \param deviceHandle Device identifier within which session has to be
    * started.
    * \param sessionKey Key of started session.

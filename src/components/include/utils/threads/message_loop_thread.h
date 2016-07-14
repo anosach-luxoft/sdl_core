@@ -75,7 +75,7 @@ class MessageLoopThread {
   };
 
   /*
-   * Constructs new MessageLoopThread. Must be named to aid debugging.
+   * Constructs new(__FILE__, __LINE__) MessageLoopThread. Must be named to aid debugging.
    */
   MessageLoopThread(const std::string& name,
                     Handler* handler,
@@ -136,7 +136,7 @@ template <class Q>
 MessageLoopThread<Q>::MessageLoopThread(const std::string& name,
                                         Handler* handler,
                                         const ThreadOptions& thread_opts)
-    : thread_delegate_(new LoopThreadDelegate(&message_queue_, handler))
+    : thread_delegate_(new(__FILE__, __LINE__) LoopThreadDelegate(&message_queue_, handler))
     , thread_(threads::CreateThread(name.c_str(), thread_delegate_)) {
   const bool started = thread_->start(thread_opts);
   if (!started) {

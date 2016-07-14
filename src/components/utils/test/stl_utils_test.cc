@@ -52,7 +52,7 @@ typedef std::vector<TestObject*> TestVector;
 
 TEST(StlDeleter, DestructMapWithOneElement) {
   TestMap test_map;
-  test_map[1] = new TestObject();
+  test_map[1] = new(__FILE__, __LINE__) TestObject();
 
   EXPECT_EQ(1u, test_map.size());
   { StlMapDeleter<TestMap> test_list_deleter_(&test_map); }
@@ -62,8 +62,8 @@ TEST(StlDeleter, DestructMapWithOneElement) {
 
 TEST(StlDeleter, DestructMapWithSeveralElements) {
   TestMap test_map;
-  test_map[1] = new TestObject();
-  test_map[2] = new TestObject();
+  test_map[1] = new(__FILE__, __LINE__) TestObject();
+  test_map[2] = new(__FILE__, __LINE__) TestObject();
 
   EXPECT_EQ(2u, test_map.size());
   { StlMapDeleter<TestMap> test_list_deleter_(&test_map); }
@@ -74,7 +74,7 @@ TEST(StlDeleter, DestructMapWithSeveralElements) {
 
 TEST(StlDeleter, DestructVectorWithOneElement) {
   TestVector test_vector;
-  test_vector.push_back(new TestObject());
+  test_vector.push_back(new(__FILE__, __LINE__) TestObject());
 
   EXPECT_EQ(1u, test_vector.size());
   { StlCollectionDeleter<TestVector> test_list_deleter_(&test_vector); }
@@ -84,8 +84,8 @@ TEST(StlDeleter, DestructVectorWithOneElement) {
 
 TEST(StlDeleter, DestructVectorWithSeveralElements) {
   TestVector test_vector;
-  test_vector.push_back(new TestObject());
-  test_vector.push_back(new TestObject());
+  test_vector.push_back(new(__FILE__, __LINE__) TestObject());
+  test_vector.push_back(new(__FILE__, __LINE__) TestObject());
 
   EXPECT_EQ(2u, test_vector.size());
   { StlCollectionDeleter<TestVector> test_list_deleter_(&test_vector); }

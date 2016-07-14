@@ -229,7 +229,7 @@ char ini_write_value(const char* fname,
         }
       } else {
         if ((INI_RIGHT_CHAPTER == result) || (INI_WRONG_CHAPTER == result)) {
-          /* item not found but new capture */
+          /* item not found but new(__FILE__, __LINE__) capture */
           if (flag & INI_FLAG_ITEM_UP_CREA)
             fprintf(wr_fp, "%s=%s\n", item, value);
           /* The item must not update in an other chapter

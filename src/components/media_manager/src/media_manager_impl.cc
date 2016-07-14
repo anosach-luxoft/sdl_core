@@ -115,34 +115,34 @@ void MediaManagerImpl::Init() {
 #if defined(EXTENDED_MEDIA_MODE)
   LOG4CXX_INFO(logger_, "Called Init with default configuration.");
   a2dp_player_ =
-      new A2DPSourcePlayerAdapter(protocol_handler_->get_session_observer());
-  from_mic_recorder_ = new FromMicRecorderAdapter();
+      new(__FILE__, __LINE__) A2DPSourcePlayerAdapter(protocol_handler_->get_session_observer());
+  from_mic_recorder_ = new(__FILE__, __LINE__) FromMicRecorderAdapter();
 #endif
 
   if ("socket" == settings().video_server_type()) {
-    streamer_[ServiceType::kMobileNav] = new SocketVideoStreamerAdapter(
+    streamer_[ServiceType::kMobileNav] = new(__FILE__, __LINE__) SocketVideoStreamerAdapter(
         settings().server_address(), settings().video_streaming_port());
   } else if ("pipe" == settings().video_server_type()) {
-    streamer_[ServiceType::kMobileNav] = new PipeVideoStreamerAdapter(
+    streamer_[ServiceType::kMobileNav] = new(__FILE__, __LINE__) PipeVideoStreamerAdapter(
         settings().named_video_pipe_path(), settings().app_storage_folder());
   } else if ("file" == settings().video_server_type()) {
-    streamer_[ServiceType::kMobileNav] = new FileVideoStreamerAdapter(
+    streamer_[ServiceType::kMobileNav] = new(__FILE__, __LINE__) FileVideoStreamerAdapter(
         settings().video_stream_file(), settings().app_storage_folder());
   }
 
   if ("socket" == settings().audio_server_type()) {
-    streamer_[ServiceType::kAudio] = new SocketAudioStreamerAdapter(
+    streamer_[ServiceType::kAudio] = new(__FILE__, __LINE__) SocketAudioStreamerAdapter(
         settings().server_address(), settings().audio_streaming_port());
   } else if ("pipe" == settings().audio_server_type()) {
-    streamer_[ServiceType::kAudio] = new PipeAudioStreamerAdapter(
+    streamer_[ServiceType::kAudio] = new(__FILE__, __LINE__) PipeAudioStreamerAdapter(
         settings().named_audio_pipe_path(), settings().app_storage_folder());
   } else if ("file" == settings().audio_server_type()) {
-    streamer_[ServiceType::kAudio] = new FileAudioStreamerAdapter(
+    streamer_[ServiceType::kAudio] = new(__FILE__, __LINE__) FileAudioStreamerAdapter(
         settings().audio_stream_file(), settings().app_storage_folder());
   }
 
-  streamer_listener_[ServiceType::kMobileNav] = new StreamerListener(*this);
-  streamer_listener_[ServiceType::kAudio] = new StreamerListener(*this);
+  streamer_listener_[ServiceType::kMobileNav] = new(__FILE__, __LINE__) StreamerListener(*this);
+  streamer_listener_[ServiceType::kAudio] = new(__FILE__, __LINE__) StreamerListener(*this);
 
   if (streamer_[ServiceType::kMobileNav]) {
     streamer_[ServiceType::kMobileNav]->AddListener(
@@ -180,7 +180,7 @@ void MediaManagerImpl::StartMicrophoneRecording(int32_t application_key,
   file_path += "/";
   file_path += output_file;
   from_mic_listener_ =
-      new FromMicRecorderListener(file_path, application_manager_);
+      new(__FILE__, __LINE__) FromMicRecorderListener(file_path, application_manager_);
 #ifdef EXTENDED_MEDIA_MODE
   if (from_mic_recorder_) {
     from_mic_recorder_->AddListener(from_mic_listener_);

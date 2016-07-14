@@ -214,7 +214,7 @@ class MobileMessageHandlerTest : public testing::Test {
   void TestHandlingOutgoingMessageProtocolWithBinaryData(
       const uint32_t protocol_version) {
     // Arrange
-    BinaryData* bin_dat = new BinaryData;
+    BinaryData* bin_dat = new(__FILE__, __LINE__) BinaryData;
     bin_dat->push_back('\a');
 
     const uint32_t function_id = 247u;
@@ -251,7 +251,7 @@ TEST(mobile_message_test, basic_test) {
   MobileMessage message =
       utils::MakeShared<Message>(protocol_handler::MessagePriority::kDefault);
   EXPECT_FALSE(message->has_binary_data());
-  BinaryData* binary_data = new BinaryData;
+  BinaryData* binary_data = new(__FILE__, __LINE__) BinaryData;
   binary_data->push_back('X');
   message->set_binary_data(binary_data);
   EXPECT_TRUE(message->has_binary_data());

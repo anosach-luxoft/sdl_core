@@ -55,7 +55,7 @@ class StateControllerImpl : public event_engine::EventObserver,
    * @brief SetRegularState setup regular hmi state, that  will appear if
    * no specific events are active
    * @param app appication to setup regular State
-   * @param state state of new regular state
+   * @param state state of new(__FILE__, __LINE__) regular state
    */
 
   virtual void SetRegularState(ApplicationSharedPtr app,
@@ -65,8 +65,8 @@ class StateControllerImpl : public event_engine::EventObserver,
   /**
    * @brief SetRegularState Change regular hmi level and audio state
    * @param app appication to setup regular State
-   * @param hmi_level of new regular state
-   * @param audio_state of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
    * @param SendActivateApp: if true, ActivateAppRequest will be sent on HMI */
 
   virtual void SetRegularState(
@@ -78,7 +78,7 @@ class StateControllerImpl : public event_engine::EventObserver,
   /**
    * @brief SetRegularState Change regular hmi level
    * @param app appication to setup regular State
-   * @param hmi_level of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
    * @param SendActivateApp: if true, ActivateAppRequest will be sent on HMI
    */
   virtual void SetRegularState(ApplicationSharedPtr app,
@@ -89,9 +89,9 @@ class StateControllerImpl : public event_engine::EventObserver,
    * @brief SetRegularState Change regular hmi level, audio state and system
    * context
    * @param app appication to setup regular State
-   * @param hmi_level of new regular state
-   * @param audio_state of new regular state
-   * @param system_context of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
+   * @param system_context of new(__FILE__, __LINE__) regular state
    * @param SendActivateApp: if true, ActivateAppRequest will be sent on HMI */
 
   virtual void SetRegularState(
@@ -102,10 +102,10 @@ class StateControllerImpl : public event_engine::EventObserver,
       const bool SendActivateApp);
 
   /**
-   * @brief SetRegularState Sets regular state with new hmi level
+   * @brief SetRegularState Sets regular state with new(__FILE__, __LINE__) hmi level
    * to application
    * @param app appication to setup regular state
-   * @param hmi_level new hmi level for application
+   * @param hmi_level new(__FILE__, __LINE__) hmi level for application
    */
   virtual void SetRegularState(ApplicationSharedPtr app,
                                const mobile_apis::HMILevel::eType hmi_level);
@@ -113,7 +113,7 @@ class StateControllerImpl : public event_engine::EventObserver,
   /**
    * @brief SetRegularState Change regular audio state
    * @param app appication to setup regular State
-   * @param audio_state of new regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
    */
   virtual void SetRegularState(
       ApplicationSharedPtr app,
@@ -122,16 +122,16 @@ class StateControllerImpl : public event_engine::EventObserver,
   /**
    * @brief SetRegularState Change regular  system context
    * @param app appication to setup regular State
-   * @param system_context of new regular state
+   * @param system_context of new(__FILE__, __LINE__) regular state
    */
   virtual void SetRegularState(
       ApplicationSharedPtr app,
       const mobile_apis::SystemContext::eType system_context);
 
   /**
-   * @brief SetRegularState Sets new regular state to application
+   * @brief SetRegularState Sets new(__FILE__, __LINE__) regular state to application
    * @param app appication to setup regular state
-   * @param state new hmi state for application
+   * @param state new(__FILE__, __LINE__) hmi state for application
    */
   virtual void SetRegularState(ApplicationSharedPtr app, HmiStatePtr state);
 
@@ -283,7 +283,7 @@ class StateControllerImpl : public event_engine::EventObserver,
   bool IsTempStateActive(HmiState::StateID ID) const;
 
   /**
-   *  Function to add new temporary HmiState for application
+   *  Function to add new(__FILE__, __LINE__) temporary HmiState for application
    */
   template <HmiState::StateID ID>
   void HMIStateStarted(ApplicationSharedPtr app) {
@@ -340,7 +340,7 @@ class StateControllerImpl : public event_engine::EventObserver,
    * @brief ApplyRegularState setup regular hmi state, that will appear if no
    * specific events are active, without sending ActivateApp
    * @param app appication to setup default State
-   * @param state state of new defailt state
+   * @param state state of new(__FILE__, __LINE__) defailt state
    */
   void ApplyRegularState(ApplicationSharedPtr app, HmiStatePtr state);
 
@@ -365,9 +365,9 @@ class StateControllerImpl : public event_engine::EventObserver,
    * @brief SetupRegularHmiState set regular HMI State without
    * resolving conflicts and ActivateApp request
    * @param app application
-   * @param hmi_level of new regular state
-   * @param audio_state of new regular state
-   * @param system_context of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
+   * @param system_context of new(__FILE__, __LINE__) regular state
    */
   void SetupRegularHmiState(
       ApplicationSharedPtr app,
@@ -379,8 +379,8 @@ class StateControllerImpl : public event_engine::EventObserver,
    * @brief SetupRegularHmiState set regular HMI State without
    * resolving conflicts and ActivateApp request
    * @param app application
-   * @param hmi_level of new regular state
-   * @param audio_state of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
    */
   void SetupRegularHmiState(
       ApplicationSharedPtr app,

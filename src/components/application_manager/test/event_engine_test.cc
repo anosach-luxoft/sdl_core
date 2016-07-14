@@ -75,8 +75,8 @@ class EventEngineTest : public testing::Test {
   smart_objects::SmartObject smart_object_with_invalid_type;
 
   virtual void SetUp() OVERRIDE {
-    event_dispatcher_instance_ = new EventDispatcherImpl();
-    event_ = new Event(hmi_apis::FunctionID::eType::VR_IsReady);
+    event_dispatcher_instance_ = new(__FILE__, __LINE__) EventDispatcherImpl();
+    event_ = new(__FILE__, __LINE__) Event(hmi_apis::FunctionID::eType::VR_IsReady);
     smart_object_with_type_notification["params"]["message_type"] =
         hmi_apis::messageType::notification;
     smart_object_with_type_notification["params"]["correlation_id"] =

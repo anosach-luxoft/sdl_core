@@ -307,10 +307,10 @@ class ApplicationManagerImpl
 
   /**
    * @brief Notifies all components interested in Vehicle Data update
-   * i.e. new value of odometer etc and returns list of applications
+   * i.e. new(__FILE__, __LINE__) value of odometer etc and returns list of applications
    * subscribed for event.
    * @param vehicle_info Enum value of type of vehicle data
-   * @param new value (for integer values currently) of vehicle data
+   * @param new(__FILE__, __LINE__) value (for integer values currently) of vehicle data
    */
   std::vector<ApplicationSharedPtr> IviInfoUpdated(VehicleDataType vehicle_info,
                                                    int value) OVERRIDE;
@@ -470,7 +470,7 @@ class ApplicationManagerImpl
    * @param hmi_level of returned state
    * @param audio_state of returned state
    * @param system_context of returned state
-   * @return new regular HMI state
+   * @return new(__FILE__, __LINE__) regular HMI state
    */
   HmiStatePtr CreateRegularState(
       uint32_t app_id,
@@ -498,7 +498,7 @@ class ApplicationManagerImpl
    * @brief SetState setup regular hmi state, that will appear if no
    * specific events are active
    * @param app appication to setup regular State
-   * @param state state of new regular state
+   * @param state state of new(__FILE__, __LINE__) regular state
    */
   template <bool SendActivateApp>
   void SetState(uint32_t app_id, HmiStatePtr new_state) {
@@ -514,7 +514,7 @@ class ApplicationManagerImpl
   /**
    * @brief SetState Change regular audio state
    * @param app appication to setup regular State
-   * @param audio_state of new regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
    */
   template <bool SendActivateApp>
   void SetState(uint32_t app_id, mobile_apis::HMILevel::eType hmi_level) {
@@ -530,8 +530,8 @@ class ApplicationManagerImpl
   /**
    * @brief SetState Change regular hmi level and audio state
    * @param app appication to setup regular State
-   * @param hmi_level of new regular state
-   * @param audio_state of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
    * @param SendActivateApp: if true, ActivateAppRequest will be sent on HMI
    */
   template <bool SendActivateApp>
@@ -550,8 +550,8 @@ class ApplicationManagerImpl
   /**
    * @brief SetState Change regular hmi level and audio state
    * @param app appication to setup regular State
-   * @param hmi_level of new regular state
-   * @param audio_state of new regular state
+   * @param hmi_level of new(__FILE__, __LINE__) regular state
+   * @param audio_state of new(__FILE__, __LINE__) regular state
    * @param SendActivateApp: if true, ActivateAppRequest will be sent on HMI
    */
   template <bool SendActivateApp>
@@ -572,7 +572,7 @@ class ApplicationManagerImpl
   /**
    * @brief SetState Change regular  system context
    * @param app appication to setup regular State
-   * @param system_context of new regular state
+   * @param system_context of new(__FILE__, __LINE__) regular state
    */
   void SetState(uint32_t app_id,
                 mobile_apis::SystemContext::eType system_context) {
@@ -588,7 +588,7 @@ class ApplicationManagerImpl
   /**
    * @brief SetState Change regular hmi level
    * @param app appication to setup regular State
-   * @param hmi_level hmi level of new regular state
+   * @param hmi_level hmi level of new(__FILE__, __LINE__) regular state
    */
   void SetHmiState(uint32_t app_id, mobile_apis::HMILevel::eType hmi_level) {
     ApplicationSharedPtr app = application(app_id);
@@ -603,7 +603,7 @@ class ApplicationManagerImpl
   /**
    * @brief SetState Change regular hmi state
    * @param app appication to setup regular State
-   * @param state new regular hmi state
+   * @param state new(__FILE__, __LINE__) regular hmi state
    */
   void SetState(uint32_t app_id, HmiStatePtr state) {
     ApplicationSharedPtr app = application(app_id);
@@ -626,12 +626,12 @@ class ApplicationManagerImpl
    * @brief Notification from PolicyHandler about PTU.
    * Compares AppHMIType between saved in app and received from PTU. If they are
    * different method sends:
-   * UI_ChangeRegistration with list new AppHMIType;
+   * UI_ChangeRegistration with list new(__FILE__, __LINE__) AppHMIType;
    * ActivateApp with HMI level BACKGROUND;
    * OnHMIStatus notification;
    * for app with HMI level FULL or LIMITED.
    * method sends:
-   * UI_ChangeRegistration with list new AppHMIType
+   * UI_ChangeRegistration with list new(__FILE__, __LINE__) AppHMIType
    * for app with HMI level BACKGROUND.
    */
   void OnUpdateHMIAppType(
@@ -850,7 +850,7 @@ class ApplicationManagerImpl
   uint32_t GenerateGrammarID() OVERRIDE;
 
   /**
-   * Generate new HMI application ID
+   * Generate new(__FILE__, __LINE__) HMI application ID
    *
    * @return New HMI application ID
    */
@@ -877,7 +877,7 @@ class ApplicationManagerImpl
    * @param path for saving data
    * @param file_name File name
    * @param offset for saving data to existing file with offset.
-   *        If offset is 0 - create new file ( overrite existing )
+   *        If offset is 0 - create new(__FILE__, __LINE__) file ( overrite existing )
    *
    *
    * @return SUCCESS if file was saved, other code otherwise

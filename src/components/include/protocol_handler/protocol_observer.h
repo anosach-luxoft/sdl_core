@@ -50,7 +50,7 @@ class ProtocolObserver {
  public:
   /**
    * \brief Callback function which is used by ProtocolHandler
-   * when new message is received from Mobile Application.
+   * when new(__FILE__, __LINE__) message is received from Mobile Application.
    * \param message Message with supporting params received
    */
   virtual void OnMessageReceived(const RawMessagePtr message) = 0;

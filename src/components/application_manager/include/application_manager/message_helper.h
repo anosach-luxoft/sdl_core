@@ -670,7 +670,7 @@ class MessageHelper {
 
  private:
   /**
-   * @brief Creates new request object and fill its header
+   * @brief Creates new(__FILE__, __LINE__) request object and fill its header
    * @return New request object
    */
   static smart_objects::SmartObjectSPtr CreateRequestObject(

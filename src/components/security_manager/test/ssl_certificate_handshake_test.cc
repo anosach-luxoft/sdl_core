@@ -73,17 +73,17 @@ const size_t updates_before_hour = 24;
 class SSLHandshakeTest : public testing::Test {
  protected:
   void SetUp() OVERRIDE {
-    mock_server_manager_settings = new testing::NiceMock<
+    mock_server_manager_settings = new(__FILE__, __LINE__) testing::NiceMock<
         security_manager_test::MockCryptoManagerSettings>();
 
-    server_manager = new security_manager::CryptoManagerImpl(
+    server_manager = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(
         utils::SharedPtr<security_manager::CryptoManagerSettings>(
             mock_server_manager_settings));
     ASSERT_TRUE(server_manager);
-    mock_client_manager_settings = new testing::NiceMock<
+    mock_client_manager_settings = new(__FILE__, __LINE__) testing::NiceMock<
         security_manager_test::MockCryptoManagerSettings>();
 
-    client_manager = new security_manager::CryptoManagerImpl(
+    client_manager = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(
         utils::SharedPtr<security_manager::CryptoManagerSettings>(
             mock_client_manager_settings));
     ASSERT_TRUE(client_manager);

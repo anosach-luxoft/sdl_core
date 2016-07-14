@@ -41,7 +41,7 @@ namespace threads {
 CREATE_LOGGERPTR_GLOBAL(logger_, "Utils")
 
 AsyncRunner::AsyncRunner(const std::string& thread_name)
-    : executor_(new AsyncRunnerDelegate) {
+    : executor_(new(__FILE__, __LINE__) AsyncRunnerDelegate) {
   LOG4CXX_AUTO_TRACE(logger_);
   thread_ = threads::CreateThread(thread_name.c_str(), executor_);
   thread_->start();

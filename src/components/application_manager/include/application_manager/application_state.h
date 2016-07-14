@@ -93,7 +93,7 @@ class ApplicationState {
    *
    * @param app_id id of the application whose hmi level should be changed.
    *
-   * @param state new hmi state for certain application.
+   * @param state new(__FILE__, __LINE__) hmi state for certain application.
    */
   void AddHMIState(HmiStatePtr state);
 

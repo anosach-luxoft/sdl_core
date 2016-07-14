@@ -96,14 +96,14 @@ class RegisterAppInterfaceRequest : public CommandRequestImpl {
                                             bool resumption = false,
                                             bool need_restore_vr = false);
   /*
-   * @brief Check new ID along with known mobile application ID
+   * @brief Check new(__FILE__, __LINE__) ID along with known mobile application ID
    *
    * return TRUE if ID is known already, otherwise - FALSE
    */
   bool IsApplicationWithSameAppIdRegistered();
 
   /*
-   * @brief Check new application parameters (name, tts, vr) for
+   * @brief Check new(__FILE__, __LINE__) application parameters (name, tts, vr) for
    * coincidence with already known parameters of registered applications
    *
    * return SUCCESS if there is no coincidence of app.name/TTS/VR synonyms,

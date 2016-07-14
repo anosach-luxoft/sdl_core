@@ -44,7 +44,7 @@ void LogMessageHandler::Handle(const LogMessage message) {
 }
 
 LogMessageLoopThread::LogMessageLoopThread()
-    : LogMessageLoopThreadTemplate("Logger", new LogMessageHandler()) {}
+    : LogMessageLoopThreadTemplate("Logger", new(__FILE__, __LINE__) LogMessageHandler()) {}
 
 LogMessageLoopThread::~LogMessageLoopThread() {
   // we'll have to drop messages

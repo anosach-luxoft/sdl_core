@@ -203,7 +203,7 @@ TEST_F(RequestInfoTest, CheckRequestsMaxCount) {
       app_hmi_level_time_scale,
       hmi_level_count));
 
-  // Adding new request is correct
+  // Adding new(__FILE__, __LINE__) request is correct
   utils::SharedPtr<TestRequestInfo> new_request =
       CreateTestInfo(mobile_connection_key1_,
                      hmi_level_count,
@@ -253,7 +253,7 @@ TEST_F(RequestInfoTest, CheckMaxCountOfRequest) {
   EXPECT_TRUE(request_info_set_.CheckTimeScaleMaxRequest(
       mobile_connection_key1_, app_hmi_level_time_scale, hmi_level_count));
 
-  // Adding new request is correct
+  // Adding new(__FILE__, __LINE__) request is correct
   utils::SharedPtr<TestRequestInfo> new_request =
       CreateTestInfo(mobile_connection_key1_,
                      hmi_level_count,

@@ -62,7 +62,7 @@ int TransportManagerDefault::Init(resumption::LastState& last_state) {
 
 #ifdef BLUETOOTH_SUPPORT
   transport_adapter::TransportAdapterImpl* ta_bluetooth =
-      new transport_adapter::BluetoothTransportAdapter(last_state,
+      new(__FILE__, __LINE__) transport_adapter::BluetoothTransportAdapter(last_state,
                                                        get_settings());
 #ifdef TELEMETRY_MONITOR
   if (metric_observer_) {
@@ -75,7 +75,7 @@ int TransportManagerDefault::Init(resumption::LastState& last_state) {
 
   const uint16_t port = get_settings().transport_manager_tcp_adapter_port();
   transport_adapter::TransportAdapterImpl* ta_tcp =
-      new transport_adapter::TcpTransportAdapter(
+      new(__FILE__, __LINE__) transport_adapter::TcpTransportAdapter(
           port, last_state, get_settings());
 #ifdef TELEMETRY_MONITOR
   if (metric_observer_) {
@@ -87,7 +87,7 @@ int TransportManagerDefault::Init(resumption::LastState& last_state) {
 
 #if defined(USB_SUPPORT)
   transport_adapter::TransportAdapterImpl* ta_usb =
-      new transport_adapter::UsbAoaAdapter(last_state, get_settings());
+      new(__FILE__, __LINE__) transport_adapter::UsbAoaAdapter(last_state, get_settings());
 #ifdef TELEMETRY_MONITOR
   if (metric_observer_) {
     ta_usb->SetTelemetryObserver(metric_observer_);

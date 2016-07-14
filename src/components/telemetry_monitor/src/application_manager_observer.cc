@@ -42,7 +42,7 @@ ApplicationManagerObserver::ApplicationManagerObserver(
 
 void ApplicationManagerObserver::OnMessage(
     utils::SharedPtr<MessageMetric> metric) {
-  ApplicationManagerMetricWrapper* m = new ApplicationManagerMetricWrapper();
+  ApplicationManagerMetricWrapper* m = new(__FILE__, __LINE__) ApplicationManagerMetricWrapper();
   m->message_metric = metric;
   m->grabResources();
   telemetry_monitor_->SendMetric(m);

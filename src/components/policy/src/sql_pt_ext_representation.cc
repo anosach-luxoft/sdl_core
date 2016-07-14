@@ -226,7 +226,7 @@ bool SQLPTExtRepresentation::SetDeviceData(const std::string& device_id,
     return true;
   }
 
-  // Insert new data
+  // Insert new(__FILE__, __LINE__) data
   utils::dbms::SQLQuery insert_query(db());
   if (!insert_query.Prepare(sql_pt_ext::kInsertDevice)) {
     LOG4CXX_WARN(logger_, "Incorrect insert statement for device.");
@@ -320,7 +320,7 @@ bool SQLPTExtRepresentation::SetUserPermissionsForDevice(
     return true;
   }
 
-  // Insert new values
+  // Insert new(__FILE__, __LINE__) values
   if (!query.Prepare(sql_pt_ext::kInsertDeviceConsentedGroup)) {
     LOG4CXX_WARN(logger_,
                  "Incorrect statement of inserting to device consented groups");
@@ -456,7 +456,7 @@ bool SQLPTExtRepresentation::SetUserPermissionsForApp(
       continue;
     }
 
-    // Insert new consent record
+    // Insert new(__FILE__, __LINE__) consent record
     if (!query.Prepare(sql_pt_ext::kInsertConsentGroups)) {
       LOG4CXX_WARN(logger_,
                    "Incorrect statement for update app group permissions.");

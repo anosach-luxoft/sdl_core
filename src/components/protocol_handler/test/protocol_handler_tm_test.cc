@@ -49,7 +49,7 @@ namespace test {
 namespace components {
 namespace protocol_handler_test {
 
-// Id passed as NULL for new session establishing
+// Id passed as NULL for new(__FILE__, __LINE__) session establishing
 #define NEW_SESSION_ID 0u
 #define SESSION_START_REJECT 0u
 // Protocol Handler Entities
@@ -128,7 +128,7 @@ class ProtocolHandlerImplTest : public ::testing::Test {
     ON_CALL(protocol_handler_settings_mock, multiframe_waiting_timeout())
         .WillByDefault(Return(multiframe_waiting_timeout));
     protocol_handler_impl.reset(
-        new ProtocolHandlerImpl(protocol_handler_settings_mock,
+        new(__FILE__, __LINE__) ProtocolHandlerImpl(protocol_handler_settings_mock,
                                 session_observer_mock,
                                 connection_handler_mock,
                                 transport_manager_mock));
@@ -609,10 +609,10 @@ TEST_F(ProtocolHandlerImplTest,
       WillOnce(Return(session_id));
 
   SetProtocolVersion2();
-  // call new SSLContext creation
+  // call new(__FILE__, __LINE__) SSLContext creation
   EXPECT_CALL(security_manager_mock, CreateSSLContext(connection_key))
       .
-      // Return new SSLContext
+      // Return new(__FILE__, __LINE__) SSLContext
       WillOnce(Return(&ssl_context_mock));
 
   // Initilization check
@@ -658,10 +658,10 @@ TEST_F(ProtocolHandlerImplTest,
   ON_CALL(protocol_handler_settings_mock, force_protected_service())
       .WillByDefault(ReturnRefOfCopy(services));
 
-  // call new SSLContext creation
+  // call new(__FILE__, __LINE__) SSLContext creation
   EXPECT_CALL(security_manager_mock, CreateSSLContext(connection_key))
       .
-      // Return new SSLContext
+      // Return new(__FILE__, __LINE__) SSLContext
       WillOnce(Return(&ssl_context_mock));
 
   // Initilization check
@@ -723,10 +723,10 @@ TEST_F(ProtocolHandlerImplTest,
       // Return sessions start success
       WillOnce(Return(session_id));
 
-  // call new SSLContext creation
+  // call new(__FILE__, __LINE__) SSLContext creation
   EXPECT_CALL(security_manager_mock, CreateSSLContext(connection_key))
       .
-      // Return new SSLContext
+      // Return new(__FILE__, __LINE__) SSLContext
       WillOnce(Return(&ssl_context_mock));
 
   // Initilization check
@@ -792,10 +792,10 @@ TEST_F(
       // Return sessions start success
       WillOnce(Return(session_id));
 
-  // call new SSLContext creation
+  // call new(__FILE__, __LINE__) SSLContext creation
   EXPECT_CALL(security_manager_mock, CreateSSLContext(connection_key))
       .
-      // Return new SSLContext
+      // Return new(__FILE__, __LINE__) SSLContext
       WillOnce(Return(&ssl_context_mock));
 
   // Initilization check
@@ -860,10 +860,10 @@ TEST_F(ProtocolHandlerImplTest,
       // Return sessions start success
       WillOnce(Return(session_id));
 
-  // call new SSLContext creation
+  // call new(__FILE__, __LINE__) SSLContext creation
   EXPECT_CALL(security_manager_mock, CreateSSLContext(connection_key))
       .
-      // Return new SSLContext
+      // Return new(__FILE__, __LINE__) SSLContext
       WillOnce(Return(&ssl_context_mock));
 
   // Initilization check

@@ -127,11 +127,11 @@ class SecurityManagerImpl : public SecurityManager,
   void Handle(const SecurityMessage message) OVERRIDE;
 
   /**
-   * \brief Create new SSLContext for connection or return exists
+   * \brief Create new(__FILE__, __LINE__) SSLContext for connection or return exists
    * Do not notify listeners, send security error on occure
    * \param connection_key Unique key used by other components as session
    * identifier
-   * @return new \c  SSLContext or \c NULL on any error
+   * @return new(__FILE__, __LINE__) \c  SSLContext or \c NULL on any error
    */
   SSLContext* CreateSSLContext(const uint32_t& connection_key) OVERRIDE;
 
@@ -192,7 +192,7 @@ class SecurityManagerImpl : public SecurityManager,
 
   /**
    * \brief Sends security query
-   * Create new array as concatenation of header and binary data
+   * Create new(__FILE__, __LINE__) array as concatenation of header and binary data
    * \param query SecurityQuery for sending via Control service
    * \param connection_key Unique key used by other components as session
    * identifier

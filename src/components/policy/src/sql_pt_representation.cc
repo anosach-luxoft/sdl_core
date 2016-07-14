@@ -66,7 +66,7 @@ void InsertUnique(K value, T* array) {
 const std::string SQLPTRepresentation::kDatabaseName = "policy";
 
 SQLPTRepresentation::SQLPTRepresentation()
-    : db_(new utils::dbms::SQLDatabase(kDatabaseName)) {}
+    : db_(new(__FILE__, __LINE__) utils::dbms::SQLDatabase(kDatabaseName)) {}
 
 SQLPTRepresentation::~SQLPTRepresentation() {
   db_->Close();
@@ -481,7 +481,7 @@ bool SQLPTRepresentation::RefreshDB() {
 utils::SharedPtr<policy_table::Table> SQLPTRepresentation::GenerateSnapshot()
     const {
   LOG4CXX_AUTO_TRACE(logger_);
-  utils::SharedPtr<policy_table::Table> table = new policy_table::Table();
+  utils::SharedPtr<policy_table::Table> table = new(__FILE__, __LINE__) policy_table::Table();
   GatherModuleMeta(&*table->policy_table.module_meta);
   GatherModuleConfig(&table->policy_table.module_config);
   GatherUsageAndErrorCounts(&*table->policy_table.usage_and_error_counts);
@@ -1680,7 +1680,7 @@ const int32_t SQLPTRepresentation::GetDBVersion() const {
 
 utils::dbms::SQLDatabase* SQLPTRepresentation::db() const {
 #ifdef __QNX__
-  utils::dbms::SQLDatabase* db = new utils::dbms::SQLDatabase(kDatabaseName);
+  utils::dbms::SQLDatabase* db = new(__FILE__, __LINE__) utils::dbms::SQLDatabase(kDatabaseName);
   db->Open();
   return db;
 #else

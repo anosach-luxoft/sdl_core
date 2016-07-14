@@ -214,7 +214,7 @@ void ShowRequest::Run() {
 
   SendHMIRequest(hmi_apis::FunctionID::UI_Show, &msg_params, true);
 
-  MessageSharedPtr persistentData = new smart_objects::SmartObject(msg_params);
+  MessageSharedPtr persistentData = new(__FILE__, __LINE__) smart_objects::SmartObject(msg_params);
   app->set_show_command(*persistentData);
 }
 

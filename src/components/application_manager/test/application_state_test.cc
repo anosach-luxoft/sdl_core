@@ -192,7 +192,7 @@ TEST_F(ApplicationStateTest, AddRegularState_PreviousStatePostponed) {
   state = utils::MakeShared<HmiState>(app_id, app_mngr_, postponed_id);
   app_state.AddState(state);
 
-  // Add new postponed state
+  // Add new(__FILE__, __LINE__) postponed state
   const uint32_t app_id2 = 10;
   state = utils::MakeShared<HmiState>(app_id2, app_mngr_, postponed_id);
   app_state.AddState(state);

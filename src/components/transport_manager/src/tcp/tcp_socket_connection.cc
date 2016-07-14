@@ -74,7 +74,7 @@ bool TcpServerOiginatedSocketConnection::Establish(ConnectError** error) {
   DeviceSptr device = controller()->FindDevice(device_handle());
   if (!device.valid()) {
     LOG4CXX_ERROR(logger_, "Device " << device_handle() << " not found");
-    *error = new ConnectError();
+    *error = new(__FILE__, __LINE__) ConnectError();
     return false;
   }
   TcpDevice* tcp_device = static_cast<TcpDevice*>(device.get());
@@ -84,14 +84,14 @@ bool TcpServerOiginatedSocketConnection::Establish(ConnectError** error) {
     LOG4CXX_ERROR(logger_,
                   "Application port for " << application_handle()
                                           << " not found");
-    *error = new ConnectError();
+    *error = new(__FILE__, __LINE__) ConnectError();
     return false;
   }
 
   const int socket = ::socket(AF_INET, SOCK_STREAM, 0);
   if (socket < 0) {
     LOG4CXX_ERROR(logger_, "Failed to create socket");
-    *error = new ConnectError();
+    *error = new(__FILE__, __LINE__) ConnectError();
     return false;
   }
 
@@ -106,7 +106,7 @@ bool TcpServerOiginatedSocketConnection::Establish(ConnectError** error) {
     LOG4CXX_ERROR(logger_,
                   "Failed to connect for application " << application_handle()
                                                        << ", error " << errno);
-    *error = new ConnectError();
+    *error = new(__FILE__, __LINE__) ConnectError();
     ::close(socket);
     return false;
   }

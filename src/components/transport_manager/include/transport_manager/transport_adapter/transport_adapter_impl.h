@@ -119,9 +119,9 @@ class TransportAdapterImpl : public TransportAdapter,
   void AddListener(TransportAdapterListener* listener) OVERRIDE;
 
   /**
-   * @brief Start scanning for new devices.
+   * @brief Start scanning for new(__FILE__, __LINE__) devices.
    *
-   * List of new devices will be supplied in onDeviceListUpdated callback.
+   * List of new(__FILE__, __LINE__) devices will be supplied in onDeviceListUpdated callback.
    *
    * @return Error information about possible reason of search devices failure.
    **/

@@ -106,7 +106,7 @@ class TestTaskWithStop : public TestTask {
 // Start - Stop
 
 TEST(TimerTest, Start_Stop_NoLoop_NoCall) {
-  MockTimerTask* mock_task = new MockTimerTask();
+  MockTimerTask* mock_task = new(__FILE__, __LINE__) MockTimerTask();
   EXPECT_CALL(*mock_task, run()).Times(0);
 
   timer::Timer timer(kTimerName, mock_task);
@@ -123,7 +123,7 @@ TEST(TimerTest, Start_Stop_NoLoop_NoCall) {
 }
 
 TEST(TimerTest, Start_Stop_Loop_NoCall) {
-  MockTimerTask* mock_task = new MockTimerTask();
+  MockTimerTask* mock_task = new(__FILE__, __LINE__) MockTimerTask();
   EXPECT_CALL(*mock_task, run()).Times(0);
 
   timer::Timer timer(kTimerName, mock_task);
@@ -141,7 +141,7 @@ TEST(TimerTest, Start_Stop_Loop_NoCall) {
 
 TEST(TimerTest, Start_Stop_NoLoop_OneCall) {
   sync_primitives::AutoLock auto_lock(shot_lock);
-  TestTask* task = new TestTask();
+  TestTask* task = new(__FILE__, __LINE__) TestTask();
 
   timer::Timer timer(kTimerName, task);
   EXPECT_FALSE(timer.is_running());
@@ -166,7 +166,7 @@ TEST(TimerTest, Start_Stop_Loop_3Calls) {
   const size_t loops_count = 3u;
 
   sync_primitives::AutoLock auto_lock(shot_lock);
-  TestTask* task = new TestTask();
+  TestTask* task = new(__FILE__, __LINE__) TestTask();
 
   timer::Timer timer(kTimerName, task);
   EXPECT_FALSE(timer.is_running());
@@ -192,7 +192,7 @@ TEST(TimerTest, Start_Stop_Loop_3Calls) {
 // Restart
 
 TEST(TimerTest, Restart_NoLoop_NoCall) {
-  MockTimerTask* mock_task = new MockTimerTask();
+  MockTimerTask* mock_task = new(__FILE__, __LINE__) MockTimerTask();
   EXPECT_CALL(*mock_task, run()).Times(0);
 
   timer::Timer timer(kTimerName, mock_task);
@@ -207,7 +207,7 @@ TEST(TimerTest, Restart_NoLoop_NoCall) {
 }
 
 TEST(TimerTest, Restart_Loop_NoCall) {
-  MockTimerTask* mock_task = new MockTimerTask();
+  MockTimerTask* mock_task = new(__FILE__, __LINE__) MockTimerTask();
   EXPECT_CALL(*mock_task, run()).Times(0);
 
   timer::Timer timer(kTimerName, mock_task);
@@ -225,7 +225,7 @@ TEST(TimerTest, Restart_Loop_3Calls) {
   const size_t loops_count = 3u;
 
   sync_primitives::AutoLock auto_lock(shot_lock);
-  TestTask* task = new TestTask();
+  TestTask* task = new(__FILE__, __LINE__) TestTask();
   timer::Timer timer(kTimerName, task);
 
   timer.Start(kDefaultTimeoutMs, !kSingleShot);
@@ -247,7 +247,7 @@ TEST(TimerTest, Restart_Loop_3Calls) {
 
 TEST(TimerTest, Restart_NoLoop_FromCall) {
   sync_primitives::AutoLock auto_lock(shot_lock);
-  TestTask* task = new TestTaskWithStart();
+  TestTask* task = new(__FILE__, __LINE__) TestTaskWithStart();
   timer::Timer timer(kTimerName, task);
   task->set_timer(&timer);
 
@@ -266,7 +266,7 @@ TEST(TimerTest, Restart_NoLoop_FromCall) {
 
 TEST(TimerTest, Restart_Loop_FromCall) {
   sync_primitives::AutoLock auto_lock(shot_lock);
-  TestTask* task = new TestTaskWithStart();
+  TestTask* task = new(__FILE__, __LINE__) TestTaskWithStart();
   timer::Timer timer(kTimerName, task);
   task->set_timer(&timer);
 
@@ -287,7 +287,7 @@ TEST(TimerTest, Restart_Loop_FromCall) {
 
 TEST(TimerTest, Stop_Loop_FromCall) {
   sync_primitives::AutoLock auto_lock(shot_lock);
-  TestTask* task = new TestTaskWithStop();
+  TestTask* task = new(__FILE__, __LINE__) TestTaskWithStop();
   timer::Timer timer(kTimerName, task);
   task->set_timer(&timer);
 
@@ -307,10 +307,10 @@ TEST(TimerTest, Stop_Loop_FromCall) {
 // Delete running
 
 TEST(TimerTest, Delete_Running_NoLoop) {
-  MockTimerTask* mock_task = new MockTimerTask();
+  MockTimerTask* mock_task = new(__FILE__, __LINE__) MockTimerTask();
   EXPECT_CALL(*mock_task, run()).Times(0);
 
-  timer::Timer* timer = new timer::Timer(kTimerName, mock_task);
+  timer::Timer* timer = new(__FILE__, __LINE__) timer::Timer(kTimerName, mock_task);
   EXPECT_FALSE(timer->is_running());
   EXPECT_EQ(0u, timer->timeout());
 

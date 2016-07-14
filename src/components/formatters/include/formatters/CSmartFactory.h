@@ -164,12 +164,12 @@ class CSmartFactory {
                     NsSmartDeviceLink::NsSmartObjects::SmartObject& object);
 
   /**
-   * @brief Create new SmartObject with attached function SmartSchema.
+   * @brief Create new(__FILE__, __LINE__) SmartObject with attached function SmartSchema.
    *
    * @param function_id FunctionID of the function.
    * @param message_type messageType of the function.
    *
-   * @return If function succeeded it returns new SmartObject with
+   * @return If function succeeded it returns new(__FILE__, __LINE__) SmartObject with
    *         map type and attached SmartSchema. Client can use such
    *         object to store specific function and perform validation.
    *         Otherwise (if SmartSchema was not attached to the
@@ -180,11 +180,11 @@ class CSmartFactory {
       const FunctionIdEnum function_id, const MessageTypeEnum message_type);
 
   /**
-   * @brief Create new SmartObject with attached struct SmartSchema.
+   * @brief Create new(__FILE__, __LINE__) SmartObject with attached struct SmartSchema.
    *
    * @param struct_id Identifier of the struct.
    *
-   * @return If function succeeded it returns new SmartObject with
+   * @return If function succeeded it returns new(__FILE__, __LINE__) SmartObject with
    *         map type and attached SmartSchema. Client can use such
    *         object to store specific struct and perform validation.
    *         Otherwise (if SmartSchema was not attached to the

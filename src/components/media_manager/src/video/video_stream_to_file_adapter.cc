@@ -42,7 +42,7 @@ CREATE_LOGGERPTR_GLOBAL(logger, "VideoStreamToFileAdapter")
 VideoStreamToFileAdapter::VideoStreamToFileAdapter(const std::string& file_name)
     : file_name_(file_name)
     , is_ready_(false)
-    , thread_(threads::CreateThread("VideoStreamer", new Streamer(this))) {
+    , thread_(threads::CreateThread("VideoStreamer", new(__FILE__, __LINE__) Streamer(this))) {
   Init();
 }
 

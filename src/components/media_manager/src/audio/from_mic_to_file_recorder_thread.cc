@@ -80,13 +80,13 @@ void FromMicToFileRecorderThread::set_record_duration(int32_t duration) {
 void FromMicToFileRecorderThread::initArgs() {
   LOG4CXX_AUTO_TRACE(logger_);
 
-  argv_ = new gchar* [argc_];
+  argv_ = new(__FILE__, __LINE__) gchar* [argc_];
 
-  argv_[0] = new gchar[14];
-  argv_[1] = new gchar[3];
-  argv_[2] = new gchar[outputFileName_.length() + 1];
-  argv_[3] = new gchar[3];
-  argv_[4] = new gchar[durationString_.length() + 1];
+  argv_[0] = new(__FILE__, __LINE__) gchar[14];
+  argv_[1] = new(__FILE__, __LINE__) gchar[3];
+  argv_[2] = new(__FILE__, __LINE__) gchar[outputFileName_.length() + 1];
+  argv_[3] = new(__FILE__, __LINE__) gchar[3];
+  argv_[4] = new(__FILE__, __LINE__) gchar[durationString_.length() + 1];
 
   argv_[0] = const_cast<gchar*>(std::string("AudioManager").c_str());
   argv_[1] = const_cast<gchar*>(oKey_.c_str());
@@ -223,7 +223,7 @@ void FromMicToFileRecorderThread::threadMain() {
     timeout.duration = duration;
 
     sleepThread_ =
-        threads::CreateThread("SleepThread", new SleepThreadDelegate(timeout));
+        threads::CreateThread("SleepThread", new(__FILE__, __LINE__) SleepThreadDelegate(timeout));
     sleepThread_->start();
   }
 

@@ -50,7 +50,7 @@ RequestController::RequestController(const RequestControlerSettings& settings)
     : pool_state_(UNDEFINED)
     , pool_size_(settings.thread_pool_size())
     , timer_("AM RequestCtrlTimer",
-             new timer::TimerTaskImpl<RequestController>(
+             new(__FILE__, __LINE__) timer::TimerTaskImpl<RequestController>(
                  this, &RequestController::onTimer))
     , is_low_voltage_(false)
     , settings_(settings) {
@@ -72,7 +72,7 @@ void RequestController::InitializeThreadpool() {
   char name[50];
   for (uint32_t i = 0; i < pool_size_; i++) {
     snprintf(name, sizeof(name) / sizeof(name[0]), "AM Pool %d", i);
-    pool_.push_back(threads::CreateThread(name, new Worker(this)));
+    pool_.push_back(threads::CreateThread(name, new(__FILE__, __LINE__) Worker(this)));
     pool_[i]->start();
     LOG4CXX_DEBUG(logger_, "Request thread initialized: " << name);
   }
@@ -191,7 +191,7 @@ RequestController::TResult RequestController::addHMIRequest(
   const uint64_t timeout_in_mseconds =
       static_cast<uint64_t>(request->default_timeout());
   RequestInfoPtr request_info_ptr(
-      new HMIRequestInfo(request, timeout_in_mseconds));
+      new(__FILE__, __LINE__) HMIRequestInfo(request, timeout_in_mseconds));
 
   if (0 == timeout_in_mseconds) {
     LOG4CXX_DEBUG(logger_,
@@ -447,7 +447,7 @@ void RequestController::Worker::threadMain() {
 
     const uint32_t timeout_in_mseconds = request_ptr->default_timeout();
     RequestInfoPtr request_info_ptr(
-        new MobileRequestInfo(request_ptr, timeout_in_mseconds));
+        new(__FILE__, __LINE__) MobileRequestInfo(request_ptr, timeout_in_mseconds));
 
     request_controller_->waiting_for_response_.Add(request_info_ptr);
     LOG4CXX_DEBUG(logger_, "timeout_in_mseconds " << timeout_in_mseconds);

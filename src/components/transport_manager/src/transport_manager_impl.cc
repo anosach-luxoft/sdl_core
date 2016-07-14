@@ -386,7 +386,7 @@ int TransportManagerImpl::AddTransportAdapter(
     return E_ADAPTER_EXISTS;
   }
   transport_adapter_listeners_[transport_adapter] =
-      new TransportAdapterListenerImpl(this, transport_adapter);
+      new(__FILE__, __LINE__) TransportAdapterListenerImpl(this, transport_adapter);
   transport_adapter->AddListener(
       transport_adapter_listeners_[transport_adapter]);
 
@@ -948,7 +948,7 @@ TransportManagerImpl::ConnectionInternal::ConnectionInternal(
                               const char*,
                               ::timer::TimerTaskImpl<ConnectionInternal>*>(
           "TM DiscRoutine",
-          new ::timer::TimerTaskImpl<ConnectionInternal>(
+          new(__FILE__, __LINE__) ::timer::TimerTaskImpl<ConnectionInternal>(
               this, &ConnectionInternal::DisconnectFailedRoutine)))
     , shutdown_(false)
     , device_handle_(device_handle)

@@ -64,7 +64,7 @@ class System {
   System& Add(const std::string& arg);
 
   /**
-   * Executes command as new child process
+   * Executes command as new(__FILE__, __LINE__) child process
    * @return true if success
    */
   bool Execute();

@@ -82,7 +82,7 @@ class UpdateStatusManagerInterface {
   virtual void OnResetRetrySequence() = 0;
 
   /**
-   * @brief Update status handler on new application registering
+   * @brief Update status handler on new(__FILE__, __LINE__) application registering
    */
   virtual void OnNewApplicationAdded() = 0;
 

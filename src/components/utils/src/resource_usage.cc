@@ -35,7 +35,7 @@ ResourseUsage* Resources::getCurrentResourseUsage() {
     LOG4CXX_ERROR(logger_, "Failed to get memory info");
     return NULL;
   }
-  ResourseUsage* usage = new ResourseUsage();
+  ResourseUsage* usage = new(__FILE__, __LINE__) ResourseUsage();
   usage->utime = pid_stats.utime;
   usage->stime = pid_stats.stime;
   usage->memory = static_cast<long long int>(mem_info);

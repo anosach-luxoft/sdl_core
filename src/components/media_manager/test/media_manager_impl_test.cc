@@ -61,7 +61,7 @@ class MediaManagerImplTest : public ::testing::Test {
 };
 
 TEST_F(MediaManagerImplTest, PlayA2DPSource) {
-  MockMediaAdapter* media_mock_ = new MockMediaAdapter();
+  MockMediaAdapter* media_mock_ = new(__FILE__, __LINE__) MockMediaAdapter();
 
   application_manager_test::MockApplicationManager mock_application_manager;
 
@@ -79,7 +79,7 @@ TEST_F(MediaManagerImplTest, PlayA2DPSource) {
 }
 
 TEST_F(MediaManagerImplTest, StopA2DPSource) {
-  MockMediaAdapter* media_mock_ = new MockMediaAdapter();
+  MockMediaAdapter* media_mock_ = new(__FILE__, __LINE__) MockMediaAdapter();
   application_manager_test::MockApplicationManager mock_application_manager;
 
   ON_CALL(mock_media_manager_settings_, video_server_type())
@@ -97,7 +97,7 @@ TEST_F(MediaManagerImplTest, StopA2DPSource) {
 
 TEST_F(MediaManagerImplTest, StopMicrophoneRecording) {
   MockMediaAdapterListener* media_adapter_listener_mock_ =
-      new MockMediaAdapterListener();
+      new(__FILE__, __LINE__) MockMediaAdapterListener();
   application_manager_test::MockApplicationManager mock_application_manager;
 
   ON_CALL(mock_media_manager_settings_, video_server_type())
@@ -111,7 +111,7 @@ TEST_F(MediaManagerImplTest, StopMicrophoneRecording) {
   mediaManagerImpl.set_mock_mic_listener(media_adapter_listener_mock_);
 #ifdef EXTENDED_MEDIA_MODE
   MockMediaAdapterImpl* media_adapter_recorder_mock =
-      new MockMediaAdapterImpl();
+      new(__FILE__, __LINE__) MockMediaAdapterImpl();
   mediaManagerImpl.set_mock_mic_recorder(media_adapter_recorder_mock);
   EXPECT_CALL(*media_adapter_recorder_mock, StopActivity(application_key));
 #endif  // EXTENDED_MEDIA_MODE
@@ -133,10 +133,10 @@ TEST_F(MediaManagerImplTest, StartStopStreaming) {
                                     mock_media_manager_settings_);
 
   int32_t application_key = 1;
-  MockMediaAdapterImpl* mock_audio_media_streamer = new MockMediaAdapterImpl();
+  MockMediaAdapterImpl* mock_audio_media_streamer = new(__FILE__, __LINE__) MockMediaAdapterImpl();
   mediaManagerImpl.set_mock_streamer(protocol_handler::ServiceType::kAudio,
                                      mock_audio_media_streamer);
-  MockMediaAdapterImpl* mock_nav_media_streamer = new MockMediaAdapterImpl();
+  MockMediaAdapterImpl* mock_nav_media_streamer = new(__FILE__, __LINE__) MockMediaAdapterImpl();
   mediaManagerImpl.set_mock_streamer(protocol_handler::ServiceType::kMobileNav,
                                      mock_nav_media_streamer);
 

@@ -73,8 +73,8 @@ class DBusMessageControllerTest : public ::testing::Test {
   virtual void SetUp() {
     const std::string kService = "sdl.core.test_api";
     const std::string kPath = "/dbus_test";
-    controller_ = new MockDBusMessageController(kService, kPath);
-    subscriber_ = new MockSubscriber(kService, kPath);
+    controller_ = new(__FILE__, __LINE__) MockDBusMessageController(kService, kPath);
+    subscriber_ = new(__FILE__, __LINE__) MockSubscriber(kService, kPath);
     ASSERT_TRUE(controller_->Init());
     ASSERT_TRUE(subscriber_->Start());
   }

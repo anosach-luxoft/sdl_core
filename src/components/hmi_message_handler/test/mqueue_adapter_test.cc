@@ -54,10 +54,10 @@ class MockHandler : public HMIMessageHandler {
 // TODO{ALeshin}: APPLINK-10846
 // TEST(MqueueAdapter, Send) {
 //  MockHandler handler;
-//  HMIMessageAdapter* adapter = new MqueueAdapter(&handler);
+//  HMIMessageAdapter* adapter = new(__FILE__, __LINE__) MqueueAdapter(&handler);
 
 //  MessageSharedPointer message(
-//      new Message(protocol_handler::MessagePriority::kDefault));
+//      new(__FILE__, __LINE__) Message(protocol_handler::MessagePriority::kDefault));
 //  message->set_json_message("{}");
 //  adapter->SendMessageToHMI(message);
 
@@ -74,7 +74,7 @@ class MockHandler : public HMIMessageHandler {
 // TODO{ALeshin}: APPLINK-10846
 // TEST(MqueueAdapter, Receive) {
 //  MockHandler handler;
-//  HMIMessageAdapter* adapter = new MqueueAdapter(&handler);
+//  HMIMessageAdapter* adapter = new(__FILE__, __LINE__) MqueueAdapter(&handler);
 
 //  using ::testing::Property;
 //  using ::testing::Pointee;

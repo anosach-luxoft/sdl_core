@@ -133,7 +133,7 @@ class CacheManager : public CacheManagerInterface {
   /**
    * @brief Allows to update 'vin' field in module_meta table.
    *
-   * @param new 'vin' value.
+   * @param new(__FILE__, __LINE__) 'vin' value.
    *
    * @return true in case when data has been successfully updated,
    * false otherwise.
@@ -602,11 +602,11 @@ class CacheManager : public CacheManagerInterface {
    * @brief MergeMC allows to merge ModuleConfig section by definite rules.
    *
    * The rules are:
-   * 1. Add new fields (known to PoliciesManager) & sub-sections if such are
+   * 1. Add new(__FILE__, __LINE__) fields (known to PoliciesManager) & sub-sections if such are
    * present in the updated Preloaded PT
    * 2. "vehicle_make", “model”, “year” – leave the fields & values as they were
    * in the database
-   * 3. For all other fields – overwrite the values with the new ones from
+   * 3. For all other fields – overwrite the values with the new(__FILE__, __LINE__) ones from
    *preloaded PT.
    *
    * @param new_pt the policy table loaded from updated preload JSON file.

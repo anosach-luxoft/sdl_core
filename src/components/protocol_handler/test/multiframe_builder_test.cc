@@ -208,7 +208,7 @@ class MultiFrameBuilderTest : public ::testing::Test {
     out_data[6] = frames_count >> 8;
     out_data[7] = frames_count;
 
-    ProtocolFramePtr first_frame(new ProtocolPacket(connection_id,
+    ProtocolFramePtr first_frame(new(__FILE__, __LINE__) ProtocolPacket(connection_id,
                                                     protocol_version,
                                                     PROTECTION_OFF,
                                                     FRAME_TYPE_FIRST,
@@ -234,7 +234,7 @@ class MultiFrameBuilderTest : public ::testing::Test {
                                     : (i % FRAME_DATA_MAX_CONSECUTIVE + 1);
 
       const ProtocolFramePtr consecutive_frame(
-          new ProtocolPacket(connection_id,
+          new(__FILE__, __LINE__) ProtocolPacket(connection_id,
                              protocol_version,
                              PROTECTION_OFF,
                              FRAME_TYPE_CONSECUTIVE,
@@ -292,7 +292,7 @@ TEST_F(MultiFrameBuilderTest, Add_NonSingleOrConsecutive_Frames) {
   for (UCharDataVector::iterator it = types.begin(); it != types.end(); ++it) {
     const uint8_t frame_type = *it;
     const ProtocolFramePtr unexpected_frame(
-        new ProtocolPacket(0u,
+        new(__FILE__, __LINE__) ProtocolPacket(0u,
                            PROTOCOL_VERSION_3,
                            PROTECTION_OFF,
                            frame_type,

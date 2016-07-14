@@ -144,7 +144,7 @@ void HeartBeatMonitor::exitThreadMain() {
 void HeartBeatMonitor::set_heartbeat_timeout_milliseconds(uint32_t timeout,
                                                           uint8_t session_id) {
   LOG4CXX_DEBUG(logger_,
-                "Set new heart beat timeout " << timeout
+                "Set new(__FILE__, __LINE__) heart beat timeout " << timeout
                                               << "For session: " << session_id);
 
   AutoLock session_locker(sessions_list_lock_);

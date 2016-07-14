@@ -59,7 +59,7 @@ TelemetryMonitor::TelemetryMonitor(const std::string& server_address,
     , ph_observer(this) {}
 
 void TelemetryMonitor::Start() {
-  streamer_ = new Streamer(this);
+  streamer_ = new(__FILE__, __LINE__) Streamer(this);
   thread_ = threads::CreateThread("TelemetryMonitor", streamer_);
 }
 

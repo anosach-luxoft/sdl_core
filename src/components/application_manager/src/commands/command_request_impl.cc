@@ -52,7 +52,7 @@ struct DisallowedParamsInserter {
     VehicleData::const_iterator it = vehicle_data.find(param);
     if (vehicle_data.end() != it) {
       smart_objects::SmartObjectSPtr disallowed_param =
-          new smart_objects::SmartObject(smart_objects::SmartType_Map);
+          new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map);
       (*disallowed_param)[strings::data_type] = (*it).second;
       (*disallowed_param)[strings::result_code] = code_;
       response_[strings::msg_params][param.c_str()] = *disallowed_param;
@@ -130,7 +130,7 @@ void CommandRequestImpl::SendResponse(
     current_state_ = kCompleted;
   }
 
-  smart_objects::SmartObjectSPtr result = new smart_objects::SmartObject;
+  smart_objects::SmartObjectSPtr result = new(__FILE__, __LINE__) smart_objects::SmartObject;
   if (!result) {
     LOG4CXX_ERROR(logger_, "Memory allocation failed.");
     return;
@@ -198,7 +198,7 @@ uint32_t CommandRequestImpl::SendHMIRequest(
     const hmi_apis::FunctionID::eType& function_id,
     const smart_objects::SmartObject* msg_params,
     bool use_events) {
-  smart_objects::SmartObjectSPtr result = new smart_objects::SmartObject;
+  smart_objects::SmartObjectSPtr result = new(__FILE__, __LINE__) smart_objects::SmartObject;
 
   const uint32_t hmi_correlation_id =
       application_manager_.GetNextHMICorrelationID();
@@ -232,7 +232,7 @@ uint32_t CommandRequestImpl::SendHMIRequest(
 void CommandRequestImpl::CreateHMINotification(
     const hmi_apis::FunctionID::eType& function_id,
     const NsSmart::SmartObject& msg_params) const {
-  smart_objects::SmartObjectSPtr result = new smart_objects::SmartObject;
+  smart_objects::SmartObjectSPtr result = new(__FILE__, __LINE__) smart_objects::SmartObject;
   if (!result) {
     LOG4CXX_ERROR(logger_, "Memory allocation failed.");
     return;

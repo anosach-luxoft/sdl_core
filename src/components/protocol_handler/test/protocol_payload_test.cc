@@ -91,7 +91,7 @@ TEST(ProtocolPayloadTest, ExtractProtocolWithOnlyHeader) {
   prot_payload_test.header.rpc_type = kRpcTypeRequest;
 
   const size_t data_for_sending_size = PROTOCOL_HEADER_V2_SIZE;
-  uint8_t* data_for_sending = new uint8_t[data_for_sending_size];
+  uint8_t* data_for_sending = new(__FILE__, __LINE__) uint8_t[data_for_sending_size];
 
   prepare_data(data_for_sending, prot_payload_test);
 
@@ -123,7 +123,7 @@ TEST(ProtocolPayloadTest, ExtractCorrectProtocolWithDataWithoutJSON) {
   const size_t data_for_sending_size = PROTOCOL_HEADER_V2_SIZE +
                                        prot_payload_test.data.size() +
                                        prot_payload_test.json.length();
-  uint8_t* data_for_sending = new uint8_t[data_for_sending_size];
+  uint8_t* data_for_sending = new(__FILE__, __LINE__) uint8_t[data_for_sending_size];
 
   prepare_data(data_for_sending, prot_payload_test);
 
@@ -165,7 +165,7 @@ TEST(ProtocolPayloadTest, ExtractCorrectProtocolWithoutDataWithJSON) {
   const size_t data_for_sending_size = PROTOCOL_HEADER_V2_SIZE +
                                        prot_payload_test.data.size() +
                                        prot_payload_test.json.length();
-  uint8_t* data_for_sending = new uint8_t[data_for_sending_size];
+  uint8_t* data_for_sending = new(__FILE__, __LINE__) uint8_t[data_for_sending_size];
   prepare_data(data_for_sending, prot_payload_test);
 
   BitStream bs(data_for_sending, data_for_sending_size);
@@ -202,7 +202,7 @@ TEST(ProtocolPayloadTest, ExtractCorrectProtocolWithDataWithJSON) {
   const size_t data_for_sending_size = PROTOCOL_HEADER_V2_SIZE +
                                        prot_payload_test.data.size() +
                                        prot_payload_test.json.length();
-  uint8_t* data_for_sending = new uint8_t[data_for_sending_size];
+  uint8_t* data_for_sending = new(__FILE__, __LINE__) uint8_t[data_for_sending_size];
   prepare_data(data_for_sending, prot_payload_test);
 
   BitStream bs(data_for_sending, data_for_sending_size);
@@ -244,7 +244,7 @@ TEST(ProtocolPayloadTest, ExtractProtocolWithJSONWithDataWithWrongPayloadSize) {
 
   const size_t data_for_sending_size =
       PROTOCOL_HEADER_V2_SIZE + prot_payload_test.json.length();
-  uint8_t* data_for_sending = new uint8_t[data_for_sending_size];
+  uint8_t* data_for_sending = new(__FILE__, __LINE__) uint8_t[data_for_sending_size];
   prepare_data(data_for_sending, prot_payload_test);
 
   BitStream bs(data_for_sending, data_for_sending_size);

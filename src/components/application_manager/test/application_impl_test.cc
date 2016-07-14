@@ -92,7 +92,7 @@ class ApplicationImplTest : public ::testing::Test {
                 audio_data_stopped_timeout()).WillOnce(Return(0));
     EXPECT_CALL(mock_application_manager_settings_,
                 video_data_stopped_timeout()).WillOnce(Return(0));
-    app_impl = new ApplicationImpl(app_id,
+    app_impl = new(__FILE__, __LINE__) ApplicationImpl(app_id,
                                    policy_app_id,
                                    mac_address,
                                    app_name,

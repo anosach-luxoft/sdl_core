@@ -75,7 +75,7 @@ class TestThreadDelegate : public threads::ThreadDelegate {
 TEST(PosixThreadTest, CreateThread_ExpectThreadCreated) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
   EXPECT_TRUE(thread != NULL);
@@ -90,7 +90,7 @@ TEST(PosixThreadTest, CreateThread_ExpectThreadCreated) {
 TEST(PosixThreadTest, CheckCreatedThreadName_ExpectCorrectName) {
   // Arrange
   threads::Thread* thread = NULL;
-  threads::ThreadDelegate* threadDelegate = new TestThreadDelegate();
+  threads::ThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
   // Check thread was created with correct name
@@ -104,7 +104,7 @@ TEST(PosixThreadTest,
      CheckCreatedThreadNameChangeToLongName_ExpectThreadNameReduced) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -112,12 +112,12 @@ TEST(PosixThreadTest,
   // Rename started thread. Name will be cut to 15 symbols + '\0'
   // This is the limit in current POSIX thread implementation
   thread->SetNameForId(thread->thread_handle(),
-                       std::string("new thread with changed name"));
+                       std::string("new(__FILE__, __LINE__) thread with changed name"));
   // Name must be large enough to keep 16 symbols. Read previous comment
   char name[MAX_SIZE];
   int result = pthread_getname_np(thread->thread_handle(), name, sizeof(name));
   if (!result)
-    EXPECT_EQ(std::string("new thread with"), std::string(name));
+    EXPECT_EQ(std::string("new(__FILE__, __LINE__) thread with"), std::string(name));
   cond_var_.WaitFor(test_lock, 10000);
   EXPECT_TRUE(threadDelegate->check_value());
   DeleteThread(thread);
@@ -130,7 +130,7 @@ TEST(
     StartCreatedThreadWithOptionsJoinableAndMyStackSize_ExpectMyStackSizeStackAndJoinableThreadStarted) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -153,7 +153,7 @@ TEST(
     StartCreatedThreadWithDefaultOptions_ExpectZeroStackAndJoinableThreadStarted) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -175,7 +175,7 @@ TEST(
     StartThreadWithZeroStackAndDetached_ExpectMinimumStackAndDetachedThreadStarted) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -197,7 +197,7 @@ TEST(
     DISABLED_CheckCreatedThreadNameChangeToEmpty_ExpectThreadNameChangedToEmpty) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -222,7 +222,7 @@ TEST(PosixThreadTest,
      CheckCreatedThreadNameChangeToShortName_ExpectThreadNameChangedToShort) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -247,7 +247,7 @@ TEST(PosixThreadTest,
 TEST(PosixThreadTest, StartThread_ExpectThreadStarted) {
   // Arrange
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -266,7 +266,7 @@ TEST(PosixThreadTest, StartOneThreadTwice_ExpectTheSameThreadStartedTwice) {
   PlatformThreadHandle thread1_id;
   PlatformThreadHandle thread2_id;
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));
@@ -293,7 +293,7 @@ TEST(PosixThreadTest,
   PlatformThreadHandle thread1_id;
   PlatformThreadHandle thread2_id;
   threads::Thread* thread = NULL;
-  TestThreadDelegate* threadDelegate = new TestThreadDelegate();
+  TestThreadDelegate* threadDelegate = new(__FILE__, __LINE__) TestThreadDelegate();
   AutoLock test_lock(test_mutex_);
   // Create thread
   ASSERT_NO_THROW(thread = CreateThread(threadName, threadDelegate));

@@ -65,7 +65,7 @@ enum UnnamedService { kServedService1 = 0x06, kServedService2 = 0x08 };
 class ConnectionHandlerTest : public ::testing::Test {
  protected:
   void SetUp() OVERRIDE {
-    connection_handler_ = new ConnectionHandlerImpl(
+    connection_handler_ = new(__FILE__, __LINE__) ConnectionHandlerImpl(
         mock_connection_handler_settings, mock_transport_manager);
     uid_ = 1u;
     connection_key_ = connection_handler_->KeyFromPair(0, 0u);
@@ -259,9 +259,9 @@ class ConnectionHandlerTest : public ::testing::Test {
 };
 
 TEST_F(ConnectionHandlerTest, StartSession_NoConnection) {
-  // Null sessionId for start new session
+  // Null sessionId for start new(__FILE__, __LINE__) session
   const uint8_t sessionID = 0;
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   const uint32_t result_fail = connection_handler_->OnSessionStartedCallback(
       uid_, sessionID, kRpc, PROTECTION_ON, &out_hash_id_);
   // Unknown connection error is '0'
@@ -273,7 +273,7 @@ TEST_F(ConnectionHandlerTest, StartSession_NoConnection) {
 TEST_F(ConnectionHandlerTest, StartSession) {
   // Add virtual device and connection
   AddTestDeviceConnection();
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   AddTestSession();
 }
 
@@ -1061,7 +1061,7 @@ TEST_F(ConnectionHandlerTest, SessionStarted_WithRpc) {
               OnServiceStartedCallback(device_handle_, session_key, kRpc))
       .WillOnce(Return(true));
 
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   uint32_t new_session_id = connection_handler_->OnSessionStartedCallback(
       uid_, 0, kRpc, PROTECTION_OFF, &out_hash_id_);
 
@@ -1077,7 +1077,7 @@ TEST_F(ConnectionHandlerTest,
   // Forbid start kRPC without encryption
   protected_services_.push_back(kRpc);
   SetSpecificServices();
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   const uint32_t session_id_fail =
       connection_handler_->OnSessionStartedCallback(
           uid_, 0, kRpc, PROTECTION_OFF, &out_hash_id_);
@@ -1093,7 +1093,7 @@ TEST_F(ConnectionHandlerTest,
   protected_services_.clear();
   protected_services_.push_back(kControl);
   SetSpecificServices();
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   const uint32_t session_id = connection_handler_->OnSessionStartedCallback(
       uid_, 0, kRpc, PROTECTION_OFF, &out_hash_id_);
   EXPECT_NE(0u, session_id);
@@ -1111,7 +1111,7 @@ TEST_F(ConnectionHandlerTest,
   unprotected_services_.push_back(UnnamedService::kServedService2);
   unprotected_services_.push_back(kControl);
   SetSpecificServices();
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   const uint32_t session_id_fail =
       connection_handler_->OnSessionStartedCallback(
           uid_, 0, kRpc, PROTECTION_ON, NULL);
@@ -1125,7 +1125,7 @@ TEST_F(ConnectionHandlerTest,
   unprotected_services_.clear();
   unprotected_services_.push_back(kControl);
   SetSpecificServices();
-  // Start new session with RPC service
+  // Start new(__FILE__, __LINE__) session with RPC service
   const uint32_t session_id = connection_handler_->OnSessionStartedCallback(
       uid_, 0, kRpc, PROTECTION_ON, &out_hash_id_);
   EXPECT_NE(0u, session_id);
@@ -1146,7 +1146,7 @@ TEST_F(ConnectionHandlerTest,
   protected_services_.push_back(UnnamedService::kServedService2);
   protected_services_.push_back(kControl);
   SetSpecificServices();
-  // Start new session with Audio service
+  // Start new(__FILE__, __LINE__) session with Audio service
   const uint32_t session_id2 = connection_handler_->OnSessionStartedCallback(
       uid_, start_session_id_, kAudio, PROTECTION_OFF, NULL);
 #ifdef ENABLE_SECURITY
@@ -1185,7 +1185,7 @@ TEST_F(ConnectionHandlerTest,
   unprotected_services_.push_back(UnnamedService::kServedService2);
   unprotected_services_.push_back(kControl);
   SetSpecificServices();
-  // Start new session with Audio service
+  // Start new(__FILE__, __LINE__) session with Audio service
   const uint32_t session_id_reject =
       connection_handler_->OnSessionStartedCallback(
           uid_, start_session_id_, kAudio, PROTECTION_ON, NULL);

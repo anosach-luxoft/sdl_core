@@ -553,7 +553,7 @@ class SmartObject FINAL {
   /**
    * @brief Support of array-like access
    *
-   * @param  Index index of element to return, on -1 create new element at end
+   * @param  Index index of element to return, on -1 create new(__FILE__, __LINE__) element at end
    * @return SmartObject&
    **/
   SmartObject& operator[](int32_t Index);
@@ -677,7 +677,7 @@ class SmartObject FINAL {
   Errors::eType validate();
 
   /**
-   * @brief Sets new schema
+   * @brief Sets new(__FILE__, __LINE__) schema
    *
    * @param schema Schema for object validation
    * @return void
@@ -734,7 +734,7 @@ class SmartObject FINAL {
    * @{
    */
   /**
-   * @brief Sets new integer value to the object.
+   * @brief Sets new(__FILE__, __LINE__) integer value to the object.
    *
    * This method changes also internal object type
    *
@@ -757,7 +757,7 @@ class SmartObject FINAL {
    * @{
    */
   /**
-   * @brief Sets new char value to the object.
+   * @brief Sets new(__FILE__, __LINE__) char value to the object.
    *
    * This method changes also internal object type
    *
@@ -780,7 +780,7 @@ class SmartObject FINAL {
    * @{
    */
   /**
-   * @brief Sets new double value to the object.
+   * @brief Sets new(__FILE__, __LINE__) double value to the object.
    *
    * This method changes also internal object type
    *
@@ -803,7 +803,7 @@ class SmartObject FINAL {
    * @{
    */
   /**
-   * @brief Sets new bool value to the object.
+   * @brief Sets new(__FILE__, __LINE__) bool value to the object.
    *
    * This method changes also internal object type
    *
@@ -822,7 +822,7 @@ class SmartObject FINAL {
   /** @} */
 
   /**
-   * @brief Sets new string value to the object.
+   * @brief Sets new(__FILE__, __LINE__) string value to the object.
    *
    * This method changes also internal object type
    *
@@ -832,7 +832,7 @@ class SmartObject FINAL {
   inline void set_value_string(const custom_str::CustomString& NewValue);
 
   /**
-   * @brief Sets new CustomString value to the object.
+   * @brief Sets new(__FILE__, __LINE__) CustomString value to the object.
    *
    * This method changes also internal object type
    *
@@ -863,7 +863,7 @@ class SmartObject FINAL {
    * @{
    */
   /**
-   * @brief Sets new binary value to the object.
+   * @brief Sets new(__FILE__, __LINE__) binary value to the object.
    *
    * This method changes also internal object type
    *
@@ -941,7 +941,7 @@ class SmartObject FINAL {
   void cleanup_data();
 
   /**
-   * @brief Sets new internal type and cleans up if it changes
+   * @brief Sets new(__FILE__, __LINE__) internal type and cleans up if it changes
    *
    * @param NewType New object type
    * @return void

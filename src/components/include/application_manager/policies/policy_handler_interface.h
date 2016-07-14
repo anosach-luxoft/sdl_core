@@ -291,7 +291,7 @@ class PolicyHandlerInterface {
   virtual void GetAvailableApps(std::queue<std::string>& apps) = 0;
 
   /**
-   * @brief Allows to add new or update existed application during
+   * @brief Allows to add new(__FILE__, __LINE__) or update existed application during
    * registration process
    * @param application_id The policy aplication id.
    */

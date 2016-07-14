@@ -73,7 +73,7 @@ TcpClientListener::TcpClientListener(TransportAdapterController* controller,
     , socket_(-1)
     , thread_stop_requested_(false) {
   thread_ = threads::CreateThread("TcpClientListener",
-                                  new ListeningThreadDelegate(this));
+                                  new(__FILE__, __LINE__) ListeningThreadDelegate(this));
 }
 
 TransportAdapter::Error TcpClientListener::Init() {
@@ -216,13 +216,13 @@ void TcpClientListener::Loop() {
     }
 
     TcpDevice* tcp_device =
-        new TcpDevice(client_address.sin_addr.s_addr, device_name);
+        new(__FILE__, __LINE__) TcpDevice(client_address.sin_addr.s_addr, device_name);
     DeviceSptr device = controller_->AddDevice(tcp_device);
     tcp_device = static_cast<TcpDevice*>(device.get());
     const ApplicationHandle app_handle =
         tcp_device->AddIncomingApplication(connection_fd);
 
-    TcpSocketConnection* connection(new TcpSocketConnection(
+    TcpSocketConnection* connection(new(__FILE__, __LINE__) TcpSocketConnection(
         device->unique_device_id(), app_handle, controller_));
     connection->set_socket(connection_fd);
     const TransportAdapter::Error error = connection->Start();

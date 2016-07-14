@@ -60,10 +60,10 @@ ResumeCtrl::ResumeCtrl(ApplicationManager& application_manager)
     , queue_lock_(false)
     , restore_hmi_level_timer_(
           "RsmCtrlRstore",
-          new timer::TimerTaskImpl<ResumeCtrl>(
+          new(__FILE__, __LINE__) timer::TimerTaskImpl<ResumeCtrl>(
               this, &ResumeCtrl::ApplicationResumptiOnTimer))
     , save_persistent_data_timer_("RsmCtrlPercist",
-                                  new timer::TimerTaskImpl<ResumeCtrl>(
+                                  new(__FILE__, __LINE__) timer::TimerTaskImpl<ResumeCtrl>(
                                       this, &ResumeCtrl::SaveDataOnTimer))
     , is_resumption_active_(false)
     , is_data_saved_(false)
@@ -80,7 +80,7 @@ bool ResumeCtrl::Init(resumption::LastState& last_state) {
   bool use_db = application_manager_.get_settings().use_db_for_resumption();
   if (use_db) {
     resumption_storage_.reset(
-        new ResumptionDataDB(In_File_Storage, application_manager_));
+        new(__FILE__, __LINE__) ResumptionDataDB(In_File_Storage, application_manager_));
     if (!resumption_storage_->Init()) {
       return false;
     }
@@ -105,7 +105,7 @@ bool ResumeCtrl::Init(resumption::LastState& last_state) {
     }
   } else {
     resumption_storage_.reset(
-        new ResumptionDataJson(last_state, application_manager_));
+        new(__FILE__, __LINE__) ResumptionDataJson(last_state, application_manager_));
     if (!resumption_storage_->Init()) {
       LOG4CXX_DEBUG(logger_, "Resumption storage initialisation failed");
       return false;

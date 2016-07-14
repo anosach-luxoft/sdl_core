@@ -82,7 +82,7 @@ void set_logs_enabled(bool state) {
 
 void create_log_message_loop_thread() {
   if (!log_message_loop_thread) {
-    log_message_loop_thread = new LogMessageLoopThread();
+    log_message_loop_thread = new(__FILE__, __LINE__) LogMessageLoopThread();
   }
 }
 
@@ -93,7 +93,7 @@ void delete_log_message_loop_thread() {
 
 void flush_logger() {
   logger::LoggerStatus old_status = logger::logger_status;
-  // Stop pushing new messages to the log queue
+  // Stop pushing new(__FILE__, __LINE__) messages to the log queue
   logger::logger_status = logger::DeletingLoggerThread;
   log_message_loop_thread->WaitDumpQueue();
   logger::logger_status = old_status;

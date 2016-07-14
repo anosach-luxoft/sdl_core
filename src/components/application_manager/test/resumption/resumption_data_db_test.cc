@@ -89,11 +89,11 @@ class ResumptionDataDBTest : public ResumptionDataTest {
       path_ = "test_storage";
       CreateDirectory(file_system::CurrentWorkingDirectory() + "/" + path_);
       CreateDirectory(kPath);
-      test_db_ = new utils::dbms::SQLDatabase(kDatabaseName);
+      test_db_ = new(__FILE__, __LINE__) utils::dbms::SQLDatabase(kDatabaseName);
       test_db_->set_path(kPath + "/");
-      res_db_ = new TestResumptionDataDB(In_File_Storage);
+      res_db_ = new(__FILE__, __LINE__) TestResumptionDataDB(In_File_Storage);
     } else {
-      res_db_ = new TestResumptionDataDB(In_Memory_Storage);
+      res_db_ = new(__FILE__, __LINE__) TestResumptionDataDB(In_Memory_Storage);
       test_db_ = res_db_->get_db_handle();
     }
 

@@ -131,7 +131,7 @@ class StateControllerImplTest : public ::testing::Test {
       , usage_stat("0",
                    utils::SharedPtr<usage_statistics::StatisticsManager>(
 
-                       new state_controller_test::MockStatisticsManager))
+                       new(__FILE__, __LINE__) state_controller_test::MockStatisticsManager))
       , applications_(application_set_, applications_lock_) {}
   NiceMock<application_manager_test::MockApplicationManager> app_manager_mock_;
   NiceMock<policy_test::MockPolicyHandlerInterface> policy_interface_;
@@ -576,7 +576,7 @@ class StateControllerImplTest : public ::testing::Test {
       bool media,
       bool navi,
       bool vc) {
-    *app_mock = new NiceMock<application_manager_test::MockApplication>;
+    *app_mock = new(__FILE__, __LINE__) NiceMock<application_manager_test::MockApplication>;
 
     Mock::AllowLeak(*app_mock);  // WorkAround for gogletest bug
     am::ApplicationSharedPtr app(*app_mock);
@@ -849,7 +849,7 @@ class StateControllerImplTest : public ::testing::Test {
   }
 
   void SetConnection() {
-    conn_handler = new connection_handler::ConnectionHandlerImpl(
+    conn_handler = new(__FILE__, __LINE__) connection_handler::ConnectionHandlerImpl(
         mock_connection_handler__settings, mock_transport_manager);
     ON_CALL(app_manager_mock_, connection_handler())
         .WillByDefault(ReturnRef(*conn_handler));
@@ -864,7 +864,7 @@ class StateControllerImplTest : public ::testing::Test {
     ON_CALL(app_manager_mock_, GetPolicyHandler())
         .WillByDefault(ReturnRef(policy_interface_));
     smart_objects::SmartObjectSPtr bc_activate_app_request =
-        new smart_objects::SmartObject();
+        new(__FILE__, __LINE__) smart_objects::SmartObject();
     (*bc_activate_app_request)[am::strings::params]
                               [am::strings::correlation_id] = corr_id;
     ON_CALL(*message_helper_mock_,
@@ -1735,7 +1735,7 @@ TEST_F(StateControllerImplTest, DISABLED_ActivateAppSuccessReceivedFromHMI) {
   std::vector<StateLevelPair>::iterator it = hmi_states.begin();
   std::vector<StateLevelPair>::iterator it2 = initial_hmi_states.begin();
   smart_objects::SmartObjectSPtr bc_activate_app_request =
-      new smart_objects::SmartObject();
+      new(__FILE__, __LINE__) smart_objects::SmartObject();
   (*bc_activate_app_request)[am::strings::params][am::strings::correlation_id] =
       corr_id;
 

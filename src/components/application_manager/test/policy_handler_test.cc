@@ -865,7 +865,7 @@ TEST_F(PolicyHandlerTest, OnGetStatusUpdate) {
 
 TEST_F(PolicyHandlerTest, OnUpdateStatusChanged) {
   // Check expectations
-  const std::string& status("new status");
+  const std::string& status("new(__FILE__, __LINE__) status");
   EXPECT_CALL(*MockMessageHelper::message_helper_mock(),
               SendOnStatusUpdate(status, _));
   // Act

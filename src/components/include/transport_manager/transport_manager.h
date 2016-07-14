@@ -69,7 +69,7 @@ class TransportManager {
   virtual int Reinit() = 0;
 
   /**
-    * @brief Start scanning for new devices.
+    * @brief Start scanning for new(__FILE__, __LINE__) devices.
     *
     * @return Code error.
     **/
@@ -111,7 +111,7 @@ class TransportManager {
   virtual int DisconnectForce(const ConnectionUID connection_id) = 0;
 
   /**
-   * @brief Post new message in queue for massages destined to device.
+   * @brief Post new(__FILE__, __LINE__) message in queue for massages destined to device.
    *
    * @param message Smart pointer to the raw massage.
    *
@@ -149,7 +149,7 @@ class TransportManager {
   virtual int AddEventListener(TransportManagerListener* listener) = 0;
 
   /**
-   * @brief Stop work finally. No new events guaranteed after method finish.
+   * @brief Stop work finally. No new(__FILE__, __LINE__) events guaranteed after method finish.
    *
    * @return Error code.
    **/

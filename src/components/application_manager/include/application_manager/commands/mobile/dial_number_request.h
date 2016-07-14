@@ -67,7 +67,7 @@ class DialNumberRequest : public CommandRequestImpl {
   void Run() OVERRIDE;
 
   /**
-   * @brief Interface method that is called whenever new event received
+   * @brief Interface method that is called whenever new(__FILE__, __LINE__) event received
    *
    * @param event The received event
    */

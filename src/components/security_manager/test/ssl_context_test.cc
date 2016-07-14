@@ -104,7 +104,7 @@ class SSLTest : public testing::Test {
         NiceMock<security_manager_test::MockCryptoManagerSettings>>();
     utils::SharedPtr<security_manager::CryptoManagerSettings> crypto_set(
         mock_crypto_manager_settings_);
-    crypto_manager_ = new security_manager::CryptoManagerImpl(crypto_set);
+    crypto_manager_ = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(crypto_set);
 
     EXPECT_CALL(*mock_crypto_manager_settings_, security_manager_mode())
         .WillOnce(Return(security_manager::SERVER));
@@ -126,7 +126,7 @@ class SSLTest : public testing::Test {
         NiceMock<security_manager_test::MockCryptoManagerSettings>>();
     utils::SharedPtr<security_manager::CryptoManagerSettings> client_crypto(
         mock_client_manager_settings_);
-    client_manager_ = new security_manager::CryptoManagerImpl(client_crypto);
+    client_manager_ = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(client_crypto);
 
     EXPECT_CALL(*mock_client_manager_settings_, security_manager_mode())
         .WillOnce(Return(security_manager::CLIENT));
@@ -212,7 +212,7 @@ class SSLTestParam : public testing::TestWithParam<ProtocolAndCipher> {
         NiceMock<security_manager_test::MockCryptoManagerSettings>>();
     utils::SharedPtr<security_manager::CryptoManagerSettings> server_crypto(
         mock_crypto_manager_settings_);
-    crypto_manager = new security_manager::CryptoManagerImpl(server_crypto);
+    crypto_manager = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(server_crypto);
 
     SetServerInitialValues(GetParam().server_protocol,
                            GetParam().server_ciphers_list);
@@ -225,7 +225,7 @@ class SSLTestParam : public testing::TestWithParam<ProtocolAndCipher> {
 
     utils::SharedPtr<security_manager::CryptoManagerSettings> client_crypto(
         mock_client_manager_settings_);
-    client_manager = new security_manager::CryptoManagerImpl(client_crypto);
+    client_manager = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(client_crypto);
 
     SetClientInitialValues(GetParam().client_protocol,
                            GetParam().client_ciphers_list);

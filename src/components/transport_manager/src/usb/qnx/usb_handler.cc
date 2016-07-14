@@ -106,7 +106,7 @@ void UsbHandler::DeviceArrived(usbd_connection* connection,
   }
 
   PlatformUsbDevice* device(
-      new PlatformUsbDevice(instance, device_usbd, *descriptor));
+      new(__FILE__, __LINE__) PlatformUsbDevice(instance, device_usbd, *descriptor));
   devices_.push_back(device);
   for (std::list<UsbDeviceListener*>::iterator it =
            usb_device_listeners_.begin();

@@ -244,7 +244,7 @@ SSLContext* CryptoManagerImpl::CreateSSLContext() {
   } else {
     SSL_set_connect_state(conn);
   }
-  return new SSLContextImpl(conn,
+  return new(__FILE__, __LINE__) SSLContextImpl(conn,
                             get_settings().security_manager_mode(),
                             get_settings().maximum_payload_size());
 }
@@ -290,7 +290,7 @@ bool CryptoManagerImpl::set_certificate(const std::string& cert_data) {
   BIO* bmem = BIO_new_mem_buf((char*)cert_data.c_str(), cert_data.length());
   bmem = BIO_push(bio, bmem);
 
-  char* buf = new char[cert_data.length()];
+  char* buf = new(__FILE__, __LINE__) char[cert_data.length()];
   int len = BIO_read(bmem, buf, cert_data.length());
 
   BIO* bio_cert = BIO_new(BIO_s_mem());

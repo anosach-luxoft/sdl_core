@@ -179,20 +179,20 @@ static char uri[] = "http://www.smartdevicelink.org";
 static char serial_num[] = "N000000";
 
 AoaInitSequence::AoaInitSequence() : UsbControlTransferSequence() {
-  AddTransfer(new AoaGetProtocolRequest);
-  AddTransfer(new AoaSendIdString(0, manufacturer, sizeof(manufacturer)));
-  AddTransfer(new AoaSendIdString(1, model_name, sizeof(model_name)));
-  AddTransfer(new AoaSendIdString(2, description, sizeof(description)));
-  AddTransfer(new AoaSendIdString(3, version, sizeof(version)));
-  AddTransfer(new AoaSendIdString(4, uri, sizeof(uri)));
-  AddTransfer(new AoaSendIdString(5, serial_num, sizeof(serial_num)));
-  AddTransfer(new AoaTurnIntoAccessoryMode);
+  AddTransfer(new(__FILE__, __LINE__) AoaGetProtocolRequest);
+  AddTransfer(new(__FILE__, __LINE__) AoaSendIdString(0, manufacturer, sizeof(manufacturer)));
+  AddTransfer(new(__FILE__, __LINE__) AoaSendIdString(1, model_name, sizeof(model_name)));
+  AddTransfer(new(__FILE__, __LINE__) AoaSendIdString(2, description, sizeof(description)));
+  AddTransfer(new(__FILE__, __LINE__) AoaSendIdString(3, version, sizeof(version)));
+  AddTransfer(new(__FILE__, __LINE__) AoaSendIdString(4, uri, sizeof(uri)));
+  AddTransfer(new(__FILE__, __LINE__) AoaSendIdString(5, serial_num, sizeof(serial_num)));
+  AddTransfer(new(__FILE__, __LINE__) AoaTurnIntoAccessoryMode);
 }
 
 void UsbDeviceScanner::TurnIntoAccessoryMode(PlatformUsbDevice* device) {
   LOG4CXX_AUTO_TRACE(logger_);
   LOG4CXX_DEBUG(logger_, "PlatformUsbDevice: " << device);
-  GetUsbHandler()->StartControlTransferSequence(new AoaInitSequence, device);
+  GetUsbHandler()->StartControlTransferSequence(new(__FILE__, __LINE__) AoaInitSequence, device);
 }
 
 void UsbDeviceScanner::SupportedDeviceFound(PlatformUsbDevice* device) {
@@ -232,7 +232,7 @@ void UsbDeviceScanner::UpdateList() {
     oss << (*it)->GetManufacturer() << ":" << (*it)->GetProductName() << ":"
         << (*it)->GetSerialNumber();
     const DeviceUID device_uid = oss.str();
-    DeviceSptr device(new UsbDevice(*it, device_name, device_uid));
+    DeviceSptr device(new(__FILE__, __LINE__) UsbDevice(*it, device_name, device_uid));
     device_vector.push_back(device);
   }
   devices_mutex_.Release();

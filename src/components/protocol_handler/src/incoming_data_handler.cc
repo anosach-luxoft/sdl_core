@@ -108,7 +108,7 @@ ProtocolFramePtrList IncomingDataHandler::ProcessData(
 void IncomingDataHandler::AddConnection(
     const transport_manager::ConnectionUID connection_id) {
   LOG4CXX_AUTO_TRACE(logger_);
-  // Add empty list of session to new connection
+  // Add empty list of session to new(__FILE__, __LINE__) connection
   connections_data_[connection_id] = ConnectionsDataMap::mapped_type();
 }
 
@@ -180,7 +180,7 @@ RESULT_CODE IncomingDataHandler::CreateFrame(
       incoming_data.erase(incoming_data.begin(), data_it);
       return RESULT_DEFERRED;
     }
-    ProtocolFramePtr frame(new protocol_handler::ProtocolPacket(connection_id));
+    ProtocolFramePtr frame(new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id));
     const RESULT_CODE deserialize_result =
         frame->deserializePacket(&*data_it, packet_size);
     LOG4CXX_DEBUG(logger_, "Deserialized frame " << frame);

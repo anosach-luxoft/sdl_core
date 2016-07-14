@@ -227,17 +227,17 @@ class RequestController {
   void terminateWaitingForResponseAppRequests(const uint32_t& app_id);
 
   /**
-   * @brief Check Posibility to add new requests, or limits was exceeded
+   * @brief Check Posibility to add new(__FILE__, __LINE__) requests, or limits was exceeded
    * @param request - request to check possipility to Add
-   * @return True if new request could be added, false otherwise
+   * @return True if new(__FILE__, __LINE__) request could be added, false otherwise
    */
   TResult CheckPosibilitytoAdd(const RequestPtr request);
 
   /**
-   * @brief Check Posibility to add new requests, or limits was exceeded
+   * @brief Check Posibility to add new(__FILE__, __LINE__) requests, or limits was exceeded
    * @param pending_requests_amount - maximum count of request that should be
    * allowed for all applications
-   * @return True if new request could be added, false otherwise
+   * @return True if new(__FILE__, __LINE__) request could be added, false otherwise
    */
   bool CheckPendingRequestsAmount(const uint32_t& pending_requests_amount);
 

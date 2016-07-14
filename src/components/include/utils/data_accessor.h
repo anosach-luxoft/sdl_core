@@ -42,7 +42,7 @@ class DataAccessor {
   DataAccessor(const T& data, const sync_primitives::Lock& lock)
       : data_(data)
       , lock_(const_cast<sync_primitives::Lock&>(lock))
-      , counter_(new uint32_t(0)) {
+      , counter_(new(__FILE__, __LINE__) uint32_t(0)) {
     lock_.Acquire();
   }
 

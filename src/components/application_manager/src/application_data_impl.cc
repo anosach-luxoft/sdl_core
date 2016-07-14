@@ -108,7 +108,7 @@ void InitialApplicationDataImpl::set_app_types(
     delete app_types_;
   }
 
-  app_types_ = new smart_objects::SmartObject(app_types);
+  app_types_ = new(__FILE__, __LINE__) smart_objects::SmartObject(app_types);
 }
 
 void InitialApplicationDataImpl::set_vr_synonyms(
@@ -116,7 +116,7 @@ void InitialApplicationDataImpl::set_vr_synonyms(
   if (vr_synonyms_) {
     delete vr_synonyms_;
   }
-  vr_synonyms_ = new smart_objects::SmartObject(vr_synonyms);
+  vr_synonyms_ = new(__FILE__, __LINE__) smart_objects::SmartObject(vr_synonyms);
 }
 
 void InitialApplicationDataImpl::set_mobile_app_id(
@@ -130,7 +130,7 @@ void InitialApplicationDataImpl::set_tts_name(
     delete tts_name_;
   }
 
-  tts_name_ = new smart_objects::SmartObject(tts_name);
+  tts_name_ = new(__FILE__, __LINE__) smart_objects::SmartObject(tts_name);
 }
 
 void InitialApplicationDataImpl::set_ngn_media_screen_name(
@@ -139,7 +139,7 @@ void InitialApplicationDataImpl::set_ngn_media_screen_name(
     delete ngn_media_screen_name_;
   }
 
-  ngn_media_screen_name_ = new smart_objects::SmartObject(ngn_name);
+  ngn_media_screen_name_ = new(__FILE__, __LINE__) smart_objects::SmartObject(ngn_name);
 }
 
 void InitialApplicationDataImpl::set_language(
@@ -319,7 +319,7 @@ void DynamicApplicationDataImpl::set_help_prompt(
   if (help_prompt_) {
     delete help_prompt_;
   }
-  help_prompt_ = new smart_objects::SmartObject(help_prompt);
+  help_prompt_ = new(__FILE__, __LINE__) smart_objects::SmartObject(help_prompt);
 }
 
 void DynamicApplicationDataImpl::set_timeout_prompt(
@@ -327,7 +327,7 @@ void DynamicApplicationDataImpl::set_timeout_prompt(
   if (timeout_prompt_) {
     delete timeout_prompt_;
   }
-  timeout_prompt_ = new smart_objects::SmartObject(timeout_prompt);
+  timeout_prompt_ = new(__FILE__, __LINE__) smart_objects::SmartObject(timeout_prompt);
 }
 
 void DynamicApplicationDataImpl::set_vr_help_title(
@@ -335,7 +335,7 @@ void DynamicApplicationDataImpl::set_vr_help_title(
   if (vr_help_title_) {
     delete vr_help_title_;
   }
-  vr_help_title_ = new smart_objects::SmartObject(vr_help_title);
+  vr_help_title_ = new(__FILE__, __LINE__) smart_objects::SmartObject(vr_help_title);
 }
 
 void DynamicApplicationDataImpl::reset_vr_help_title() {
@@ -350,7 +350,7 @@ void DynamicApplicationDataImpl::set_vr_help(
   if (vr_help_) {
     delete vr_help_;
   }
-  vr_help_ = new smart_objects::SmartObject(vr_help);
+  vr_help_ = new(__FILE__, __LINE__) smart_objects::SmartObject(vr_help);
 }
 
 void DynamicApplicationDataImpl::reset_vr_help() {
@@ -370,7 +370,7 @@ void DynamicApplicationDataImpl::set_show_command(
   if (show_command_) {
     delete show_command_;
   }
-  show_command_ = new smart_objects::SmartObject(show_command);
+  show_command_ = new(__FILE__, __LINE__) smart_objects::SmartObject(show_command);
 }
 
 void DynamicApplicationDataImpl::set_tbt_show_command(
@@ -378,7 +378,7 @@ void DynamicApplicationDataImpl::set_tbt_show_command(
   if (tbt_show_command_) {
     delete tbt_show_command_;
   }
-  tbt_show_command_ = new smart_objects::SmartObject(tbt_show);
+  tbt_show_command_ = new(__FILE__, __LINE__) smart_objects::SmartObject(tbt_show);
 }
 
 void DynamicApplicationDataImpl::set_keyboard_props(
@@ -386,7 +386,7 @@ void DynamicApplicationDataImpl::set_keyboard_props(
   if (keyboard_props_) {
     delete keyboard_props_;
   }
-  keyboard_props_ = new smart_objects::SmartObject(keyboard_props);
+  keyboard_props_ = new(__FILE__, __LINE__) smart_objects::SmartObject(keyboard_props);
 }
 
 void DynamicApplicationDataImpl::set_menu_title(
@@ -394,7 +394,7 @@ void DynamicApplicationDataImpl::set_menu_title(
   if (menu_title_) {
     delete menu_title_;
   }
-  menu_title_ = new smart_objects::SmartObject(menu_title);
+  menu_title_ = new(__FILE__, __LINE__) smart_objects::SmartObject(menu_title);
 }
 
 void DynamicApplicationDataImpl::set_menu_icon(
@@ -402,7 +402,7 @@ void DynamicApplicationDataImpl::set_menu_icon(
   if (menu_icon_) {
     delete menu_icon_;
   }
-  menu_icon_ = new smart_objects::SmartObject(menu_icon);
+  menu_icon_ = new(__FILE__, __LINE__) smart_objects::SmartObject(menu_icon);
 }
 
 void DynamicApplicationDataImpl::SetGlobalProperties(
@@ -425,7 +425,7 @@ void DynamicApplicationDataImpl::AddCommand(
   sync_primitives::AutoLock lock(commands_lock_);
   CommandsMap::const_iterator it = commands_.find(cmd_id);
   if (commands_.end() == it) {
-    commands_[cmd_id] = new smart_objects::SmartObject(command);
+    commands_[cmd_id] = new(__FILE__, __LINE__) smart_objects::SmartObject(command);
   }
 }
 
@@ -455,7 +455,7 @@ void DynamicApplicationDataImpl::AddSubMenu(
   sync_primitives::AutoLock lock(sub_menu_lock_);
   SubMenuMap::const_iterator it = sub_menu_.find(menu_id);
   if (sub_menu_.end() == it) {
-    sub_menu_[menu_id] = new smart_objects::SmartObject(menu);
+    sub_menu_[menu_id] = new(__FILE__, __LINE__) smart_objects::SmartObject(menu);
   }
 }
 
@@ -498,7 +498,7 @@ void DynamicApplicationDataImpl::AddChoiceSet(
   sync_primitives::AutoLock lock(choice_set_map_lock_);
   ChoiceSetMap::const_iterator it = choice_set_map_.find(choice_set_id);
   if (choice_set_map_.end() == it) {
-    choice_set_map_[choice_set_id] = new smart_objects::SmartObject(choice_set);
+    choice_set_map_[choice_set_id] = new(__FILE__, __LINE__) smart_objects::SmartObject(choice_set);
   }
 }
 
@@ -529,7 +529,7 @@ void DynamicApplicationDataImpl::AddPerformInteractionChoiceSet(
     const smart_objects::SmartObject& vr_commands) {
   sync_primitives::AutoLock lock(performinteraction_choice_set_lock_);
   performinteraction_choice_set_map_[correlation_id].insert(std::make_pair(
-      choice_set_id, new smart_objects::SmartObject(vr_commands)));
+      choice_set_id, new(__FILE__, __LINE__) smart_objects::SmartObject(vr_commands)));
 }
 
 void DynamicApplicationDataImpl::DeletePerformInteractionChoiceSet(

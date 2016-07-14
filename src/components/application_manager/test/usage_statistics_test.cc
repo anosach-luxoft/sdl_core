@@ -72,7 +72,7 @@ class UsageStatisticsTest : public testing::Test {
       : mock_statistics_manager_sptr_(
             utils::MakeShared<MockStatisticsManager>())
       , usage_statistics_test_object1_sptr_(
-            new application_manager::UsageStatistics(
+            new(__FILE__, __LINE__) application_manager::UsageStatistics(
                 kAppId, mock_statistics_manager_sptr_))
       , language_(LanguageIdToString(kTestLanguageId)) {}
 
@@ -86,7 +86,7 @@ class UsageStatisticsTest : public testing::Test {
 TEST_F(UsageStatisticsTest, RecordHmiStateChanged_CallMethod_ExpectMethodCall) {
   // Arrange
   std::auto_ptr<MockAppStopwatch> mock_app_stopwatch_object(
-      new MockAppStopwatch);
+      new(__FILE__, __LINE__) MockAppStopwatch);
 
   // Checks
   EXPECT_CALL(*mock_app_stopwatch_object, Start(kTestAppStopwatchId));
@@ -95,7 +95,7 @@ TEST_F(UsageStatisticsTest, RecordHmiStateChanged_CallMethod_ExpectMethodCall) {
   // Act
   std::auto_ptr<application_manager::UsageStatistics>
       usage_statistics_test_object2_sptr_(
-          new application_manager::UsageStatistics(
+          new(__FILE__, __LINE__) application_manager::UsageStatistics(
               kAppId,
               mock_statistics_manager_sptr_,
               mock_app_stopwatch_object.release()));

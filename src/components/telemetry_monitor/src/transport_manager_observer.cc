@@ -53,9 +53,9 @@ void TransportManagerObserver::StopRawMsg(
       it;
   it = time_starts.find(ptr);
   if (it != time_starts.end()) {
-    TransportManagerMecticWrapper* m = new TransportManagerMecticWrapper();
+    TransportManagerMecticWrapper* m = new(__FILE__, __LINE__) TransportManagerMecticWrapper();
     m->message_metric =
-        new transport_manager::TMTelemetryObserver::MessageMetric();
+        new(__FILE__, __LINE__) transport_manager::TMTelemetryObserver::MessageMetric();
     m->message_metric->begin = it->second;
     m->message_metric->end = date_time::DateTime::getCurrentTime();
     m->message_metric->data_size = ptr->data_size();

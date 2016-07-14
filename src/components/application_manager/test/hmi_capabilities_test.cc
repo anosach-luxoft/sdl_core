@@ -388,7 +388,7 @@ TEST_F(HMICapabilitiesTest, HmiCapabilitiesInitialized) {
   // Precondition
   SetCooperating();
   smart_objects::SmartObjectSPtr language(
-      new smart_objects::SmartObject(smart_objects::SmartType_Map));
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map));
 
   EXPECT_CALL(*(MockMessageHelper::message_helper_mock()),
               CreateModuleInfoSO(_, _)).WillRepeatedly(Return(language));
@@ -441,7 +441,7 @@ TEST_F(HMICapabilitiesTest, SetVRCooperating) {
   // Without sequence it is impossible to check correct call of ManageHMICommand
   InSequence dummy;
   smart_objects::SmartObjectSPtr language(
-      new smart_objects::SmartObject(smart_objects::SmartType_Map));
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map));
   EXPECT_CALL(*(MockMessageHelper::message_helper_mock()),
               CreateModuleInfoSO(hmi_apis::FunctionID::VR_GetLanguage, _))
       .WillOnce(Return(language));
@@ -464,7 +464,7 @@ TEST_F(HMICapabilitiesTest, SetVRCooperating) {
 
 TEST_F(HMICapabilitiesTest, SetTTSCooperating) {
   smart_objects::SmartObjectSPtr language(
-      new smart_objects::SmartObject(smart_objects::SmartType_Map));
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map));
   InSequence dummy;
   EXPECT_CALL(*(MockMessageHelper::message_helper_mock()),
               CreateModuleInfoSO(hmi_apis::FunctionID::TTS_GetLanguage, _))
@@ -490,7 +490,7 @@ TEST_F(HMICapabilitiesTest, SetTTSCooperating) {
 TEST_F(HMICapabilitiesTest, SetUICooperating) {
   InSequence dummy;
   smart_objects::SmartObjectSPtr language(
-      new smart_objects::SmartObject(smart_objects::SmartType_Map));
+      new(__FILE__, __LINE__) smart_objects::SmartObject(smart_objects::SmartType_Map));
   EXPECT_CALL(*(MockMessageHelper::message_helper_mock()),
               CreateModuleInfoSO(hmi_apis::FunctionID::UI_GetLanguage, _))
       .WillOnce(Return(language));

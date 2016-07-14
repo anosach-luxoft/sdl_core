@@ -62,7 +62,7 @@ class ReceiverThreadDelegate : public threads::ThreadDelegate {
       }
       const std::string message_string(buffer, buffer + size);
       LOG4CXX_DEBUG(logger_, "Message: " << message_string);
-      MessageSharedPointer message(new application_manager::Message(
+      MessageSharedPointer message(new(__FILE__, __LINE__) application_manager::Message(
           protocol_handler::MessagePriority::kDefault));
       message->set_json_message(message_string);
       message->set_protocol_version(application_manager::ProtocolVersion::kHMI);
@@ -99,7 +99,7 @@ MqueueAdapter::MqueueAdapter(HMIMessageHandler* hmi_message_handler)
     return;
   }
   receiver_thread_delegate_ =
-      new ReceiverThreadDelegate(hmi_to_sdl_mqueue_, hmi_message_handler);
+      new(__FILE__, __LINE__) ReceiverThreadDelegate(hmi_to_sdl_mqueue_, hmi_message_handler);
   receiver_thread_ =
       threads::CreateThread("MqueueAdapter", receiver_thread_delegate_);
   receiver_thread_->start();

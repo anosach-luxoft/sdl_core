@@ -38,7 +38,7 @@ namespace NsSmartObjects {
 CAlwaysFalseSchemaItem::CAlwaysFalseSchemaItem() {}
 
 utils::SharedPtr<CAlwaysFalseSchemaItem> CAlwaysFalseSchemaItem::create() {
-  return new CAlwaysFalseSchemaItem();
+  return new(__FILE__, __LINE__) CAlwaysFalseSchemaItem();
 }
 
 Errors::eType CAlwaysFalseSchemaItem::validate(const SmartObject& object) {

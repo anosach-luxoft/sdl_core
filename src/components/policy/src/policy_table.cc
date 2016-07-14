@@ -40,7 +40,7 @@ namespace policy {
 
 CREATE_LOGGERPTR_GLOBAL(logger_, "Policy")
 
-PolicyTable::PolicyTable() : pt_data_(new SQLPTRepresentation()) {}
+PolicyTable::PolicyTable() : pt_data_(new(__FILE__, __LINE__) SQLPTRepresentation()) {}
 
 PolicyTable::PolicyTable(utils::SharedPtr<PTRepresentation> pt_data)
     : pt_data_(pt_data) {}

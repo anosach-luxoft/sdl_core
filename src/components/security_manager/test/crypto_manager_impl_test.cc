@@ -81,12 +81,12 @@ class CryptoManagerTest : public testing::Test {
   void SetUp() OVERRIDE {
     ASSERT_FALSE(certificate_data_base64_.empty());
     mock_security_manager_settings_ =
-        new NiceMock<security_manager_test::MockCryptoManagerSettings>();
+        new(__FILE__, __LINE__) NiceMock<security_manager_test::MockCryptoManagerSettings>();
     utils::SharedPtr<security_manager::CryptoManagerSettings> scrypto =
         utils::SharedPtr<security_manager::CryptoManagerSettings>::
             static_pointer_cast<security_manager::CryptoManagerSettings>(
                 mock_security_manager_settings_);
-    crypto_manager_ = new security_manager::CryptoManagerImpl(scrypto);
+    crypto_manager_ = new(__FILE__, __LINE__) security_manager::CryptoManagerImpl(scrypto);
   }
 
   void TearDown() OVERRIDE {

@@ -70,7 +70,7 @@ class CSmartSchema FINAL {
   Errors::eType validate(const SmartObject& Object) const;
 
   /**
-   * @brief Set new root schema item.
+   * @brief Set new(__FILE__, __LINE__) root schema item.
    *
    * @param SchemaItem Root schema item.
    */

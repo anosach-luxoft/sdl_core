@@ -90,7 +90,7 @@ TEST(SharedPtrTest, DefaultConstructorTest) {
 
 TEST(SharedPtrTest, ConstructorWithOneParameterTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
   EXPECT_CALL(*object1, destructor()).Times(1);
 
   // Constructor checks
@@ -101,7 +101,7 @@ TEST(SharedPtrTest, ConstructorWithOneParameterTest) {
 
 TEST(SharedPtrTest, CopyConstructorTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
   EXPECT_CALL(*object1, destructor()).Times(1);
 
   // Constructor checks
@@ -126,7 +126,7 @@ TEST(SharedPtrTest, CopyConstructorTest) {
 
 TEST(SharedPtrTest, SecondConstructorWithOneParameterTest) {
   // Arrange
-  CExtendedMockObject* object1 = new CExtendedMockObject(2);
+  CExtendedMockObject* object1 = new(__FILE__, __LINE__) CExtendedMockObject(2);
   EXPECT_CALL(*object1, destructor()).Times(0);
 
   // Constructors checks
@@ -142,8 +142,8 @@ TEST(SharedPtrTest, SecondConstructorWithOneParameterTest) {
 
 TEST(SharedPtrTest, AssignmentOperatorTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CMockObject* object2 = new CMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CMockObject* object2 = new(__FILE__, __LINE__) CMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(0);
   EXPECT_CALL(*object2, destructor()).Times(0);
@@ -170,7 +170,7 @@ TEST(SharedPtrTest, AssignmentOperatorTest) {
 
   p5 = p2;
 
-  // Check reference counter for new SharedPtr increased
+  // Check reference counter for new(__FILE__, __LINE__) SharedPtr increased
   ASSERT_EQ(2, p5->getId());
   ASSERT_EQ(2u, *(p5.get_ReferenceCounter()));
 
@@ -184,8 +184,8 @@ TEST(SharedPtrTest, AssignmentOperatorTest) {
 
 TEST(SharedPtrTest, SecondAssignmentOperatorTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(0);
   EXPECT_CALL(*object2, destructor()).Times(0);
@@ -212,7 +212,7 @@ TEST(SharedPtrTest, SecondAssignmentOperatorTest) {
   // Use assignment operator
   p5 = p2;
 
-  // Check reference counter for new SharedPtr increased
+  // Check reference counter for new(__FILE__, __LINE__) SharedPtr increased
   ASSERT_EQ(2, p5->getId());
   ASSERT_EQ(2u, *(p5.get_ReferenceCounter()));
 
@@ -226,8 +226,8 @@ TEST(SharedPtrTest, SecondAssignmentOperatorTest) {
 
 TEST(SharedPtrTest, EqualOperatorTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CMockObject* object2 = new CMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CMockObject* object2 = new(__FILE__, __LINE__) CMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(0);
   EXPECT_CALL(*object2, destructor()).Times(0);
@@ -263,8 +263,8 @@ TEST(SharedPtrTest, EqualOperatorTest) {
 
 TEST(SharedPtrTest, LessThanOperatorTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CMockObject* object2 = new CMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CMockObject* object2 = new(__FILE__, __LINE__) CMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(0);
   EXPECT_CALL(*object2, destructor()).Times(0);
@@ -290,8 +290,8 @@ TEST(SharedPtrTest, LessThanOperatorTest) {
 
 TEST(SharedPtrTest, StaticPointerCastTest_DerivedToBase_ExpectCastOk) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(1);
   EXPECT_CALL(*object2, destructor()).Times(0);
@@ -316,8 +316,8 @@ TEST(SharedPtrTest, StaticPointerCastTest_DerivedToBase_ExpectCastOk) {
 
 TEST(SharedPtrTest, StaticPointerCastTest_BaseToDerived_ExpectCastOk) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(0);
   EXPECT_CALL(*object2, destructor()).Times(1);
@@ -342,8 +342,8 @@ TEST(SharedPtrTest, StaticPointerCastTest_BaseToDerived_ExpectCastOk) {
 
 TEST(SharedPtrTest, DynamicPointerCastTest_DerivedToBase_ExpectCastOk) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(1);
   EXPECT_CALL(*object2, destructor()).Times(0);
@@ -368,8 +368,8 @@ TEST(SharedPtrTest, DynamicPointerCastTest_DerivedToBase_ExpectCastOk) {
 
 TEST(SharedPtrTest, DynamicPointerCastTest_BaseToDerived_ExpectNullPtr) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(0);
   EXPECT_CALL(*object2, destructor()).Times(1);
@@ -393,8 +393,8 @@ TEST(SharedPtrTest, DynamicPointerCastTest_BaseToDerived_ExpectNullPtr) {
 
 TEST(SharedPtrTest, ArrowOperatorTest) {
   // Arrange
-  CExtendedMockObject* object1 = new CExtendedMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CExtendedMockObject* object1 = new(__FILE__, __LINE__) CExtendedMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(1);
   EXPECT_CALL(*object2, destructor()).Times(1);
@@ -414,8 +414,8 @@ TEST(SharedPtrTest, ArrowOperatorTest) {
 
 TEST(SharedPtrTest, DereferenceOperatorTest) {
   // Arrange
-  CExtendedMockObject* object1 = new CExtendedMockObject(1);
-  CExtendedMockObject* object2 = new CExtendedMockObject(2);
+  CExtendedMockObject* object1 = new(__FILE__, __LINE__) CExtendedMockObject(1);
+  CExtendedMockObject* object2 = new(__FILE__, __LINE__) CExtendedMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(1);
   EXPECT_CALL(*object2, destructor()).Times(1);
@@ -435,7 +435,7 @@ TEST(SharedPtrTest, DereferenceOperatorTest) {
 
 TEST(SharedPtrTest, BoolOperatorTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
   tMockObjectPtr p1(object1);
   tMockObjectPtr p2;
 
@@ -447,8 +447,8 @@ TEST(SharedPtrTest, BoolOperatorTest) {
 
 TEST(SharedPtrTest, ResetWithoutArgsTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CMockObject* object2 = new CMockObject(2);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CMockObject* object2 = new(__FILE__, __LINE__) CMockObject(2);
 
   EXPECT_CALL(*object1, destructor()).Times(1);
   EXPECT_CALL(*object2, destructor()).Times(1);
@@ -475,8 +475,8 @@ TEST(SharedPtrTest, ResetWithoutArgsTest) {
 
 TEST(SharedPtrTest, ResetWithArgumentTest) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
-  CMockObject* object2 = new CMockObject(27);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
+  CMockObject* object2 = new(__FILE__, __LINE__) CMockObject(27);
 
   EXPECT_CALL(*object1, destructor()).Times(1);
   EXPECT_CALL(*object2, destructor()).Times(1);
@@ -495,7 +495,7 @@ TEST(SharedPtrTest, ResetWithArgumentTest) {
 
 TEST(SharedPtrTest, GetMethodTest_ExpectObjPointer) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
   EXPECT_CALL(*object1, destructor()).Times(1);
   tMockObjectPtr p1(object1);
   // Check
@@ -504,7 +504,7 @@ TEST(SharedPtrTest, GetMethodTest_ExpectObjPointer) {
 
 TEST(SharedPtrTest, ValidMethodTest_ExpectCorrectValidation) {
   // Arrange
-  CMockObject* object1 = new CMockObject(1);
+  CMockObject* object1 = new(__FILE__, __LINE__) CMockObject(1);
   EXPECT_CALL(*object1, destructor()).Times(1);
 
   tMockObjectPtr p1(object1);
@@ -524,7 +524,7 @@ TEST(SharedPtrTest, StressTest) {
 
   for (size_t i = 0U; i < kNumIterations; ++i) {
     if ((true == objects.empty()) || (0 == rand() % 256)) {
-      CMockObject* object = new CMockObject(0);
+      CMockObject* object = new(__FILE__, __LINE__) CMockObject(0);
       EXPECT_CALL(*object, destructor());
       objects.push_back(object);
       ++objectCreated;

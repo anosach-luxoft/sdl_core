@@ -63,7 +63,7 @@ class SessionObserver {
  public:
   /**
    * \brief Callback function used by ProtocolHandler
-   * when Mobile Application initiates start of new session.
+   * when Mobile Application initiates start of new(__FILE__, __LINE__) session.
    * \param connection_handle Connection identifier within which session
    * has to be started.
    * \param sessionId Identifier of the session to be start
@@ -71,7 +71,7 @@ class SessionObserver {
    * \param protocol_version Version of protocol
    * \param is_protected would be service protected
    * \param hash_id pointer for session hash identifier, uint32_t* hash_id
-   * \return uint32_t Id (number) of new session if successful, otherwise 0.
+   * \return uint32_t Id (number) of new(__FILE__, __LINE__) session if successful, otherwise 0.
    */
   virtual uint32_t OnSessionStartedCallback(
       const transport_manager::ConnectionUID connection_handle,

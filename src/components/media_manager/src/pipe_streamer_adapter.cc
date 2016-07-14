@@ -45,7 +45,7 @@ CREATE_LOGGERPTR_GLOBAL(logger_, "PipeStreamerAdapter")
 PipeStreamerAdapter::PipeStreamerAdapter(const std::string& named_pipe_path,
                                          const std::string& app_storage_folder)
     : StreamerAdapter(
-          new PipeStreamer(this, named_pipe_path, app_storage_folder)) {}
+          new(__FILE__, __LINE__) PipeStreamer(this, named_pipe_path, app_storage_folder)) {}
 
 PipeStreamerAdapter::~PipeStreamerAdapter() {}
 

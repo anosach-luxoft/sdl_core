@@ -53,7 +53,7 @@ CObjectSchemaItem::SMember::SMember(const ISchemaItemPtr SchemaItem,
 
 utils::SharedPtr<CObjectSchemaItem> CObjectSchemaItem::create(
     const Members& members) {
-  return new CObjectSchemaItem(members);
+  return new(__FILE__, __LINE__) CObjectSchemaItem(members);
 }
 
 Errors::eType CObjectSchemaItem::validate(const SmartObject& object) {

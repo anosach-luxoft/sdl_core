@@ -104,7 +104,7 @@ void A2DPSourcePlayerAdapter::StartActivity(int32_t application_key) {
     // before passing to the A2DPSourcePlayerThread constructor
 
     A2DPSourcePlayerThread* delegate =
-        new A2DPSourcePlayerAdapter::A2DPSourcePlayerThread(mac_adddress);
+        new(__FILE__, __LINE__) A2DPSourcePlayerAdapter::A2DPSourcePlayerThread(mac_adddress);
     threads::Thread* new_activity =
         threads::CreateThread(mac_adddress.c_str(), delegate);
     sources_[application_key] = Pair(new_activity, delegate);
@@ -176,7 +176,7 @@ void A2DPSourcePlayerAdapter::A2DPSourcePlayerThread::threadMain() {
 
   LOG4CXX_DEBUG(logger_, "Creating streams");
 
-  /* Create a new playback stream */
+  /* Create a new(__FILE__, __LINE__) playback stream */
   if (!(s_out = pa_simple_new(NULL,
                               "AudioManager",
                               PA_STREAM_PLAYBACK,

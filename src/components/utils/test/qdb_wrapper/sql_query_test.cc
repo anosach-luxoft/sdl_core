@@ -85,7 +85,7 @@ const std::string SQLQueryTest::kDatabaseName = "test-query";
 TEST_F(SQLQueryTest, Query) {
   const std::string kSelect("SELECT * FROM testTable WHERE integerValue = ?");
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -99,7 +99,7 @@ TEST_F(SQLQueryTest, ExecString) {
       " (integerValue, doubleValue, stringValue)"
       " VALUES(1, 1.1, 'one-один')");
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -111,7 +111,7 @@ TEST_F(SQLQueryTest, BindInteger) {
   const std::string kInsert("INSERT INTO testTable (integerValue) VALUES (?)");
   const int kIntegerValue = 2;
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -127,7 +127,7 @@ TEST_F(SQLQueryTest, BindDouble) {
   const std::string kInsert("INSERT INTO testTable (doubleValue) VALUES (?)");
   const double kDoubleValue = 3.3;
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
   SQLQuery query(db);
   EXPECT_TRUE(query.Prepare(kInsert));
@@ -142,7 +142,7 @@ TEST_F(SQLQueryTest, BindString) {
   const std::string kInsert("INSERT INTO testTable (stringValue) VALUES (?)");
   const std::string kStringValue = "four-четыре";
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -162,7 +162,7 @@ TEST_F(SQLQueryTest, BindAllTypes) {
   const double kDoubleValue = 5.5;
   const std::string kStringValue = "five-пять";
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -192,7 +192,7 @@ TEST_F(SQLQueryTest, Value) {
   const double kDoubleValue = 6.6;
   const std::string kStringValue = "six-шесть";
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -211,7 +211,7 @@ TEST_F(SQLQueryTest, EmptySelect) {
   const std::string kSelect(
       "SELECT integerValue, doubleValue, stringValue"
       " FROM testTable WHERE 0");
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -235,7 +235,7 @@ TEST_F(SQLQueryTest, NextAndBind) {
   const double kDoubleValue = 7.7;
   const std::string kStringValue = "seven-семь";
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -263,7 +263,7 @@ TEST_F(SQLQueryTest, LastInsertId) {
   const std::string kValue("Test last id of insert row");
   const std::string kInsert("INSERT INTO idTable (value) VALUES(?)");
 
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -282,7 +282,7 @@ TEST_F(SQLQueryTest, BindNull) {
   const std::string kInsert(
       "INSERT INTO testTable (`integerValue`)"
       " VALUES (?)");
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);
@@ -295,7 +295,7 @@ TEST_F(SQLQueryTest, BindNull) {
 }
 
 TEST_F(SQLQueryTest, DoublePrepare) {
-  SQLDatabase* db = new SQLDatabase(kDatabaseName);
+  SQLDatabase* db = new(__FILE__, __LINE__) SQLDatabase(kDatabaseName);
   ASSERT_TRUE(db->Open());
 
   SQLQuery query(db);

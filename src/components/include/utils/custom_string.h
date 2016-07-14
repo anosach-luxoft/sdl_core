@@ -63,20 +63,20 @@ class CustomString {
 
   /**
    * @brief Constructs object with copy of str.
-   * @param Contains string for new object.
+   * @param Contains string for new(__FILE__, __LINE__) object.
    */
   explicit CustomString(const std::string& str);
 
   /**
    * @brief Constructs object with copy of str.
-   * @param Contains pointer to string for new object.
+   * @param Contains pointer to string for new(__FILE__, __LINE__) object.
    */
   explicit CustomString(const char* str);
 
   /**
    * @brief Constructs object with n consecutive copies of character c.
-   * @param Contains amount of copies of character for new object.
-   * @param Contains character for new object.
+   * @param Contains amount of copies of character for new(__FILE__, __LINE__) object.
+   * @param Contains character for new(__FILE__, __LINE__) object.
    */
   CustomString(size_t n, char c);
 
@@ -122,7 +122,7 @@ class CustomString {
   bool operator==(const std::string& str) const;
 
   /**
-   * @brief Assigns a new value to the string
+   * @brief Assigns a new(__FILE__, __LINE__) value to the string
    * @param Contains string for assignment
    * @return Returns result of assignment
    */

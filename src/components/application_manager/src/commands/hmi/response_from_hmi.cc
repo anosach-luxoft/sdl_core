@@ -73,7 +73,7 @@ void ResponseFromHMI::SendResponseToMobile(
 void ResponseFromHMI::CreateHMIRequest(
     const hmi_apis::FunctionID::eType& function_id,
     const smart_objects::SmartObject& msg_params) const {
-  smart_objects::SmartObjectSPtr result = new smart_objects::SmartObject;
+  smart_objects::SmartObjectSPtr result = new(__FILE__, __LINE__) smart_objects::SmartObject;
 
   if (!result) {
     LOG4CXX_ERROR(logger_, "Memory allocation failed.");

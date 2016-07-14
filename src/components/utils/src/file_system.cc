@@ -75,9 +75,9 @@ size_t file_system::DirectorySize(const std::string& path) {
   struct dirent dir_element_;
   struct dirent* dir_element = &dir_element_;
 #else
-  char* direntbuffer = new char[offsetof(struct dirent, d_name) +
+  char* direntbuffer = new(__FILE__, __LINE__) char[offsetof(struct dirent, d_name) +
                                 pathconf(path.c_str(), _PC_NAME_MAX) + 1];
-  struct dirent* dir_element = new (direntbuffer) dirent;
+  struct dirent* dir_element = new(__FILE__, __LINE__) (direntbuffer) dirent;
 #endif
   struct dirent* result = NULL;
   struct stat file_info = {0};
@@ -237,9 +237,9 @@ void file_system::remove_directory_content(const std::string& directory_name) {
   struct dirent* dir_element = &dir_element_;
 #else
   char* direntbuffer =
-      new char[offsetof(struct dirent, d_name) +
+      new(__FILE__, __LINE__) char[offsetof(struct dirent, d_name) +
                pathconf(directory_name.c_str(), _PC_NAME_MAX) + 1];
-  struct dirent* dir_element = new (direntbuffer) dirent;
+  struct dirent* dir_element = new(__FILE__, __LINE__) (direntbuffer) dirent;
 #endif
   struct dirent* result = NULL;
 
@@ -310,9 +310,9 @@ std::vector<std::string> file_system::ListFiles(
   struct dirent* dir_element = &dir_element_;
 #else
   char* direntbuffer =
-      new char[offsetof(struct dirent, d_name) +
+      new(__FILE__, __LINE__) char[offsetof(struct dirent, d_name) +
                pathconf(directory_name.c_str(), _PC_NAME_MAX) + 1];
-  struct dirent* dir_element = new (direntbuffer) dirent;
+  struct dirent* dir_element = new(__FILE__, __LINE__) (direntbuffer) dirent;
 #endif
   struct dirent* result = NULL;
 

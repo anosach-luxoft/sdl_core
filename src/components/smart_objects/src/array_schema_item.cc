@@ -38,7 +38,7 @@ utils::SharedPtr<CArraySchemaItem> CArraySchemaItem::create(
     const ISchemaItemPtr ElementSchemaItem,
     const TSchemaItemParameter<size_t>& MinSize,
     const TSchemaItemParameter<size_t>& MaxSize) {
-  return new CArraySchemaItem(ElementSchemaItem, MinSize, MaxSize);
+  return new(__FILE__, __LINE__) CArraySchemaItem(ElementSchemaItem, MinSize, MaxSize);
 }
 
 Errors::eType CArraySchemaItem::validate(const SmartObject& Object) {

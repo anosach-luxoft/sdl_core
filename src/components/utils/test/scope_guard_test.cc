@@ -60,7 +60,7 @@ void dealloc(char* ptr) {
 TEST(ScopeGuardTest, CallFreeFunctionWithParam) {
   {
     call_with_param_count = 0;
-    char* ptr = new char;
+    char* ptr = new(__FILE__, __LINE__) char;
     ScopeGuard guard = MakeGuard(dealloc, ptr);
     UNUSED(guard);
   }
@@ -90,7 +90,7 @@ TEST(ScopeGuardTest, CallObjectFunctionWithParam) {
 TEST(ScopeGuardTest, DismissCallFreeFunctionWithParam) {
   {
     call_with_param_count = 0;
-    char* ptr = new char;
+    char* ptr = new(__FILE__, __LINE__) char;
     ScopeGuard guard = MakeGuard(dealloc, ptr);
     guard.Dismiss();
   }

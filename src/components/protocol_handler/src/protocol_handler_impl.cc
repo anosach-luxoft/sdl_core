@@ -185,7 +185,7 @@ void ProtocolHandlerImpl::SendStartSessionAck(ConnectionID connection_id,
   uint8_t protocolVersion = SupportedSDLProtocolVersion();
 
   ProtocolFramePtr ptr(
-      new protocol_handler::ProtocolPacket(connection_id,
+      new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                            protocolVersion,
                                            protection,
                                            FRAME_TYPE_CONTROL,
@@ -215,7 +215,7 @@ void ProtocolHandlerImpl::SendStartSessionNAck(ConnectionID connection_id,
   LOG4CXX_AUTO_TRACE(logger_);
 
   ProtocolFramePtr ptr(
-      new protocol_handler::ProtocolPacket(connection_id,
+      new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                            protocol_version,
                                            PROTECTION_OFF,
                                            FRAME_TYPE_CONTROL,
@@ -242,7 +242,7 @@ void ProtocolHandlerImpl::SendEndSessionNAck(ConnectionID connection_id,
   LOG4CXX_AUTO_TRACE(logger_);
 
   ProtocolFramePtr ptr(
-      new protocol_handler::ProtocolPacket(connection_id,
+      new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                            protocol_version,
                                            PROTECTION_OFF,
                                            FRAME_TYPE_CONTROL,
@@ -273,7 +273,7 @@ void ProtocolHandlerImpl::SendEndSessionAck(ConnectionID connection_id,
   LOG4CXX_AUTO_TRACE(logger_);
 
   ProtocolFramePtr ptr(
-      new protocol_handler::ProtocolPacket(connection_id,
+      new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                            protocol_version,
                                            PROTECTION_OFF,
                                            FRAME_TYPE_CONTROL,
@@ -302,7 +302,7 @@ void ProtocolHandlerImpl::SendEndServicePrivate(int32_t connection_id,
   if (session_observer_.ProtocolVersionUsed(
           connection_id, session_id, protocol_version)) {
     ProtocolFramePtr ptr(
-        new protocol_handler::ProtocolPacket(connection_id,
+        new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                              protocol_version,
                                              PROTECTION_OFF,
                                              FRAME_TYPE_CONTROL,
@@ -345,7 +345,7 @@ RESULT_CODE ProtocolHandlerImpl::SendHeartBeatAck(ConnectionID connection_id,
   if (session_observer_.ProtocolVersionUsed(
           connection_id, session_id, protocol_version)) {
     ProtocolFramePtr ptr(
-        new protocol_handler::ProtocolPacket(connection_id,
+        new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                              protocol_version,
                                              PROTECTION_OFF,
                                              FRAME_TYPE_CONTROL,
@@ -372,7 +372,7 @@ void ProtocolHandlerImpl::SendHeartBeat(int32_t connection_id,
   if (session_observer_.ProtocolVersionUsed(
           connection_id, session_id, protocol_version)) {
     ProtocolFramePtr ptr(
-        new protocol_handler::ProtocolPacket(connection_id,
+        new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                              protocol_version,
                                              PROTECTION_OFF,
                                              FRAME_TYPE_CONTROL,
@@ -435,7 +435,7 @@ void ProtocolHandlerImpl::SendMessageToMobileApp(const RawMessagePtr message,
     if (max_block_size > 0) {
       frame_size = max_block_size;
       LOG4CXX_DEBUG(logger_,
-                    "Security set new optimal packet size " << frame_size);
+                    "Security set new(__FILE__, __LINE__) optimal packet size " << frame_size);
     } else {
       LOG4CXX_ERROR(
           logger_,
@@ -478,7 +478,7 @@ void ProtocolHandlerImpl::SendMessageToMobileApp(const RawMessagePtr message,
 #ifdef TELEMETRY_MONITOR
   if (metric_observer_) {
     PHTelemetryObserver::MessageMetric* metric =
-        new PHTelemetryObserver::MessageMetric();
+        new(__FILE__, __LINE__) PHTelemetryObserver::MessageMetric();
     metric->message_id = message_id;
     metric->connection_key = message->connection_key();
     metric->raw_msg = message;
@@ -700,7 +700,7 @@ RESULT_CODE ProtocolHandlerImpl::SendSingleFrameMessage(
   LOG4CXX_AUTO_TRACE(logger_);
 
   ProtocolFramePtr ptr(
-      new protocol_handler::ProtocolPacket(connection_id,
+      new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                            protocol_version,
                                            PROTECTION_OFF,
                                            FRAME_TYPE_SINGLE,
@@ -762,7 +762,7 @@ RESULT_CODE ProtocolHandlerImpl::SendMultiFrameMessage(
   // APPLINK-9531
   const uint8_t message_id = message_counters_[session_id]++;
   const ProtocolFramePtr firstPacket(
-      new protocol_handler::ProtocolPacket(connection_id,
+      new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                            protocol_version,
                                            PROTECTION_OFF,
                                            FRAME_TYPE_FIRST,
@@ -786,7 +786,7 @@ RESULT_CODE ProtocolHandlerImpl::SendMultiFrameMessage(
     const bool is_final_packet = is_last_frame ? is_final_message : false;
 
     const ProtocolFramePtr ptr(
-        new protocol_handler::ProtocolPacket(connection_id,
+        new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                              protocol_version,
                                              PROTECTION_OFF,
                                              FRAME_TYPE_CONSECUTIVE,
@@ -839,7 +839,7 @@ RESULT_CODE ProtocolHandlerImpl::HandleSingleFrameMessage(
   const uint32_t connection_key = session_observer_.KeyFromPair(
       packet->connection_id(), packet->session_id());
 
-  const RawMessagePtr rawMessage(new RawMessage(connection_key,
+  const RawMessagePtr rawMessage(new(__FILE__, __LINE__) RawMessage(connection_key,
                                                 packet->protocol_version(),
                                                 packet->data(),
                                                 packet->total_data_bytes(),
@@ -851,7 +851,7 @@ RESULT_CODE ProtocolHandlerImpl::HandleSingleFrameMessage(
 #ifdef TELEMETRY_MONITOR
   if (metric_observer_) {
     PHTelemetryObserver::MessageMetric* metric =
-        new PHTelemetryObserver::MessageMetric();
+        new(__FILE__, __LINE__) PHTelemetryObserver::MessageMetric();
     metric->message_id = packet->message_id();
     metric->connection_key = connection_key;
     metric->raw_msg = rawMessage;
@@ -1133,7 +1133,7 @@ RESULT_CODE ProtocolHandlerImpl::HandleControlMessageStartSession(
                           PROTECTION_ON);
     } else {
       security_manager_->AddListener(
-          new StartSessionHandler(connection_key,
+          new(__FILE__, __LINE__) StartSessionHandler(connection_key,
                                   this,
                                   session_observer_,
                                   connection_id,
@@ -1206,7 +1206,7 @@ void ProtocolHandlerImpl::PopValideAndExpirateMultiframes() {
     LOG4CXX_DEBUG(logger_,
                   "Result frame" << frame << "for connection "
                                  << connection_key);
-    const RawMessagePtr rawMessage(new RawMessage(connection_key,
+    const RawMessagePtr rawMessage(new(__FILE__, __LINE__) RawMessage(connection_key,
                                                   frame->protocol_version(),
                                                   frame->data(),
                                                   frame->total_data_bytes(),
@@ -1217,7 +1217,7 @@ void ProtocolHandlerImpl::PopValideAndExpirateMultiframes() {
 #ifdef TELEMETRY_MONITOR
     if (metric_observer_) {
       PHTelemetryObserver::MessageMetric* metric =
-          new PHTelemetryObserver::MessageMetric();
+          new(__FILE__, __LINE__) PHTelemetryObserver::MessageMetric();
       metric->raw_msg = rawMessage;
       metric_observer_->EndMessageProcess(metric);
     }
@@ -1453,7 +1453,7 @@ void ProtocolHandlerImpl::SendFramesNumber(uint32_t connection_key,
   if (session_observer_.ProtocolVersionUsed(
           connection_id, session_id, protocol_version)) {
     ProtocolFramePtr ptr(
-        new protocol_handler::ProtocolPacket(connection_id,
+        new(__FILE__, __LINE__) protocol_handler::ProtocolPacket(connection_id,
                                              protocol_version,
                                              PROTECTION_OFF,
                                              FRAME_TYPE_CONTROL,

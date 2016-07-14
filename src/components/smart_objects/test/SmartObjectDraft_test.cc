@@ -88,7 +88,7 @@ TEST(SmartObjectsDraftTest, test_array_access) {
   SmartObject obj;
 
   obj[0] = 5;
-  obj[-1] = 6;  //  Appending new item to array
+  obj[-1] = 6;  //  Appending new(__FILE__, __LINE__) item to array
 
   ASSERT_EQ(5, obj[0].asInt());
   ASSERT_EQ(6, obj[1].asInt());

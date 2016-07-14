@@ -81,8 +81,8 @@ void DbusPlugin::registerTypes(const char* uri) {
   QDBusConnection::sessionBus().registerObject("/", this);
   QDBusConnection::sessionBus().registerService("com.ford.sdl.hmi");
 
-  dbusController_ = new DBusController();
-  requestToSDL_ = new RequestToSDL();
+  dbusController_ = new(__FILE__, __LINE__) DBusController();
+  requestToSDL_ = new(__FILE__, __LINE__) RequestToSDL();
 
   HmiProxy::api_adaptors_.SetDBusController(dbusController_);
 }

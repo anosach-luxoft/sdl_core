@@ -91,7 +91,7 @@ const size_t handshake_data_out_size =
 class SecurityManagerTest : public ::testing::Test {
  protected:
   void SetUp() OVERRIDE {
-    security_manager_.reset(new SecurityManagerImpl());
+    security_manager_.reset(new(__FILE__, __LINE__) SecurityManagerImpl());
     security_manager_->set_session_observer(&mock_session_observer);
     security_manager_->set_protocol_handler(&mock_protocol_handler);
     security_manager_->AddListener(&mock_sm_listener);
@@ -129,7 +129,7 @@ class SecurityManagerTest : public ::testing::Test {
     header.seq_number = LE_TO_BE32(header.seq_number);
 
     const size_t data_sending_size = sizeof(header) + data_size;
-    uint8_t* data_sending = new uint8_t[data_sending_size];
+    uint8_t* data_sending = new(__FILE__, __LINE__) uint8_t[data_sending_size];
     memcpy(data_sending, &header, sizeof(header));
     memcpy(data_sending + sizeof(header), data, data_size);
 
@@ -171,7 +171,7 @@ class SecurityManagerTest : public ::testing::Test {
  * and shall not call any methodes
  */
 TEST_F(SecurityManagerTest, SetNULL_Intefaces) {
-  security_manager_.reset(new SecurityManagerImpl());
+  security_manager_.reset(new(__FILE__, __LINE__) SecurityManagerImpl());
   security_manager_->set_session_observer(NULL);
   security_manager_->set_protocol_handler(NULL);
   security_manager_->set_crypto_manager(NULL);

@@ -62,7 +62,7 @@ class UpdateStatusManager {
   void OnResetRetrySequence();
 
   /**
-   * @brief Update status handler on new application registering
+   * @brief Update status handler on new(__FILE__, __LINE__) application registering
    */
   void OnNewApplicationAdded();
 

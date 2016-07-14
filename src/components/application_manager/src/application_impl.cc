@@ -113,11 +113,11 @@ ApplicationImpl::ApplicationImpl(
     , audio_stream_retry_number_(0)
     , video_stream_suspend_timer_(
           "VideoStreamSuspend",
-          new ::timer::TimerTaskImpl<ApplicationImpl>(
+          new(__FILE__, __LINE__) ::timer::TimerTaskImpl<ApplicationImpl>(
               this, &ApplicationImpl::OnVideoStreamSuspend))
     , audio_stream_suspend_timer_(
           "AudioStreamSuspend",
-          new ::timer::TimerTaskImpl<ApplicationImpl>(
+          new(__FILE__, __LINE__) ::timer::TimerTaskImpl<ApplicationImpl>(
               this, &ApplicationImpl::OnAudioStreamSuspend))
     , application_manager_(application_manager) {
   cmd_number_to_time_limits_[mobile_apis::FunctionID::ReadDIDID] = {
