@@ -59,6 +59,7 @@ set (SOURCES
     ${UTILS_SRC_DIR}/convert_utils.cc
     ${UTILS_SRC_DIR}/custom_string.cc
     ${UTILS_SRC_DIR}/timer.cc
+    ${UTILS_SRC_DIR}/test_allocator.cc
 )
 
 if(ENABLE_LOG)

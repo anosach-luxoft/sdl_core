@@ -39,6 +39,9 @@
 #endif
 #include "logger.h"
 
+void* operator new(std::size_t size, const char* file, unsigned int line);
+void* operator new[](std::size_t size, const char* file, unsigned int line);
+
 // A macro to set some action for variable to avoid "unused variable" warning
 #define UNUSED(x) (void) x;
 // A macro to disallow the copy constructor and operator= functions
